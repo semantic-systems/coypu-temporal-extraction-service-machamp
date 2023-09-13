@@ -1,0 +1,1 @@
+The original TimeBank 1.2 dataset is not shared. It may be requested at the LDC: https://catalog.ldc.upenn.edu/LDC2006T08 

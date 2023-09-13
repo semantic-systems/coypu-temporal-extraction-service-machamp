@@ -1,0 +1,1710 @@
+[
+    {
+      "data": [
+        {
+          "text": "Book "
+        },
+        {
+          "text": "me and my nieces",
+          "entity": "party_size_description"
+        },
+        {
+          "text": " a reservation for a "
+        },
+        {
+          "text": "seafood",
+          "entity": "served_dish"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Cle Elum",
+          "entity": "city"
+        },
+        {
+          "text": ", "
+        },
+        {
+          "text": "NE",
+          "entity": "state"
+        },
+        {
+          "text": " on "
+        },
+        {
+          "text": "ascension day",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "ascension day",
+              "tid": "t1",
+              "type": "DATE",
+              "value": "2020-05-21",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "book spot for "
+        },
+        {
+          "text": "7",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " at an "
+        },
+        {
+          "text": "indoor",
+          "entity": "facility"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "MP",
+          "entity": "state"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "now",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "now",
+              "tid": "t2",
+              "type": "TIME",
+              "value": "PRESENT_REF",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "book a table in "
+        },
+        {
+          "text": "Fiji",
+          "entity": "country"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "zero a.m",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "zero a.m",
+              "tid": "t3",
+              "type": "TIME",
+              "value": "2019-11-19T00:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "joint",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "close by",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " the "
+        },
+        {
+          "text": "naomi's hostel",
+          "entity": "poi"
+        },
+        {
+          "text": " for a "
+        },
+        {
+          "text": "meal"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "8",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to eat a "
+        },
+        {
+          "text": "delicatessen",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": "in "
+        },
+        {
+          "text": "thirteen hours",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "thirteen hours",
+              "tid": "t5",
+              "type": "DURATION",
+              "value": "PT13H",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t0",
+              "endPoint": "t992"
+            },
+	    {
+            "expression": "",
+            "tid": "t992",
+            "type": "TIME",
+            "value": "2019-11-18T21:00",
+            "mod": "",
+            "anchorTimeID": "",
+            "beginPoint": "",
+            "endPoint": ""
+          }
+          ]
+        },
+        {
+          "text": " that serves "
+        },
+        {
+          "text": "eastern european",
+          "entity": "cuisine"
+        },
+        {
+          "text": " food"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book "
+        },
+        {
+          "text": "Albany Pump Station",
+          "entity": "restaurant_name"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Buckholts",
+          "entity": "city"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Washington",
+          "entity": "state"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "now",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "now",
+              "tid": "t6",
+              "type": "TIME",
+              "value": "PRESENT_REF",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " for a party of "
+        },
+        {
+          "text": "9",
+          "entity": "party_size_number"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "taverna",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Archer City",
+          "entity": "city"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "this spring",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "this spring",
+              "tid": "t7",
+              "type": "DATE",
+              "value": "2020-SP",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "nine",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "table for "
+        },
+        {
+          "text": "Breadline Cafe",
+          "entity": "restaurant_name"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Minnesota",
+          "entity": "state"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "next friday",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "next friday",
+              "tid": "t8",
+              "type": "DATE",
+              "value": "2019-11-22",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "my father in law and I",
+          "entity": "party_size_description"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Buckner",
+          "entity": "city"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "a year from now",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "a year",
+              "tid": "t9",
+              "type": "DURATION",
+              "value": "P1Y",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t10",
+              "endPoint": "t11"
+            },
+            {
+              "expression": "now",
+              "tid": "t10",
+              "type": "DATE",
+              "value": "PRESENT_REF",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            },
+            {
+              "expression": "",
+              "tid": "t11",
+              "type": "DATE",
+              "value": "2020",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Book a "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " reservation "
+        },
+        {
+          "text": "in "
+        },
+        {
+          "text": "6 weeks",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "6 weeks",
+              "tid": "t12",
+              "type": "DURATION",
+              "value": "P6W",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t0",
+              "endPoint": "t993"
+            },
+	    {
+            "expression": "",
+            "tid": "t993",
+            "type": "DATE",
+            "value": "2020-W1",
+            "mod": "",
+            "anchorTimeID": "",
+            "beginPoint": "",
+            "endPoint": ""
+          }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Frenier",
+          "entity": "city"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "12 years from now",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "12 years",
+              "tid": "t13",
+              "type": "DURATION",
+              "value": "P12Y",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t14",
+              "endPoint": "t15"
+            },
+            {
+              "expression": "now",
+              "tid": "t14",
+              "type": "DATE",
+              "value": "PRESENT_REF",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            },
+            {
+              "expression": "",
+              "tid": "t15",
+              "type": "DATE",
+              "value": "2031",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "4",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to eat by "
+        },
+        {
+          "text": "five pm",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "five pm",
+              "tid": "t16",
+              "type": "TIME",
+              "value": "2019-11-18T17:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "NE",
+          "entity": "state"
+        },
+        {
+          "text": " for a "
+        },
+        {
+          "text": "six",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "book spot for "
+        },
+        {
+          "text": "mavis, sheila and I",
+          "entity": "party_size_description"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Syria",
+          "entity": "country"
+        },
+        {
+          "text": " at "
+        },
+        {
+          "text": "elevenses",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "elevenses",
+              "tid": "t17",
+              "type": "TIME",
+              "value": "2019-11-18TMO",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": "",
+              "uncertain":"true"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Book me a table for "
+        },
+        {
+          "text": "5",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "this year",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "this year",
+              "tid": "t18",
+              "type": "DATE",
+              "value": "2019",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " at "
+        },
+        {
+          "text": "Cherwell Boathouse",
+          "entity": "restaurant_name"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "book spot for "
+        },
+        {
+          "text": "six",
+          "entity": "party_size_number"
+        },
+        {
+          "text": "  at "
+        },
+        {
+          "text": "8 pm",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "8 pm",
+              "tid": "t19",
+              "type": "TIME",
+              "value": "2019-11-18T20:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " at a "
+        },
+        {
+          "text": "coffeehouse",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "NE",
+          "entity": "state"
+        },
+        {
+          "text": " that serves "
+        },
+        {
+          "text": "hog fry",
+          "entity": "served_dish"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Book a reservation for an "
+        },
+        {
+          "text": "osteria",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " restaurant for "
+        },
+        {
+          "text": "4",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people on "
+        },
+        {
+          "text": "november 4",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "november 4",
+              "tid": "t20",
+              "type": "DATE",
+              "value": "2020-11-04",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "top-rated",
+          "entity": "sort"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "close",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " by in "
+        },
+        {
+          "text": "LA",
+          "entity": "state"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "me, rebecca and loraine",
+          "entity": "party_size_description"
+        },
+        {
+          "text": " on "
+        },
+        {
+          "text": "2/6/2020",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "2/6/2020",
+              "tid": "t21",
+              "type": "TIME",
+              "value": "2020-02-06",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "book a table on "
+        },
+        {
+          "text": "1/20/2023",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "1/20/2023",
+              "tid": "t22",
+              "type": "DATE",
+              "value": "2023-01-20",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "5",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people in "
+        },
+        {
+          "text": "MH",
+          "entity": "state"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Book a reservation for "
+        },
+        {
+          "text": "10",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people at an "
+        },
+        {
+          "text": "oyster bar",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " with a "
+        },
+        {
+          "text": "pool",
+          "entity": "facility"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "within the same area",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " of "
+        },
+        {
+          "text": "Cowansburg",
+          "entity": "city"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "10 Pm",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "10 Pm",
+              "tid": "t23",
+              "type": "TIME",
+              "value": "2019-11-18T22:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Book a reservation for "
+        },
+        {
+          "text": "velma, ana and rebecca",
+          "entity": "party_size_description"
+        },
+        {
+          "text": " for an "
+        },
+        {
+          "text": "american",
+          "entity": "cuisine"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pizzeria",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " at "
+        },
+        {
+          "text": "5 Am",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "5 Am",
+              "tid": "t24",
+              "type": "TIME",
+              "value": "2019-11-19T05:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "MA",
+          "entity": "state"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "phyllis ward and veronica",
+          "entity": "party_size_description"
+        },
+        {
+          "text": " need a table at a "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": "in "
+        },
+        {
+          "text": "152 days",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "152 days",
+              "tid": "t25",
+              "type": "DURATION",
+              "value": "P125D",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t0",
+              "endPoint": "t994"
+            },
+	    {
+            "expression": "",
+            "tid": "t994",
+            "type": "DATE",
+            "value": "2020-04-18",
+            "mod": "",
+            "anchorTimeID": "",
+            "beginPoint": "",
+            "endPoint": ""
+          }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "tea house",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " that serves "
+        },
+        {
+          "text": "salade",
+          "entity": "served_dish"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "far",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " from here at "
+        },
+        {
+          "text": "Midnight",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "Midnight",
+              "tid": "t26",
+              "type": "TIME",
+              "value": "2019-11-19T00:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Panama",
+          "entity": "country"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "two",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Lets eat "
+        },
+        {
+          "text": "near",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Oakfield",
+          "entity": "city"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "17 seconds from now",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "17 seconds",
+              "tid": "t27",
+              "type": "DURATION",
+              "value": "PT17S",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t28",
+              "endPoint": "t29"
+            },
+            {
+              "expression": "now",
+              "tid": "t28",
+              "type": "TIME",
+              "value": "PRESENT_REF",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            },
+            {
+              "expression": "",
+              "tid": "t29",
+              "type": "TIME",
+              "value": "2019-11-18T08:00:17",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " at "
+        },
+        {
+          "text": "Ted Peters Famous Smoked Fish",
+          "entity": "restaurant_name"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Book sot for "
+        },
+        {
+          "text": "7",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " at a "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " that serves "
+        },
+        {
+          "text": "european",
+          "entity": "cuisine"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Stringtown",
+          "entity": "city"
+        },
+        {
+          "text": " on "
+        },
+        {
+          "text": "Feb. the 28th, 2034",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "Feb. the 28th, 2034",
+              "tid": "t30",
+              "type": "DATE",
+              "value": "2034-02-28",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Book a table for "
+        },
+        {
+          "text": "12 am",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "12 am",
+              "tid": "t31",
+              "type": "TIME",
+              "value": "2019-11-19T00:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": ". at "
+        },
+        {
+          "text": "our step mother's secondary residence",
+          "entity": "poi"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "within walking distance",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "one",
+          "entity": "party_size_number"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "book spot for "
+        },
+        {
+          "text": "four",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " at a "
+        },
+        {
+          "text": "indoor",
+          "entity": "facility"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pub",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "within the same area",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " of "
+        },
+        {
+          "text": "Louisiana",
+          "entity": "state"
+        },
+        {
+          "text": "in "
+        },
+        {
+          "text": "one minute",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "one minute",
+              "tid": "t32",
+              "type": "DURATION",
+              "value": "PT1M",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t0",
+              "endPoint": "t995"
+            },
+	    {
+            "expression": "",
+            "tid": "t995",
+            "type": "TIME",
+            "value": "2019-11-18T08:01",
+            "mod": "",
+            "anchorTimeID": "",
+            "beginPoint": "",
+            "endPoint": ""
+          }
+          ]
+        },
+        {
+          "text": " "
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "churrascaria",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Romeoville",
+          "entity": "city"
+        },
+        {
+          "text": " at "
+        },
+        {
+          "text": "ten a.m",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "ten a.m",
+              "tid": "t33",
+              "type": "TIME",
+              "value": "2019-11-18T10:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "four",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "table for "
+        },
+        {
+          "text": "5 A.m",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "5 A.m",
+              "tid": "t34",
+              "type": "TIME",
+              "value": "2019-11-19T05:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": ". at "
+        },
+        {
+          "text": "Baker's Keyboard Lounge",
+          "entity": "restaurant_name"
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "sundanese",
+          "entity": "cuisine"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "gastropub",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "nearby",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "Texas",
+          "entity": "state"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "3",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people on "
+        },
+        {
+          "text": "5/20/2025",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "5/20/2025",
+              "tid": "t35",
+              "type": "DATE",
+              "value": "2025-05-20",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "book a party of "
+        },
+        {
+          "text": "five",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " at "
+        },
+        {
+          "text": "Seagoville",
+          "entity": "city"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "06:42",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "06:42",
+              "tid": "t36",
+              "type": "TIME",
+              "value": "2019-11-18T18:42",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": "in "
+        },
+        {
+          "text": "sixteen seconds",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "sixteen seconds",
+              "tid": "t37",
+              "type": "DURATION",
+              "value": "PT16S",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t0",
+              "endPoint": "t996"
+            },
+	    {
+            "expression": "",
+            "tid": "t996",
+            "type": "TIME",
+            "value": "2019-11-18T08:00:16",
+            "mod": "",
+            "anchorTimeID": "",
+            "beginPoint": "",
+            "endPoint": ""
+          }
+          ]
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "5",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people in "
+        },
+        {
+          "text": "Gold Point",
+          "entity": "city"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Montana",
+          "entity": "state"
+        },
+        {
+          "text": "."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "I want to book a "
+        },
+        {
+          "text": "bougatsa",
+          "entity": "cuisine"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "restaurant",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "next year",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "next year",
+              "tid": "t38",
+              "type": "DATE",
+              "value": "2020",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "nearby",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Penn",
+          "entity": "city"
+        },
+        {
+          "text": " for "
+        },
+        {
+          "text": "three",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people."
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "Book a reservation for "
+        },
+        {
+          "text": "nine",
+          "entity": "party_size_number"
+        },
+        {
+          "text": " people at the "
+        },
+        {
+          "text": "best",
+          "entity": "sort"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pub",
+          "entity": "restaurant_type"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "nearby",
+          "entity": "spatial_relation"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Tangier",
+          "entity": "city"
+        },
+        {
+          "text": "in "
+        },
+        {
+          "text": "six months",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "six months",
+              "tid": "t39",
+              "type": "DURATION",
+              "value": "P6M",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t0",
+              "endPoint": "t997"
+            },
+	    {
+            "expression": "",
+            "tid": "t997",
+            "type": "DATE",
+            "value": "2020-05",
+            "mod": "",
+            "anchorTimeID": "",
+            "beginPoint": "",
+            "endPoint": ""
+          }
+          ]
+        }
+      ]
+    },
+    {
+      "data": [
+        {
+          "text": "need a table somewhere in "
+        },
+        {
+          "text": "Quarryville",
+          "entity": "city"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "14 hours from now",
+          "entity": "timeRange",
+          "TIMEX3": [
+            {
+              "expression": "14 hours",
+              "tid": "t40",
+              "type": "DURATION",
+              "value": "PT14H",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "t41",
+              "endPoint": "t42"
+            },
+            {
+              "expression": "now",
+              "tid": "t41",
+              "type": "TIME",
+              "value": "PRESENT_REF",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            },
+            {
+              "expression": "",
+              "tid": "t42",
+              "type": "TIME",
+              "value": "2019-11-18T22:00",
+              "mod": "",
+              "anchorTimeID": "",
+              "beginPoint": "",
+              "endPoint": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
