@@ -9,12 +9,16 @@ Both repositories were forked in August 2023 and modified to suit the problem of
 Most changes were applied to the evaluation and dataset preprocessing scripts.
 The scripts for finetuning and inference remain very close to the original versions:
 
-* Unified Structure Generation for Universal Information Extraction (UIE) [Lu et al., 2022] - [GitHub Link](https://github.com/universal-ie/UIE)
+* Unified Structure Generation for Universal Information Extraction (UIE) [[Lu et al., 2022]](#References) - [GitHub Link](https://github.com/universal-ie/UIE)
     * UIE is a sequence-to-sequence framework that extracts various information extraction targets into a graph structure called "Structured Extraction Language".
     It is based on the T5 library [Raffel et al., 2020].
 * Massive Choice, Ample Tasks (MACHAMP) [van der Goot et al., 2020] - [GitHub Link](https://github.com/machamp-nlp/machamp)
     * MaChAmp is a multitask learning framework.
     In this thesis, it is used to train BERT-based models in a single-task fashion. [Lu et al., 2022]
+
+
+Welche Modelle, nicht alle Modelle hochgeladen
+Crossvalidation
 
 
 
