@@ -11,8 +11,8 @@
 | Dataset                        | URL                                                                                                                          |
 |-------------------------------:|------------------------------------------------------------------------------------------------------------------------------|
 | TempEval-3 (large model)       | [Google Drive Link](https://drive.google.com/file/d/16cZBawptKC6kTv99AvuHFC3wKGkMfcMg/view?usp=sharing)                      |
-| WikiWars (large model)         | [Google Drive Link](https://drive.google.com/file/d/1mZvdiq1_nmNv93Bb12xSCScNCYafxIXF/view?usp=sharing)                      |
-| Tweets (large model)           | [Google Drive Link](https://drive.google.com/file/d/16cZBawptKC6kTv99AvuHFC3wKGkMfcMg/view?usp=sharing)                      |
+| WikiWars (large model)         | [Google Drive Link](https://drive.google.com/file/d/1lgDVxx2QfZuLEEx1x2JeCMsC7DboQV00/view?usp=sharing)                      |
+| Tweets (large model)           | [Google Drive Link](https://drive.google.com/file/d/1mZvdiq1_nmNv93Bb12xSCScNCYafxIXF/view?usp=sharing)                      |
 | Fullpate   (large model)       | [Google Drive Link](https://drive.google.com/file/d/1YkDNhBmcAMxFGaJ7eTUPp3wGjSMHVFVi/view?usp=sharing)                      |
 
 
