@@ -170,3 +170,4 @@ Werkzeug==2.0.2
 widgetsnbextension==3.5.2
 xxhash==2.0.2
 zipp==3.7.0
+jsonlines==1.2.0
