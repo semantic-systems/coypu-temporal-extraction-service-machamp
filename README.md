@@ -29,6 +29,8 @@ The exact installation packages are described in README.md files in the [UIE](ui
 
 
 
+
+
 # Project Overview
 
 The overall projectstructure looks like this:
@@ -52,6 +54,33 @@ Furthermore, it contains the files that display the exact error cases i.e. where
 The [temporal-data](temporal-data/README.md) folder contains all the converted datasets, as well as the publicly available original versions.
 It also contains the scripts required to convert the original datasets into the required format.
 UIE uses a json format structure, while MaChAmp uses a mutliclass BIO format.
+
+
+
+
+
+# Reproduction Steps Summary
+
+## Quickstart
+* Setup Anaconda Environment for either UIE or MaChAmp
+* Download the finetuned models
+* Select dataset and run the inference script
+
+## Reproduce the thesis steps
+* Setup Anaconda Environment for either UIE or MaChAmp
+* Convert the datasets into the required format
+* Run the scripts that split the data into 10 folds
+* Finetune the models on each of the folds
+* Run the crossvalidation evaluation scripts to get the results
+
+Note: UIE has an extra conversion step to create adjusting the dataset to contain SSI (Structural Schema Instructor) and SEL (Structured Extraction Language) entries.
+
+## Datasets
+The [temporal-data](temporal-data/README.md) folder offers different variations of the data.
+The converted datasets in JSON and BIO format are provided in the directory.
+The original datasets with the conversion scripts and instructions on how to use them are also provided in that directory.
+
+
 
 
 
@@ -106,6 +135,17 @@ The following table shows the mutliclass results on the different datasets:
 | WikiWars        | [Download Link](https://www.fdr.uni-hamburg.de/record/13591)                      |
 | Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13587)                      |
 | Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13593)                      |
+
+
+
+
+
+# Relation Extraction dataset
+Eventhough the dataset was not explicitly used in the thesis, scripts to converting the TempEval-3 relation extraction dataset to the UIE format were created.
+The converted dataset and the conversion scripts are available in the [temporal-data](temporal-data) folder.
+This dataset may be used for future work.
+
+
 
 
 
