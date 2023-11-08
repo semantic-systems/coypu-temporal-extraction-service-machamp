@@ -29,7 +29,7 @@ The MaChAmp models use a multiclass BIO format with 9 different labels:
 The UIE models use a JSON format with four temporal classes: date, time, duration, set.
 Similar to T5 (text-to-text) models, each data-entry consists of a prompt called "SSI" and target graphlike structure called "SEL". 
 
-# Original datasets
+# Original datasets sources
 
 * [Fullpate](https://zenodo.org/records/3697930#.ZBwzbi00hQI): consists of Pate and Snips datasets.
 * [WikiWars (tagged)](https://github.com/satya77/Transformer_Temporal_Tagger): can be found under data
@@ -38,6 +38,8 @@ Similar to T5 (text-to-text) models, each data-entry consists of a prompt called
 # UIE Data-Structure
 
 # MaChAmp Data-Structure
+
+# Generic JSON Data-Structure
 
 # Conversion scripts
 
