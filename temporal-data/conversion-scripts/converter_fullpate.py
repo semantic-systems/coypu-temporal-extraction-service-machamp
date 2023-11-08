@@ -248,13 +248,6 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--multi_class",
-        "-m",
-        action = "store_true",
-        help = "Wether to have the four timex3 temporal classes or only a single generic one."
-    )
-
-    parser.add_argument(
         "--crossvalidation",
         "-c",
         action = "store_true",
@@ -281,12 +274,6 @@ if __name__ == "__main__":
 
     #Validate input
     is_error: bool = False
-    if args.multi_class and args.single_class:
-        is_error = True
-
-    if not args.multi_class and not args.single_class:
-        is_error = True
-
     if args.input_filepath_snips is None:
         is_error = True
 
@@ -313,7 +300,6 @@ if __name__ == "__main__":
     print(f"Pate dataset input filepath:    {args.input_filepath_pate} => {type(args.input_filepath_pate)}")
     print(f"Output directory:               {args.output_directory} => {type(args.output_directory)}")
     print(f"Single class only:              {args.single_class} => {type(args.single_class)}")
-    print(f"Multi class only:               {args.multi_class} => {type(args.single_class)}")
     print(f"Crossvalidation enabled:        {args.crossvalidation} => {type(args.crossvalidation)}")
     print(f"Number of folds:                {args.folds} => {type(args.folds)}")
     print(f"Temporal classes only:          {args.only_temporal} => {type(args.only_temporal)}")
