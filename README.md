@@ -92,7 +92,7 @@ The following table shows the mutliclass results on the different datasets:
 [![This table compares the most important metrics “Strict-F1” and “RelaxedType-F1” for the temporal extraction and classification tasks across all datasets and all models. The best three values per column are highlighted with bold font. Table 11 in the appendix C displays the standard deviation values for the MaChAmp (M) and UIE model rows.](docs/images/temporal-extraction-and-classification-performance.png)]()
 > Table shows the temporal extraction and classification performance for the models produced in the thesis. M stands for MaChAmp models. The bottom part of the table shows the performance of related work. "Strict" means an exact match and "Type" means a match where at least one token (also known as "relaxed" match) and the temporal class is correct.
 
-## UIE Models
+## UIE Modelst
 
 ### UIE Base Models 
 | Dataset                        | URL                     |
