@@ -266,7 +266,6 @@ if __name__ == "__main__":
         "--only_temporal",
         "-ot",
         action = "store_true",
-        default = True,
         help = "Wether to contain only temporal classes or not. The Snips dataset contains other entitiy classes than the four temporal timex3 classes."
     )
     args = parser.parse_args()
@@ -310,25 +309,18 @@ if __name__ == "__main__":
     pprint.pprint(f"Input directory paths:          {input_filepaths}")
 
 
-    output_dirpath: str = args.output_directory
-    single_entity_class: bool = args.single_class
-    crossvalidation_enabled: bool = args.crossvalidation
-    folds: int = args.folds
-    only_temporal_entities: bool = args.only_temporal
-
-
     print()
-    if not os.path.exists(output_dirpath):
-        print(f"Output directory does not exist. Creating directory '{os.path.abspath(output_dirpath)}'.\n")
-        os.makedirs(os.path.abspath(output_dirpath))
+    if not os.path.exists(args.output_directory):
+        print(f"Output directory does not exist. Creating directory '{os.path.abspath(args.output_directory)}'.\n")
+        os.makedirs(os.path.abspath(args.output_directory))
 
     print("Running converter...")
     converter = FullPateDatasetConverter(
-        input_filepaths = input_filepaths,
-        output_directory_path = output_dirpath,
-        single_entity_class = single_entity_class,
-        crossvalidation_enabled = crossvalidation_enabled,
-        folds = folds,
-        only_temporal_entities = only_temporal_entities
+        input_filepaths=input_filepaths,
+        output_directory_path=args.output_directory,
+        single_entity_class=args.single_class,
+        crossvalidation_enabled=args.crossvalidation,
+        folds=args.folds,
+        only_temporal_entities=args.only_temporal
     )
     converter.convert_dataset()
