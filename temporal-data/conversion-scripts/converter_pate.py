@@ -7,6 +7,10 @@ from typing import List
 from preprocessing_utils import find_sublist_in_list
 from preprocessing_file_saver import generate_crossvalidation_folds, save_dataset_splits
 from preprocessing_utils import DatasetNltkTokenizer
+import argparse
+import sys
+import os
+import pprint
 
 class PateDatasetConverter:
     """
@@ -221,34 +225,91 @@ class PateDatasetConverter:
         return (begin_regex + span_regex + end_regex) if beginFound and endFound else "NO DURATION FOUND"
 
 
-if __name__ == "__main__":
-    converter_inputs = [
-        {
-            "input_filepaths": ["/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/pate_and_snips/pate.json"],
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/pate_single",
-            "single_entity_class": True,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=True"
-        },
-        {
-            "input_filepaths": ["/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/pate_and_snips/pate.json"],
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/pate_multi",
-            "single_entity_class": False,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=False"
-        }
-    ]
 
-    for converter_input in converter_inputs:
-        input_filepaths: List[str] = converter_input["input_filepaths"]
-        output_filepath: str = converter_input["output_filepath"]
-        single_entity_class: bool = converter_input["single_entity_class"]
-        crossvalidation_enabled: bool = converter_input["crossvalidation_enabled"]
-        folds: int = converter_input["folds"]
-        printmessage: str = converter_input["printmessage"]
-        print(printmessage)
-        converter = PateDatasetConverter(input_filepaths, output_filepath, single_entity_class, crossvalidation_enabled, folds)
-        converter.convert_dataset()
-        print("\n" + "-" * 100 + "\n")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_filepaths",
+        "--i", 
+        nargs='+', 
+        default=[],
+        help = "The original Pate dataset may consist of multiple input files. Each of the filepaths needs to be passed."
+    )
+
+    parser.add_argument(
+        "--output_directory",
+        "-o",
+        type = str,
+        default = "../entity/my_datasets/jsonlines/fullpate_multi",
+        help = "The directory for the newly converted dataset files."
+    )
+
+    parser.add_argument(
+        "--single_class",
+        "-s",
+        action = "store_true",
+        help = "Wether to have the four timex3 temporal classes or only a single generic one."
+    )
+
+    parser.add_argument(
+        "--crossvalidation",
+        "-c",
+        action = "store_true",
+        help = "Wether to generate crossvalidation folds or not."
+    )
+
+    parser.add_argument(
+        "--folds",
+        "-f",
+        type = int,
+        default = 10,
+        help = "Number of crossvalidation folds."
+    )
+    args = parser.parse_args()
+
+
+    #Validate input
+    is_error: bool = False
+    if args.input_filepaths is None or args.input_filepaths == []:
+        is_error = True
+
+    if not isinstance(args.input_filepaths, list):
+        is_error = True
+
+    if args.output_directory is None:
+        is_error = True
+
+    if is_error:
+        print("Problem with input arguments.")
+        sys.exit()
+
+    
+    print(f"Loading Pate conversion script...")
+    print(f"Following arguments were passed:")
+    pprint.pprint(f"Pate dataset input filepaths:    {args.input_filepaths} => {type(args.input_filepaths)}")
+
+    print(f"Output directory:               {args.output_directory} => {type(args.output_directory)}")
+    print(f"Single class only:              {args.single_class} => {type(args.single_class)}")
+    print(f"Crossvalidation enabled:        {args.crossvalidation} => {type(args.crossvalidation)}")
+    print(f"Number of folds:                {args.folds} => {type(args.folds)}")
+
+    input_filepaths: List[str] = args.input_filepaths
+    output_dirpath: str = args.output_directory
+    single_entity_class: bool = args.single_class
+    crossvalidation_enabled: bool = args.crossvalidation
+    folds: int = args.folds
+
+
+    print()
+    if not os.path.exists(output_dirpath):
+        print(f"Output directory does not exist. Creating directory '{os.path.abspath(output_dirpath)}'.\n")
+        os.makedirs(os.path.abspath(output_dirpath))
+
+    converter = PateDatasetConverter(
+        input_filepaths=input_filepaths,
+        output_directory_path=output_dirpath,
+        single_entity_class=single_entity_class,
+        crossvalidation_enabled=crossvalidation_enabled,
+        folds=folds
+    )
+    converter.convert_dataset()
