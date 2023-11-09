@@ -3,11 +3,14 @@
 import json
 import re
 import random
-import os
 from typing import List
 from preprocessing_utils import find_sublist_in_list
 from preprocessing_file_saver import save_dataset_splits, generate_crossvalidation_folds
 from preprocessing_utils import DatasetNltkTokenizer
+import argparse
+import sys
+import os
+import pprint
 
 class SnipsDatasetConverter:
     """
@@ -185,42 +188,92 @@ class SnipsDatasetConverter:
         return json_list
 
 if __name__ == "__main__":
-    converter_inputs = [
-        {
-            "input_filepaths": [
-                "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/pate_and_snips/snips_train.json",
-                "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/pate_and_snips/snips_valid.json"
-            ],
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/snips_single",
-            "single_entity_class": True,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "only_temporal_entities": True,
-            "printmessage": "Converting dataset:\nSingle=True"
-        },
-        {
-            "input_filepaths": [
-                "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/pate_and_snips/snips_train.json",
-                "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/pate_and_snips/snips_valid.json"
-            ],
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/snips_multi",
-            "single_entity_class": False,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "only_temporal_entities": True,
-            "printmessage": "Converting dataset:\nSingle=False"
-        }
-    ]
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_filepaths",
+        "--i", 
+        nargs='+', 
+        default=[],
+        help = "The original Snips dataset may consist of multiple input files. Each of the filepaths needs to be passed."
+    )
 
-    for converter_input in converter_inputs:
-        input_filepaths: List[str] = converter_input["input_filepaths"]
-        output_filepath: str = converter_input["output_filepath"]
-        single_entity_class: bool = converter_input["single_entity_class"]
-        crossvalidation_enabled: bool = converter_input["crossvalidation_enabled"]
-        folds: int = converter_input["folds"]
-        only_temporal_entities: bool = converter_input["only_temporal_entities"]
-        printmessage: str = converter_input["printmessage"]
-        print(printmessage)
-        converter = SnipsDatasetConverter(input_filepaths, output_filepath, single_entity_class, crossvalidation_enabled, folds, only_temporal_entities)
-        converter.convert_dataset()
-        print("\n" + "-" * 100 + "\n")
+    parser.add_argument(
+        "--output_directory",
+        "-o",
+        type = str,
+        default = "../entity/my_datasets/jsonlines/fullpate_multi",
+        help = "The directory for the newly converted dataset files."
+    )
+
+    parser.add_argument(
+        "--single_class",
+        "-s",
+        action = "store_true",
+        help = "Wether to have the four timex3 temporal classes or only a single generic one."
+    )
+
+    parser.add_argument(
+        "--crossvalidation",
+        "-c",
+        action = "store_true",
+        help = "Wether to generate crossvalidation folds or not."
+    )
+
+    parser.add_argument(
+        "--folds",
+        "-f",
+        type = int,
+        default = 10,
+        help = "Number of crossvalidation folds."
+    )
+
+    parser.add_argument(
+        "--only_temporal",
+        "-ot",
+        action = "store_true",
+        help = "Wether to contain only temporal classes or not. The Snips dataset contains other entitiy classes than the four temporal timex3 classes."
+    )
+    args = parser.parse_args()
+
+
+    #Validate input
+    is_error: bool = False
+    if args.input_filepaths is None or args.input_filepaths == []:
+        is_error = True
+
+    if not isinstance(args.input_filepaths, list):
+        is_error = True
+
+    if args.output_directory is None:
+        is_error = True
+
+    if is_error:
+        print("Problem with input arguments.")
+        sys.exit()
+
+
+    print(f"Loading Snips conversion script...")
+    print(f"Following arguments were passed:")
+    pprint.pprint(f"Snips dataset input filepaths:    {args.input_filepaths} => {type(args.input_filepaths)}")
+
+    print(f"Output directory:               {args.output_directory} => {type(args.output_directory)}")
+    print(f"Single class only:              {args.single_class} => {type(args.single_class)}")
+    print(f"Crossvalidation enabled:        {args.crossvalidation} => {type(args.crossvalidation)}")
+    print(f"Number of folds:                {args.folds} => {type(args.folds)}")
+    print(f"Temporal classes only:          {args.only_temporal} => {type(args.only_temporal)}")
+
+
+    print()
+    if not os.path.exists(args.output_directory):
+        print(f"Output directory does not exist. Creating directory '{os.path.abspath(args.output_directory)}'.\n")
+        os.makedirs(os.path.abspath(args.output_directory))
+
+    converter = SnipsDatasetConverter(
+        input_filepaths=args.input_filepaths,
+        output_directory_path=args.output_directory,
+        single_entity_class=args.single_class,
+        crossvalidation_enabled=args.crossvalidation,
+        folds=args.folds,
+        only_temporal_entities=args.only_temporal
+    )
+    converter.convert_dataset()
