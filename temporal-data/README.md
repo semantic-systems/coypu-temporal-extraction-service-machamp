@@ -45,5 +45,11 @@ Similar to T5 (text-to-text) models, each data-entry consists of a prompt called
 
 # Conversion scripts
 
+# How to add new datasets?
+For MaChAmp a conversion script to BIO format can be written.
+For UIE it is recommended to use their conversion script.
+For this it is necessary to write a new class and add configuration files.
+... Coming soon.
+
 # References
 * [UzZaman et al., 2013] [UzZaman, N., Llorens, H., Derczynski, L., Allen, J., Verhagen, M., and Pustejovsky, J. (2013). Semeval-2013 task 1: Tempeval-3: Evaluating time expressions, events, and temporal relations. In Second Joint Conference on Lexical and Computational Semantics (* SEM), Volume 2: Proceedings of the Seventh International Workshop on Semantic Evaluation (SemEval 2013), pages 1–9. ](https://aclanthology.org/S13-2001.pdf)
