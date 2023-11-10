@@ -7,6 +7,9 @@ from typing import List
 from preprocessing_utils import find_sublist_in_list
 from preprocessing_file_saver import generate_crossvalidation_folds, save_dataset_splits
 from preprocessing_utils import DatasetNltkTokenizer
+import argparse
+import sys
+import pprint
 
 class TweetsDatasetConverter:
     """
@@ -260,43 +263,100 @@ class TweetsDatasetConverter:
                 }]
         return json_dataset
     
+
+
 if __name__ == "__main__":
-    tweets_directory_trainingset = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/tweets/trainingset"
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_test_filepath",
+        "-ite", 
+        type = str,
+        default = "../original_datasets/tweets/testset",
+        help = "The original Tweets dataset consists of many TML files, which are split into test and training subsets. This parameter expects the testset directory."
+    )
+
+    parser.add_argument(
+        "--input_train_filepath",
+        "-itr", 
+        type = str,
+        default = "../original_datasets/tweets/trainingset",
+        help = "The original Tweets dataset consists of many TML files in one directory, which is split into test and training subsets. This parameter expects the trainingset directory."
+    )
+
+    parser.add_argument(
+        "--output_directory",
+        "-o",
+        type = str,
+        default = "../entity/my_datasets/jsonlines/tweets_multi",
+        help = "The directory for the newly converted dataset files."
+    )
+
+    parser.add_argument(
+        "--single_class",
+        "-s",
+        action = "store_true",
+        help = "Wether to have the four timex3 temporal classes or only a single generic one."
+    )
+
+    parser.add_argument(
+        "--crossvalidation",
+        "-c",
+        action = "store_true",
+        help = "Wether to generate crossvalidation folds or not."
+    )
+
+    parser.add_argument(
+        "--folds",
+        "-f",
+        type = int,
+        default = 10,
+        help = "Number of crossvalidation folds."
+    )
+    args = parser.parse_args()
+
+    tweets_directory_trainingset = args.input_train_filepath
     tweets_files_trainingset = [os.path.join(tweets_directory_trainingset, f) for f in os.listdir(tweets_directory_trainingset) if os.path.isfile(os.path.join(tweets_directory_trainingset, f)) and f.endswith(".tml")]
 
-    tweets_directory_testset = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/tweets/testset"
+    tweets_directory_testset = args.input_test_filepath
     tweets_files_testset = [os.path.join(tweets_directory_testset, f) for f in os.listdir(tweets_directory_testset) if os.path.isfile(os.path.join(tweets_directory_testset, f)) and f.endswith(".tml")]
 
     tweets_filepaths = tweets_files_trainingset + tweets_files_testset
     tweets_filepaths.sort()
 
-    converter_inputs = [
-        {
-            "input_filepaths": tweets_filepaths,
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/tweets_single",
-            "single_entity_class": True,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=True"
-        },
-        {
-            "input_filepaths": tweets_filepaths,
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/tweets_multi",
-            "single_entity_class": False,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=False"
-        }
-    ]
 
-    for converter_input in converter_inputs:
-        input_filepaths: List[str] = converter_input["input_filepaths"]
-        output_filepath: str = converter_input["output_filepath"]
-        single_entity_class: bool = converter_input["single_entity_class"]
-        crossvalidation_enabled: bool = converter_input["crossvalidation_enabled"]
-        folds: int = converter_input["folds"]
-        printmessage: str = converter_input["printmessage"]
-        print(printmessage)
-        converter = TweetsDatasetConverter(input_filepaths, output_filepath, single_entity_class, crossvalidation_enabled, folds)
-        converter.convert_dataset()
-        print("\n" + "-" * 100 + "\n")
+    #Validate input
+    is_error: bool = False
+    if (len(tweets_filepaths) == 0) or not isinstance(tweets_filepaths[0], str) or not tweets_filepaths[0].endswith(".tml"):
+        is_error = True
+
+    if args.output_directory is None:
+        is_error = True
+
+    if is_error:
+        print("Problem with input arguments.")
+        sys.exit()
+
+    
+    print(f"Loading Tweets conversion script...")
+    print(f"Following arguments were passed:")
+    print(f"Tweets dataset train input filepath:    {args.input_train_filepath} => {type(args.input_train_filepath)}")
+    print(f"Tweets dataset test input filepath:     {args.input_test_filepath} => {type(args.input_test_filepath)}")
+    print(f"Output directory:                       {args.output_directory} => {type(args.output_directory)}")
+    print(f"Single class only:                      {args.single_class} => {type(args.single_class)}")
+    print(f"Crossvalidation enabled:                {args.crossvalidation} => {type(args.crossvalidation)}")
+    print(f"Number of folds:                        {args.folds} => {type(args.folds)}")
+
+
+    print()
+    if not os.path.exists(args.output_directory):
+        print(f"Output directory does not exist. Creating directory '{os.path.abspath(args.output_directory)}'.\n")
+        os.makedirs(os.path.abspath(args.output_directory))
+
+    converter = TweetsDatasetConverter(
+        input_filepaths=tweets_filepaths,
+        output_directory_path=args.output_directory,
+        single_entity_class=args.single_class,
+        crossvalidation_enabled=args.crossvalidation,
+        folds=args.folds
+    )
+    converter.convert_dataset()

@@ -326,7 +326,6 @@ if __name__ == "__main__":
         print(f"Output directory does not exist. Creating directory '{os.path.abspath(args.output_directory)}'.\n")
         os.makedirs(os.path.abspath(args.output_directory))
 
-    
     converter = WikiwarsDatasetConverter(
         input_filepaths=wikiwars_xml_filepaths,
         output_directory_path=args.output_directory,
