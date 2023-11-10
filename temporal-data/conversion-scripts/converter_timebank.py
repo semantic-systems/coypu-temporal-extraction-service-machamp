@@ -8,6 +8,9 @@ from typing import List, Tuple
 from preprocessing_utils import find_sublist_in_list
 from preprocessing_file_saver import generate_crossvalidation_folds, save_dataset_splits
 from preprocessing_utils import DatasetNltkTokenizer
+import argparse
+import sys
+import pprint
 
 class TimebankDatasetConverter:
     """
@@ -345,45 +348,103 @@ class TimebankDatasetConverter:
                     }]
         return json_dictionaries
 
+
+
 if __name__ == "__main__":
-    timebank_directory_extra = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/timebank/data/extra"
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_filepath_timeml",
+        "-it",
+        type = str,
+        default = "../original_datasets/timebank/data/timeml",
+        help = "Path to the 'timeml' directory of the original TimeBank dataset. This directory contains multiple TML files.",
+    )
+
+    parser.add_argument(
+        "--input_filepath_extra",
+        "-ie",
+        type = str,
+        default = "../original_datasets/timebank/data/extra",
+        help = "Path to the 'extra' directory of the original TimeBank dataset. This directory contains multiple TML files.",
+    )
+
+    parser.add_argument(
+        "--output_directory",
+        "-o",
+        type = str,
+        default = "../entity/my_datasets/jsonlines/timebank_multi",
+        help = "The directory for the newly converted dataset files."
+    )
+
+    parser.add_argument(
+        "--single_class",
+        "-s",
+        action = "store_true",
+        help = "Wether to have the four timex3 temporal classes or only a single generic one."
+    )
+
+    parser.add_argument(
+        "--crossvalidation",
+        "-c",
+        action = "store_true",
+        help = "Wether to generate crossvalidation folds or not."
+    )
+
+    parser.add_argument(
+        "--folds",
+        "-f",
+        type = int,
+        default = 10,
+        help = "Number of crossvalidation folds."
+    )
+    args = parser.parse_args()
+
+    timebank_directory_extra = args.input_filepath_extra
     timebank_files_extra = [os.path.join(timebank_directory_extra, f) for f in os.listdir(timebank_directory_extra) if os.path.isfile(os.path.join(timebank_directory_extra, f)) and f.endswith(".tml")]
     timebank_files_extra.sort()
 
-    timebank_directory_timeml = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/timebank/data/timeml"
+    timebank_directory_timeml = args.input_filepath_timeml
     timebank_files_timeml = [os.path.join(timebank_directory_timeml, f) for f in os.listdir(timebank_directory_timeml) if os.path.isfile(os.path.join(timebank_directory_timeml, f)) and f.endswith(".tml")]
     timebank_files_timeml.sort()
 
-    converter_inputs = [
-        {
-            "input_filepaths_extra": timebank_files_extra,
-            "input_filepaths_timeml": timebank_files_timeml,
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/timebank-old_single",
-            "single_entity_class": True,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=True"
-        },
-        {
-            "input_filepaths_extra": timebank_files_extra,
-            "input_filepaths_timeml": timebank_files_timeml,
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/timebank-old_multi",
-            "single_entity_class": False,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=False"
-        }
-    ]
 
-    for converter_input in converter_inputs:
-        input_filepaths_extra: List[str] = converter_input["input_filepaths_extra"]
-        input_filepaths_timeml: List[str] = converter_input["input_filepaths_timeml"]
-        output_filepath: str = converter_input["output_filepath"]
-        single_entity_class: bool = converter_input["single_entity_class"]
-        crossvalidation_enabled: bool = converter_input["crossvalidation_enabled"]
-        folds: int = converter_input["folds"]
-        printmessage: str = converter_input["printmessage"]
-        print(printmessage)
-        converter = TimebankDatasetConverter(input_filepaths_extra, input_filepaths_timeml, output_filepath, single_entity_class, crossvalidation_enabled, folds)
-        converter.convert_dataset()
-        print("\n" + "-" * 100 + "\n")
+    #Validate input
+    is_error: bool = False
+    if not isinstance(args.input_filepath_extra, str):
+        is_error = True
+
+    if not isinstance(args.input_filepath_timeml, str):
+        is_error = True
+
+    if args.output_directory is None:
+        is_error = True
+
+    if is_error:
+        print("Problem with input arguments.")
+        sys.exit()
+
+
+    print(f"Loading TimeBank conversion script...")
+    print(f"Following arguments were passed:")
+    print(f"TimeBank dataset extra filepath:        {args.input_filepath_extra} => {type(args.input_filepath_extra)}")
+    print(f"TimeBank dataset timeml filepath:       {args.input_filepath_timeml} => {type(args.input_filepath_timeml)}")    
+    print(f"Output directory:                       {args.output_directory} => {type(args.output_directory)}")
+    print(f"Single class only:                      {args.single_class} => {type(args.single_class)}")
+    print(f"Crossvalidation enabled:                {args.crossvalidation} => {type(args.crossvalidation)}")
+    print(f"Number of folds:                        {args.folds} => {type(args.folds)}")
+
+
+    print()
+    if not os.path.exists(args.output_directory):
+        print(f"Output directory does not exist. Creating directory '{os.path.abspath(args.output_directory)}'.\n")
+        os.makedirs(os.path.abspath(args.output_directory))
+
+    converter = TimebankDatasetConverter(
+        input_filepaths_extra=timebank_directory_extra,
+        input_filepaths_timeml=timebank_directory_timeml,
+        output_directory_path=args.output_directory,
+        single_entity_class=args.single_class,
+        crossvalidation_enabled=args.crossvalidation,
+        folds=args.folds
+    )
+    converter.convert_dataset()
