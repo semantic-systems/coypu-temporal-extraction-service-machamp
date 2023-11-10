@@ -7,6 +7,9 @@ from typing import List
 from preprocessing_utils import find_sublist_in_list
 from preprocessing_file_saver import generate_crossvalidation_folds, save_dataset_splits
 from preprocessing_utils import DatasetNltkTokenizer
+import os
+import argparse
+import sys
 
 class TempevalDatasetConverter:
     """
@@ -35,7 +38,7 @@ class TempevalDatasetConverter:
         self.val_percent = 0.1
 
         #Output file names
-        self.output_file_prefix = "tempeval-old"
+        self.output_file_prefix = "tempeval"
         self.output_file_ending = ".jsonlines"
         self.output_file_train_suffix = "-train" + self.output_file_ending
         self.output_file_test_suffix = "-test" + self.output_file_ending
@@ -156,44 +159,100 @@ class TempevalDatasetConverter:
         return (begin_regex + span_regex + end_regex) if beginFound and endFound else "NO DURATION FOUND"
 
 
+
 if __name__ == "__main__":
-    converter_inputs = [
-        {
-            "input_filepaths": [
-                "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/aquaint-old_single/aquaint-old-full.jsonlines",
-                "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/timebank-old_single/timebank-old-full.jsonlines"
-            ],
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/tempeval-old_single",
-            "single_entity_class": True,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "only_temporal_entities": True,
-            "printmessage": "Converting dataset:\nSingle=True"
-        },
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_filepath_timebank",
+        "-it",
+        type = str,
+        default = "../entity/jsonlines/timebank_multi/timebank-full.jsonlines",
+        help = "Relative path to converted TimeBank dataset in jsonlines format.",
+    )
 
-        {
-            "input_filepaths": [
-                "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/aquaint-old_multi/aquaint-old-full.jsonlines",
-                "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/timebank-old_multi/timebank-old-full.jsonlines"
-            ],
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/tempeval-old_multi",
-            "single_entity_class": False,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "only_temporal_entities": True,
-            "printmessage": "Converting dataset:\nSingle=False"
-        }
-    ]
+    parser.add_argument(
+        "--input_filepath_aquaint",
+        "-ia",
+        type = str,
+        default = "../entity/jsonlines/aquaint_multi/aquaint-full.jsonlines",
+        help = "Relative path to converted AQUAINT dataset in jsonlines format.",
+    )
 
-    for converter_input in converter_inputs:
-        input_filepaths: List[str] = converter_input["input_filepaths"]
-        output_filepath: str = converter_input["output_filepath"]
-        single_entity_class: bool = converter_input["single_entity_class"]
-        crossvalidation_enabled: bool = converter_input["crossvalidation_enabled"]
-        folds: int = converter_input["folds"]
-        only_temporal_entities: bool = converter_input["only_temporal_entities"]
-        printmessage: str = converter_input["printmessage"]
-        print(printmessage)
-        converter = TempevalDatasetConverter(input_filepaths, output_filepath, single_entity_class, crossvalidation_enabled, folds, only_temporal_entities)
-        converter.convert_dataset()
-        print("\n" + "-" * 100 + "\n")
+    parser.add_argument(
+        "--output_directory",
+        "-o",
+        type = str,
+        default = "../entity/my_converted_datasets/jsonlines/tempeval_multi",
+        help = "The directory for the newly converted dataset files."
+    )
+
+    parser.add_argument(
+        "--single_class",
+        "-s",
+        action = "store_true",
+        help = "Wether to have the four timex3 temporal classes or only a single generic one."
+    )
+
+    parser.add_argument(
+        "--crossvalidation",
+        "-c",
+        action = "store_true",
+        help = "Wether to generate crossvalidation folds or not."
+    )
+
+    parser.add_argument(
+        "--folds",
+        "-f",
+        type = int,
+        default = 10,
+        help = "Number of crossvalidation folds."
+    )
+    args = parser.parse_args()
+
+
+    #Validate input
+    is_error: bool = False
+    if args.input_filepath_timebank is None:
+        is_error = True
+
+    if args.input_filepath_aquaint is None:
+        is_error = True
+
+    if isinstance(args.input_filepath_timebank, str) and not args.input_filepath_timebank.lower().endswith(".jsonlines"):
+        is_error = True
+
+    if isinstance(args.input_filepath_aquaint, str) and not args.input_filepath_aquaint.lower().endswith(".jsonlines"):
+        is_error = True
+
+    if args.output_directory is None:
+        is_error = True
+
+    if is_error:
+        print("Problem with input arguments.")
+        sys.exit()
+
+
+    print(f"Loading TempEval conversion script...")
+    print(f"Following arguments were passed:")
+    print(f"TimeBank dataset input filepath:   {args.input_filepath_timebank} => {type(args.input_filepath_timebank)}")
+    print(f"AQUAINT dataset input filepath:    {args.input_filepath_aquaint} => {type(args.input_filepath_aquaint)}")
+    print(f"Output directory:               {args.output_directory} => {type(args.output_directory)}")
+    print(f"Single class only:              {args.single_class} => {type(args.single_class)}")
+    print(f"Crossvalidation enabled:        {args.crossvalidation} => {type(args.crossvalidation)}")
+    print(f"Number of folds:                {args.folds} => {type(args.folds)}")
+
+
+    print()
+    if not os.path.exists(args.output_directory):
+        print(f"Output directory does not exist. Creating directory '{os.path.abspath(args.output_directory)}'.\n")
+        os.makedirs(os.path.abspath(args.output_directory))
+
+    print("Running converter...")
+    converter = TempevalDatasetConverter(
+        input_filepaths=[args.input_filepath_timebank, args.input_filepath_aquaint],
+        output_directory_path=args.output_directory,
+        single_entity_class=args.single_class,
+        crossvalidation_enabled=args.crossvalidation,
+        folds=args.folds
+    )
+    converter.convert_dataset()

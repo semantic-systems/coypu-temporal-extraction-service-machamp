@@ -67,7 +67,7 @@ class TimebankDatasetConverter:
         self.val_percent = 0.1
 
         #Output file names
-        self.output_file_prefix = "timebank-old"
+        self.output_file_prefix = "timebank"
         self.output_file_ending = ".jsonlines"
         self.output_file_train_suffix = "-train" + self.output_file_ending
         self.output_file_test_suffix = "-test" + self.output_file_ending

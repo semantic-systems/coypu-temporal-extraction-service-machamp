@@ -236,7 +236,7 @@ if __name__ == "__main__":
         "--output_directory",
         "-o",
         type = str,
-        default = "../entity/my_datasets/jsonlines/fullpate_multi",
+        default = "../entity/my_converted_datasets/jsonlines/fullpate_multi",
         help = "The directory for the newly converted dataset files."
     )
 
