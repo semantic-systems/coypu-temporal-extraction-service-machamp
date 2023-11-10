@@ -8,6 +8,9 @@ import nltk
 from preprocessing_utils import find_sublist_in_list
 from preprocessing_file_saver import generate_crossvalidation_folds, save_dataset_splits
 from preprocessing_utils import DatasetNltkTokenizer
+import argparse
+import sys
+import pprint
 
 class WikiwarsTaggedDatasetConverter:
     """
@@ -239,39 +242,94 @@ class WikiwarsTaggedDatasetConverter:
                     }]
         return json_dictionaries
 
+
+
 if __name__ == "__main__":
-    wikiwars_directory = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/wikiwars-tagged"
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_parent_filepath",
+        "-i", 
+        type = str,
+        default = "../original_datasets/wikiwars-tagged",
+        help = "The tagged WikiWars dataset consists of many TML files in one directory. It is assumed that all TML files are in the same directory. The filepath is expected as the value for the parameter."
+    )
+
+    parser.add_argument(
+        "--output_directory",
+        "-o",
+        type = str,
+        default = "../entity/my_datasets/jsonlines/wikiwars-tagged_multi",
+        help = "The directory for the newly converted dataset files."
+    )
+
+    parser.add_argument(
+        "--single_class",
+        "-s",
+        action = "store_true",
+        help = "Wether to have the four timex3 temporal classes or only a single generic one."
+    )
+
+    parser.add_argument(
+        "--crossvalidation",
+        "-c",
+        action = "store_true",
+        help = "Wether to generate crossvalidation folds or not."
+    )
+
+    parser.add_argument(
+        "--folds",
+        "-f",
+        type = int,
+        default = 10,
+        help = "Number of crossvalidation folds."
+    )
+    args = parser.parse_args()
+
+    wikiwars_directory = args.input_parent_filepath
     wikiwars_tml_filepaths = [os.path.join(wikiwars_directory, f) for f in os.listdir(wikiwars_directory) if os.path.isfile(os.path.join(wikiwars_directory, f)) and f.endswith(".tml")]
     wikiwars_tml_filepaths.sort()
 
-    converter_inputs = [
-        {
-            "input_filepaths": wikiwars_tml_filepaths,
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/wikiwars-tagged_single",
-            "single_entity_class": True,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=True"
-        },
+    #Validate input
+    is_error: bool = False
+    if (len(wikiwars_tml_filepaths) == 0): 
+        is_error = True
 
-        {
-            "input_filepaths": wikiwars_tml_filepaths,
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/wikiwars-tagged_multi",
-            "single_entity_class": False,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=False"
-        }
-    ]
+    if isinstance(wikiwars_tml_filepaths[0], str) and not wikiwars_tml_filepaths[0].endswith(".tml"):
+        is_error = True
 
-    for converter_input in converter_inputs:
-        input_filepaths: List[str] = converter_input["input_filepaths"]
-        output_filepath: str = converter_input["output_filepath"]
-        single_entity_class: bool = converter_input["single_entity_class"]
-        crossvalidation_enabled: bool = converter_input["crossvalidation_enabled"]
-        folds: int = converter_input["folds"]
-        printmessage: str = converter_input["printmessage"]
-        print(printmessage)
-        converter = WikiwarsTaggedDatasetConverter(input_filepaths, output_filepath, single_entity_class, crossvalidation_enabled, folds)
-        converter.convert_dataset()
-        print("\n" + "-" * 100 + "\n")
+    if args.input_parent_filepath is None or args.input_parent_filepath == []:
+        is_error = True
+
+    if args.output_directory is None:
+        is_error = True
+
+    if is_error:
+        print("Problem with input arguments.")
+        sys.exit()
+
+    
+    print(f"Loading WikiWars (tagged) conversion script...")
+    print(f"Following arguments were passed:")
+    print(f"WikiWars dataset input filepath:    {args.input_parent_filepath} => {type(args.input_parent_filepath)}")
+    print(f"Output directory:                   {args.output_directory} => {type(args.output_directory)}")
+    print(f"Crossvalidation enabled:            {args.crossvalidation} => {type(args.crossvalidation)}")
+    print(f"Number of folds:                    {args.folds} => {type(args.folds)}")
+
+    print(f"The parent directory contains the following XML files:")
+    pprint.pprint(wikiwars_tml_filepaths)
+
+
+    print()
+    if not os.path.exists(args.output_directory):
+        print(f"Output directory does not exist. Creating directory '{os.path.abspath(args.output_directory)}'.\n")
+        os.makedirs(os.path.abspath(args.output_directory))
+
+    
+    converter = WikiwarsTaggedDatasetConverter(
+        input_filepaths=wikiwars_tml_filepaths,
+        output_directory_path=args.output_directory,
+        single_entity_class=args.single_class,
+        crossvalidation_enabled=args.crossvalidation,
+        folds=args.folds
+    )
+    converter.convert_dataset()
