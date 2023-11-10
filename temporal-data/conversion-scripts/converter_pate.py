@@ -232,7 +232,7 @@ if __name__ == "__main__":
         "--input_filepaths",
         "-i", 
         nargs='+', 
-        default=[],
+        default=["../original_datasets/pate_and_snips/pate.json"],
         help = "The original Pate dataset may consist of multiple input files. Each of the filepaths needs to be passed."
     )
 

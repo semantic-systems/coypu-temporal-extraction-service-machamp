@@ -193,7 +193,7 @@ if __name__ == "__main__":
         "--input_filepaths",
         "--i", 
         nargs='+', 
-        default=[],
+        default=["../original_datasets/pate_and_snips/snips_train.json", "../original_datasets/pate_and_snips/snips_valid.json"],
         help = "The original Snips dataset may consist of multiple input files. Each of the filepaths needs to be passed."
     )
 

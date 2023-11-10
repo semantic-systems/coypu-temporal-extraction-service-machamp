@@ -8,6 +8,9 @@ from typing import List, Tuple
 from preprocessing_utils import find_sublist_in_list
 from preprocessing_file_saver import generate_crossvalidation_folds, save_dataset_splits
 from preprocessing_utils import DatasetNltkTokenizer
+import argparse
+import sys
+import pprint
 
 class AquaintDatasetConverter:
     """
@@ -24,7 +27,7 @@ class AquaintDatasetConverter:
     It outputs/splits the dataset into train and test dataset and also outputs a human readable version of the dataset for each split.
     Note: that this can be very memory intensive, if this script is applied to very large datasets.
     """
-    def __init__(self, input_filepaths_extra: List[str], input_filepaths_timeml: List[str], output_directory_path: str, single_entity_class: bool, crossvalidation_enabled: bool = False, folds: int = 10) -> None:
+    def __init__(self, input_filepaths: List[str], output_directory_path: str, single_entity_class: bool, crossvalidation_enabled: bool = False, folds: int = 10) -> None:
         #Regex patterns to extract the contents of the tml files
         self.contents_regex_pattern_s = "<s>.*?</s>"
         self.contents_regex_pattern_timex3 = r"<TIMEX3[^>]*>.*?</TIMEX3>"
@@ -51,8 +54,7 @@ class AquaintDatasetConverter:
         #Drop sentences with less tokens than this
         self.MIN_SIZE_TOKENS_IN_INPUT = 4
         
-        self.tml_files_extra_filepaths = input_filepaths_extra #Filepaths of the tml files in the extra folder
-        self.tml_files_timeml_filepaths = input_filepaths_timeml #Filepaths of the tml files in the timeml folder
+        self.aquaint_filepaths = input_filepaths #Filepaths of the tml files
 
         self.output_directory_path = output_directory_path #Where to save the converted dataset
         self.crossvalidation_enabled = crossvalidation_enabled #Whether to split the dataset into folds or not
@@ -65,7 +67,7 @@ class AquaintDatasetConverter:
         self.val_percent = 0.1
 
         #Output file names
-        self.output_file_prefix = "aquaint-old"
+        self.output_file_prefix = "aquaint"
         self.output_file_ending = ".jsonlines"
         self.output_file_train_suffix = "-train" + self.output_file_ending
         self.output_file_test_suffix = "-test" + self.output_file_ending
@@ -92,7 +94,7 @@ class AquaintDatasetConverter:
         self.word_tokenizer, self.sentence_tokenizer = self.initiate_tokenizers()
 
         #Load tml input files
-        self.tml_files = self.load_tml_files(self.tml_files_timeml_filepaths)
+        self.tml_files = self.load_tml_files(self.aquaint_filepaths)
 
         self.dataset_aquaint = list()
 
@@ -273,45 +275,92 @@ class AquaintDatasetConverter:
                     }]
         return json_dictionaries
 
+
+
 if __name__ == "__main__":
-    aquaint_directory_extra = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/aquaint"
-    aquaint_files_extra = [os.path.join(aquaint_directory_extra, f) for f in os.listdir(aquaint_directory_extra) if os.path.isfile(os.path.join(aquaint_directory_extra, f)) and f.endswith(".tml")]
-    aquaint_files_extra.sort()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_filepaths",
+        "-i", 
+        nargs='+', 
+        default=["../original_datasets/aquaint"],
+        help = "The original AQUAINT dataset may consist of multiple input files, which might be in different directories. Each of the parent directory filepaths needs to be passed."
+    )
 
-    aquaint_directory_timeml = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/original/aquaint"
-    aquaint_files_timeml = [os.path.join(aquaint_directory_timeml, f) for f in os.listdir(aquaint_directory_timeml) if os.path.isfile(os.path.join(aquaint_directory_timeml, f)) and f.endswith(".tml")]
-    aquaint_files_timeml.sort()
+    parser.add_argument(
+        "--output_directory",
+        "-o",
+        type = str,
+        default = "../entity/my_datasets/jsonlines/aquaint_multi",
+        help = "The directory for the newly converted dataset files."
+    )
 
-    converter_inputs = [
-        {
-            "input_filepaths_extra": aquaint_files_extra,
-            "input_filepaths_timeml": aquaint_files_timeml,
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/aquaint-old_single",
-            "single_entity_class": True,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=True"
-        },
-        {
-            "input_filepaths_extra": aquaint_files_extra,
-            "input_filepaths_timeml": aquaint_files_timeml,
-            "output_filepath": "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted/aquaint-old_multi",
-            "single_entity_class": False,
-            "crossvalidation_enabled": True,
-            "folds": 10,
-            "printmessage": "Converting dataset:\nSingle=False"
-        }
-    ]
+    parser.add_argument(
+        "--single_class",
+        "-s",
+        action = "store_true",
+        help = "Wether to have the four timex3 temporal classes or only a single generic one."
+    )
 
-    for converter_input in converter_inputs:
-        input_filepaths_extra: List[str] = converter_input["input_filepaths_extra"]
-        input_filepaths_timeml: List[str] = converter_input["input_filepaths_timeml"]
-        output_filepath: str = converter_input["output_filepath"]
-        single_entity_class: bool = converter_input["single_entity_class"]
-        crossvalidation_enabled: bool = converter_input["crossvalidation_enabled"]
-        folds: int = converter_input["folds"]
-        printmessage: str = converter_input["printmessage"]
-        print(printmessage)
-        converter = AquaintDatasetConverter(input_filepaths_extra, input_filepaths_timeml, output_filepath, single_entity_class, crossvalidation_enabled, folds)
-        converter.convert_dataset()
-        print("\n" + "-" * 100 + "\n")
+    parser.add_argument(
+        "--crossvalidation",
+        "-c",
+        action = "store_true",
+        help = "Wether to generate crossvalidation folds or not."
+    )
+
+    parser.add_argument(
+        "--folds",
+        "-f",
+        type = int,
+        default = 10,
+        help = "Number of crossvalidation folds."
+    )
+    args = parser.parse_args()
+
+    aquaint_filepaths = []
+    for input_filepath in args.input_filepaths:
+        aquaint_filepaths += [os.path.join(input_filepath, f) for f in os.listdir(input_filepath) if os.path.isfile(os.path.join(input_filepath, f)) and f.endswith(".tml")]
+    aquaint_filepaths.sort()
+
+
+    #Validate input
+    is_error: bool = False
+    if (len(aquaint_filepaths) == 0) or not isinstance(aquaint_filepaths[0], str) or not aquaint_filepaths[0].endswith(".tml"):
+        is_error = True
+
+    if args.input_filepaths is None or args.input_filepaths == []:
+        is_error = True
+
+    if args.output_directory is None:
+        is_error = True
+
+    if is_error:
+        print("Problem with input arguments.")
+        sys.exit()
+
+
+    print(f"Loading AQUAINT conversion script...")
+    print(f"Following arguments were passed:")
+    print(f"AQUAINT dataset input filepaths:    {args.input_filepaths} => {type(args.input_filepaths)}")
+    print(f"Output directory:                   {args.output_directory} => {type(args.output_directory)}")
+    print(f"Crossvalidation enabled:            {args.crossvalidation} => {type(args.crossvalidation)}")
+    print(f"Number of folds:                    {args.folds} => {type(args.folds)}")
+
+    print(f"The following TML files were found in the AQUAINT directories:")
+    pprint.pprint(aquaint_filepaths)
+
+
+    print()
+    if not os.path.exists(args.output_directory):
+        print(f"Output directory does not exist. Creating directory '{os.path.abspath(args.output_directory)}'.\n")
+        os.makedirs(os.path.abspath(args.output_directory))
+
+    converter = AquaintDatasetConverter(
+        input_filepaths=aquaint_filepaths,
+        output_directory_path=args.output_directory,
+        single_entity_class=args.single_class,
+        crossvalidation_enabled=args.crossvalidation,
+        folds=args.folds
+    )
+    converter.convert_dataset()
