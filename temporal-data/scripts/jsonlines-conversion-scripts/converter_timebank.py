@@ -5,12 +5,11 @@ import random
 import nltk
 import os
 from typing import List, Tuple
-from preprocessing_utils import find_sublist_in_list
-from preprocessing_file_saver import generate_crossvalidation_folds, save_dataset_splits
-from preprocessing_utils import DatasetNltkTokenizer
+from conversion_utils.preprocessing_utils import find_sublist_in_list
+from conversion_utils.preprocessing_file_saver import generate_crossvalidation_folds, save_dataset_splits
+from conversion_utils.preprocessing_utils import DatasetNltkTokenizer
 import argparse
 import sys
-import pprint
 
 class TimebankDatasetConverter:
     """
@@ -356,7 +355,7 @@ if __name__ == "__main__":
         "--input_filepath_timeml",
         "-it",
         type = str,
-        default = "../original_datasets/timebank/data/timeml",
+        default = "../../original_datasets/timebank/data/timeml",
         help = "Path to the 'timeml' directory of the original TimeBank dataset. This directory contains multiple TML files.",
     )
 
@@ -364,7 +363,7 @@ if __name__ == "__main__":
         "--input_filepath_extra",
         "-ie",
         type = str,
-        default = "../original_datasets/timebank/data/extra",
+        default = "../../original_datasets/timebank/data/extra",
         help = "Path to the 'extra' directory of the original TimeBank dataset. This directory contains multiple TML files.",
     )
 
@@ -372,7 +371,7 @@ if __name__ == "__main__":
         "--output_directory",
         "-o",
         type = str,
-        default = "../entity/my_datasets/jsonlines/timebank_multi",
+        default = "../../entity/my_datasets/jsonlines/timebank_multi",
         help = "The directory for the newly converted dataset files."
     )
 
@@ -440,8 +439,8 @@ if __name__ == "__main__":
         os.makedirs(os.path.abspath(args.output_directory))
 
     converter = TimebankDatasetConverter(
-        input_filepaths_extra=timebank_directory_extra,
-        input_filepaths_timeml=timebank_directory_timeml,
+        input_filepaths_extra=timebank_files_extra,
+        input_filepaths_timeml=timebank_files_timeml,
         output_directory_path=args.output_directory,
         single_entity_class=args.single_class,
         crossvalidation_enabled=args.crossvalidation,

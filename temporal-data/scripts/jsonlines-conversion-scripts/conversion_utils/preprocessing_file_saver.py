@@ -1,7 +1,7 @@
-from preprocessing_utils import slice_list, slice_list_in_equal_parts
+from .preprocessing_utils import slice_list, slice_list_in_equal_parts
 import json
 import os
-from jsonlines_prettyfier import JSONLinesPrettifier
+from .jsonlines_prettyfier import JSONLinesPrettifier
 from typing import List
 
 def generate_crossvalidation_folds(

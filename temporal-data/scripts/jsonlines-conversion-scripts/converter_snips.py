@@ -4,9 +4,9 @@ import json
 import re
 import random
 from typing import List
-from preprocessing_utils import find_sublist_in_list
-from preprocessing_file_saver import save_dataset_splits, generate_crossvalidation_folds
-from preprocessing_utils import DatasetNltkTokenizer
+from conversion_utils.preprocessing_utils import find_sublist_in_list
+from conversion_utils.preprocessing_file_saver import save_dataset_splits, generate_crossvalidation_folds
+from conversion_utils.preprocessing_utils import DatasetNltkTokenizer
 import argparse
 import sys
 import os
