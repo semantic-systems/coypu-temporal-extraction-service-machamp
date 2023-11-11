@@ -250,7 +250,7 @@ if __name__ == "__main__":
         "--input_parent_filepath",
         "-i", 
         type = str,
-        default = "../original_datasets/wikiwars-tagged",
+        default = "../../original_datasets/wikiwars-tagged",
         help = "The tagged WikiWars dataset consists of many TML files in one directory. It is assumed that all TML files are in the same directory. The filepath is expected as the value for the parameter."
     )
 
@@ -258,7 +258,7 @@ if __name__ == "__main__":
         "--output_directory",
         "-o",
         type = str,
-        default = "../entity/my_datasets/jsonlines/wikiwars-tagged_multi",
+        default = "../../entity/my_datasets/jsonlines/wikiwars-tagged_multi",
         help = "The directory for the newly converted dataset files."
     )
 

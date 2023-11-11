@@ -220,7 +220,7 @@ if __name__ == "__main__":
         "--input_filepath_snips",
         "-ifs",
         type = str,
-        default = "../entity/jsonlines/snips_multi/snips-full.jsonlines",
+        default = "../../entity/jsonlines/snips_multi/snips-full.jsonlines",
         help = "Relative path to converted Snips dataset in jsonlines format.",
     )
 
@@ -228,7 +228,7 @@ if __name__ == "__main__":
         "--input_filepath_pate",
         "-ifp",
         type = str,
-        default = "../entity/jsonlines/pate_multi/pate-full.jsonlines",
+        default = "../../entity/jsonlines/pate_multi/pate-full.jsonlines",
         help = "Relative path to converted PATE dataset in jsonlines format.",
     )
 
@@ -236,7 +236,7 @@ if __name__ == "__main__":
         "--output_directory",
         "-o",
         type = str,
-        default = "../entity/my_converted_datasets/jsonlines/fullpate_multi",
+        default = "../../entity/my_converted_datasets/jsonlines/fullpate_multi",
         help = "The directory for the newly converted dataset files."
     )
 

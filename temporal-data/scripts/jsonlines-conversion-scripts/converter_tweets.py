@@ -270,7 +270,7 @@ if __name__ == "__main__":
         "--input_test_filepath",
         "-ite", 
         type = str,
-        default = "../original_datasets/tweets/testset",
+        default = "../../original_datasets/tweets/testset",
         help = "The original Tweets dataset consists of many TML files, which are split into test and training subsets. This parameter expects the testset directory."
     )
 
@@ -278,7 +278,7 @@ if __name__ == "__main__":
         "--input_train_filepath",
         "-itr", 
         type = str,
-        default = "../original_datasets/tweets/trainingset",
+        default = "../../original_datasets/tweets/trainingset",
         help = "The original Tweets dataset consists of many TML files in one directory, which is split into test and training subsets. This parameter expects the trainingset directory."
     )
 
@@ -286,7 +286,7 @@ if __name__ == "__main__":
         "--output_directory",
         "-o",
         type = str,
-        default = "../entity/my_datasets/jsonlines/tweets_multi",
+        default = "../../entity/my_datasets/jsonlines/tweets_multi",
         help = "The directory for the newly converted dataset files."
     )
 

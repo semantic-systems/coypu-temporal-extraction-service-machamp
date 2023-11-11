@@ -193,7 +193,7 @@ if __name__ == "__main__":
         "--input_filepaths",
         "--i", 
         nargs='+', 
-        default=["../original_datasets/pate_and_snips/snips_train.json", "../original_datasets/pate_and_snips/snips_valid.json"],
+        default=["../../original_datasets/pate_and_snips/snips_train.json", "../original_datasets/pate_and_snips/snips_valid.json"],
         help = "The original Snips dataset may consist of multiple input files. Each of the filepaths needs to be passed."
     )
 
@@ -201,7 +201,7 @@ if __name__ == "__main__":
         "--output_directory",
         "-o",
         type = str,
-        default = "../entity/my_datasets/jsonlines/fullpate_multi",
+        default = "../../entity/my_datasets/jsonlines/fullpate_multi",
         help = "The directory for the newly converted dataset files."
     )
 

@@ -165,7 +165,7 @@ if __name__ == "__main__":
         "--input_filepath_timebank",
         "-it",
         type = str,
-        default = "../entity/jsonlines/timebank_multi/timebank-full.jsonlines",
+        default = "../../entity/jsonlines/timebank_multi/timebank-full.jsonlines",
         help = "Relative path to converted TimeBank dataset in jsonlines format.",
     )
 
@@ -173,7 +173,7 @@ if __name__ == "__main__":
         "--input_filepath_aquaint",
         "-ia",
         type = str,
-        default = "../entity/jsonlines/aquaint_multi/aquaint-full.jsonlines",
+        default = "../../entity/jsonlines/aquaint_multi/aquaint-full.jsonlines",
         help = "Relative path to converted AQUAINT dataset in jsonlines format.",
     )
 
@@ -181,7 +181,7 @@ if __name__ == "__main__":
         "--output_directory",
         "-o",
         type = str,
-        default = "../entity/my_converted_datasets/jsonlines/tempeval_multi",
+        default = "../../entity/my_converted_datasets/jsonlines/tempeval_multi",
         help = "The directory for the newly converted dataset files."
     )
 

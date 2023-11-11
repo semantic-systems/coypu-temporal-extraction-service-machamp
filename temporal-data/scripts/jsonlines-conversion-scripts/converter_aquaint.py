@@ -283,7 +283,7 @@ if __name__ == "__main__":
         "--input_filepaths",
         "-i", 
         nargs='+', 
-        default=["../original_datasets/aquaint"],
+        default=["../../original_datasets/aquaint"],
         help = "The original AQUAINT dataset may consist of multiple input files, which might be in different directories. Each of the parent directory filepaths needs to be passed."
     )
 
@@ -291,7 +291,7 @@ if __name__ == "__main__":
         "--output_directory",
         "-o",
         type = str,
-        default = "../entity/my_datasets/jsonlines/aquaint_multi",
+        default = "../../entity/my_datasets/jsonlines/aquaint_multi",
         help = "The directory for the newly converted dataset files."
     )
 
