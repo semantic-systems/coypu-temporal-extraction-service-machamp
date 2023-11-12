@@ -1,0 +1,13 @@
+data_class: TEMPEVALENTITY
+language: en
+mapper:
+  date: date
+  duration: duration
+  set: set
+  time: time
+name: timebank_multi_fold_9
+path: /export/home/4kirsano/temporal-extraction/temporal-data/relation/my_converted_datasets/timebank/folds/fold_9
+split:
+  test: timebank-test.jsonlines
+  train: timebank-train.jsonlines
+  val: timebank-val.jsonlines

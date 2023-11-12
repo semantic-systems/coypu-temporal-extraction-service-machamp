@@ -1,0 +1,21 @@
+data_class: TEMPEVALRELATION
+language: en
+mapper:
+  date: date
+  duration: duration
+  event-aspectual: event-aspectual
+  event-empty: event-empty
+  event-i-action: event-i-action
+  event-i-state: event-i-state
+  event-occurrence: event-occurrence
+  event-perception: event-perception
+  event-reporting: event-reporting
+  event-state: event-state
+  set: set
+  time: time
+name: timebank_multi_fold_0
+path: /export/home/4kirsano/temporal-extraction/temporal-data/relation/my_converted_datasets/timebank/folds/fold_0
+split:
+  test: timebank-test.jsonlines
+  train: timebank-train.jsonlines
+  val: timebank-val.jsonlines

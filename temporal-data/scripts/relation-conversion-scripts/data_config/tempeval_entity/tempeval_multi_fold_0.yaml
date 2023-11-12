@@ -1,0 +1,13 @@
+data_class: TEMPEVALENTITY
+language: en
+mapper:
+  date: date
+  duration: duration
+  set: set
+  time: time
+name: tempeval_multi_fold_0
+path: /export/home/4kirsano/temporal-extraction/temporal-data/relation/my_converted_datasets/tempeval/folds/fold_0
+split:
+  test: tempeval-test.jsonlines
+  train: tempeval-train.jsonlines
+  val: tempeval-val.jsonlines

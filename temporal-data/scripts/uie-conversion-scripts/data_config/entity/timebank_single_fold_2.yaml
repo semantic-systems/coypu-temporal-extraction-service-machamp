@@ -1,0 +1,10 @@
+data_class: TIMEBANK
+language: en
+mapper:
+  tempexp: tempexp
+name: timebank_single_fold_2
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/timebank_single/folds/fold_2
+split:
+  test: timebank-test.jsonlines
+  train: timebank-train.jsonlines
+  val: timebank-val.jsonlines

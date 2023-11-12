@@ -1,0 +1,13 @@
+data_class: TIMEBANK
+language: en
+mapper:
+  date: date
+  duration: duration
+  set: set
+  time: time
+name: timebank_multi_fold_4
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/timebank_multi/folds/fold_4
+split:
+  test: timebank-test.jsonlines
+  train: timebank-train.jsonlines
+  val: timebank-val.jsonlines

@@ -1,0 +1,35 @@
+data_class: TEMPEVALRELATION
+language: en
+mapper:
+  after: after
+  before: before
+  begins: begins
+  begun-by: begun-by
+  date: date
+  duration: duration
+  during: during
+  during-inv: during-inv
+  ended-by: ended-by
+  ends: ends
+  event-aspectual: event-aspectual
+  event-empty: event-empty
+  event-i-action: event-i-action
+  event-i-state: event-i-state
+  event-occurrence: event-occurrence
+  event-perception: event-perception
+  event-reporting: event-reporting
+  event-state: event-state
+  iafter: iafter
+  ibefore: ibefore
+  identity: identity
+  includes: includes
+  is-included: is-included
+  set: set
+  simultaneous: simultaneous
+  time: time
+name: aquaint_relation_fold_4
+path: /export/home/4kirsano/temporal-extraction/temporal-data/relation/my_converted_datasets/aquaint/folds/fold_4
+split:
+  test: aquaint-test.jsonlines
+  train: aquaint-train.jsonlines
+  val: aquaint-val.jsonlines

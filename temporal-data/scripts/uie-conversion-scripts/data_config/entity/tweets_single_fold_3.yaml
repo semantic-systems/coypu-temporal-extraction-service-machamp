@@ -1,0 +1,10 @@
+data_class: TWEETS
+language: en
+mapper:
+  tempexp: tempexp
+name: tweets_single_fold_3
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/tweets_single/folds/fold_3
+split:
+  test: tweets-test.jsonlines
+  train: tweets-train.jsonlines
+  val: tweets-val.jsonlines

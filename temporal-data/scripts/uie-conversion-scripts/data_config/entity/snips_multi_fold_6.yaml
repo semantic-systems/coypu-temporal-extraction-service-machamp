@@ -1,0 +1,13 @@
+data_class: SNIPS
+language: en
+mapper:
+  date: date
+  duration: duration
+  set: set
+  time: time
+name: snips_multi_fold_6
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/snips_multi/folds/fold_6
+split:
+  test: snips-test.jsonlines
+  train: snips-train.jsonlines
+  val: snips-val.jsonlines

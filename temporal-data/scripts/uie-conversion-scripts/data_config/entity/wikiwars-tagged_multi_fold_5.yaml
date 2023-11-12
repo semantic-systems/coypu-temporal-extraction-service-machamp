@@ -1,0 +1,13 @@
+data_class: WIKIWARSTAGGED
+language: en
+mapper:
+  date: date
+  duration: duration
+  set: set
+  time: time
+name: wikiwars-tagged_multi_fold_5
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/wikiwars-tagged_multi/folds/fold_5
+split:
+  test: wikiwars-tagged-test.jsonlines
+  train: wikiwars-tagged-train.jsonlines
+  val: wikiwars-tagged-val.jsonlines

@@ -1,0 +1,13 @@
+data_class: FULLPATE
+language: en
+mapper:
+  date: date
+  duration: duration
+  set: set
+  time: time
+name: fullpate_multi_fold_3
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/fullpate_multi/folds/fold_3
+split:
+  test: fullpate-test.jsonlines
+  train: fullpate-train.jsonlines
+  val: fullpate-val.jsonlines

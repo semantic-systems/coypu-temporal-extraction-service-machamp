@@ -1,0 +1,10 @@
+data_class: TEMPEVAL
+language: en
+mapper:
+  tempexp: tempexp
+name: tempeval_single_fold_3
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/tempeval_single/folds/fold_3
+split:
+  test: tempeval-test.jsonlines
+  train: tempeval-train.jsonlines
+  val: tempeval-val.jsonlines

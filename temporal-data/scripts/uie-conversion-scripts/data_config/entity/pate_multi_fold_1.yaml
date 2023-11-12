@@ -1,0 +1,13 @@
+data_class: PATE
+language: en
+mapper:
+  date: date
+  duration: duration
+  set: set
+  time: time
+name: pate_multi_fold_1
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/pate_multi/folds/fold_1
+split:
+  test: pate-test.jsonlines
+  train: pate-train.jsonlines
+  val: pate-val.jsonlines

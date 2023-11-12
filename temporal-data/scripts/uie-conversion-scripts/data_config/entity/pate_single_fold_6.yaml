@@ -1,0 +1,10 @@
+data_class: PATE
+language: en
+mapper:
+  tempexp: tempexp
+name: pate_single_fold_6
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/pate_single/folds/fold_6
+split:
+  test: pate-test.jsonlines
+  train: pate-train.jsonlines
+  val: pate-val.jsonlines

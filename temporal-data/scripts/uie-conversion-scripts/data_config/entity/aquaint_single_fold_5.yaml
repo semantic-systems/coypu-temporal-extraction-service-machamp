@@ -1,0 +1,10 @@
+data_class: AQUAINT
+language: en
+mapper:
+  tempexp: tempexp
+name: aquaint_single_fold_5
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/aquaint_single/folds/fold_5
+split:
+  test: aquaint-test.jsonlines
+  train: aquaint-train.jsonlines
+  val: aquaint-val.jsonlines

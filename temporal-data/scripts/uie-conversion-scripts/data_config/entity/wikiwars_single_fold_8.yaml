@@ -1,0 +1,10 @@
+data_class: WIKIWARS
+language: en
+mapper:
+  tempexp: tempexp
+name: wikiwars_single_fold_8
+path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/wikiwars_single/folds/fold_8
+split:
+  test: wikiwars-test.jsonlines
+  train: wikiwars-train.jsonlines
+  val: wikiwars-val.jsonlines
