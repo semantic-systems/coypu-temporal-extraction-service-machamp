@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # -*- coding:utf-8 -*-
 export batch_size="16"
-export model_name=uie-large-en
+export model_name=uie-base-en
 export data_name=absa/14lap
 export task_name="meta"
 export decoding_format='spotasoc'
