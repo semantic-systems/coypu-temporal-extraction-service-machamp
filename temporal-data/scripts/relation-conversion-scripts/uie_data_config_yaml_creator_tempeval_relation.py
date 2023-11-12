@@ -1,5 +1,6 @@
 import yaml
 import os
+import argparse
 
 class UIETempevalRelationDataConfigYamlCreator:
     def __init__(self, input_directory_paths, dataset_type, output_directory_path, do_crossvalidation, dataclass, type_mapper):
@@ -19,7 +20,7 @@ class UIETempevalRelationDataConfigYamlCreator:
             yaml_filename = f"{dataset_name}_{dataset_type}.yaml"
             yaml_data = {
                 "name": f"{dataset_name}_{dataset_type}",
-                "path": f"{directory_path}",
+                "path": f"{os.path.abspath(directory_path)}",
                 "data_class": dataclass,
                 "split": {
                     "train": f"{dataset_name}-train.jsonlines",
@@ -44,7 +45,7 @@ class UIETempevalRelationDataConfigYamlCreator:
                         yaml_filename = f"{dataset_name}_{dataset_type}_{fold}.yaml"
                         yaml_data = {
                             "name": f"{dataset_name}_{dataset_type}_{fold}",
-                            "path": f"{fold_path}",
+                            "path": f"{os.path.abspath(fold_path)}",
                             "data_class": dataclass,
                             "split": {
                                 "train": f"{dataset_name}-train.jsonlines",
@@ -67,192 +68,257 @@ class UIETempevalRelationDataConfigYamlCreator:
 
 
 if __name__ == "__main__":
-    dirpath_prefix = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted"
-    dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in ["timebank_multi", "aquaint_multi", "tempeval_multi"]]
-    dataset_root_dirs.sort(reverse=True)
-
-    print("Found the following datasets:")
-    [print(dataset_name) for dataset_name in dataset_root_dirs]
-    print("\n" * 3)
-
-    output_directory_path = "/export/home/4kirsano/uie/dataset_processing/data_config/tempeval_entity"
-
-    dataset_dataclass = "TEMPEVALENTITY"
-
-    yaml_temporal_type_mappers = {
-        "timex-date": "timex-date",
-        "timex-time": "timex-time",
-        "timex-duration": "timex-duration",
-        "timex-set": "timex-set"
-    }
-
-    yaml_creator = UIETempevalRelationDataConfigYamlCreator(
-        input_directory_paths = dataset_root_dirs,
-        dataset_type = "multi",
-        output_directory_path = output_directory_path,
-        do_crossvalidation = True,
-        dataclass = dataset_dataclass,
-        type_mapper = yaml_temporal_type_mappers
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--input_base_directory_path",
+        "-i",
+        type = str,
+        default = "../../relation/my_converted_datasets",
+        help = "Path to the base directory which contains all the converted datasets in jsonline format.",
     )
+
+    parser.add_argument(
+        "--root_directories",
+        "-r", 
+        nargs='+', 
+        default=["timebank", "aquaint", "tempeval"],
+        help = "The names of the relation-dataset-root-directories."
+    )
+
+    parser.add_argument(
+        "--output_directory",
+        "-o",
+        type = str,
+        default = "data_config/relation_configs",
+        help = "The directory for the newly converted data-config files."
+    )
+
+    parser.add_argument(
+        "--crossvalidation",
+        "-c",
+        action = "store_true",
+        help = "Wether to generate data-config files for the crossvalidation folds or not."
+    )
+
+    parser.add_argument(
+        "--single_class",
+        "-s",
+        action = "store_true",
+        help = "Wether to have the four timex3 temporal classes or only a single generic one."
+    )
+
+    parser.add_argument(
+        "--create_entity",
+        "-cen",
+        action = "store_true",
+        help = "Wether to generate data-config files for the entity data."
+    )
+
+    parser.add_argument(
+        "--create_relation",
+        "-cre",
+        action = "store_true",
+        help = "Wether to generate data-config files for the relation data."
+    )
+
+    parser.add_argument(
+        "--create_event",
+        "-cev",
+        action = "store_true",
+        help = "Wether to generate data-config files for the event data."
+    )
+    args = parser.parse_args()
+
+    dataset_root_directories = args.root_directories
+
+
+    if args.create_entity and not args.single_class:
+        dirpath_prefix = args.input_base_directory_path
+        dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in dataset_root_directories]
+        dataset_root_dirs.sort(reverse=True)
+
+        print("Found the following datasets:")
+        [print(dataset_name) for dataset_name in dataset_root_dirs]
+        print("\n" * 3)
+
+        output_directory_path = os.path.join(args.output_directory, "tempeval_entity")
+
+        dataset_dataclass = "TEMPEVALENTITY"
+
+        yaml_temporal_type_mappers = {
+            "date": "date",
+            "time": "time",
+            "duration": "duration",
+            "set": "set"
+        }
+
+        yaml_creator = UIETempevalRelationDataConfigYamlCreator(
+            input_directory_paths = dataset_root_dirs,
+            dataset_type = "multi",
+            output_directory_path = output_directory_path,
+            do_crossvalidation = args.crossvalidation,
+            dataclass = dataset_dataclass,
+            type_mapper = yaml_temporal_type_mappers
+        )
 
 
     #-----------------------------------------------------------------------------------------------------------------
 
+    if args.create_entity and args.single_class:
+        dirpath_prefix = args.input_base_directory_path
+        dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in dataset_root_directories]
+        dataset_root_dirs.sort(reverse=True)
 
-    dirpath_prefix = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/converted"
-    dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in ["timebank_single", "aquaint_single", "tempeval_single"]]
-    dataset_root_dirs.sort(reverse=True)
+        print("Found the following datasets:")
+        [print(dataset_name) for dataset_name in dataset_root_dirs]
+        print("\n" * 3)
 
-    print("Found the following datasets:")
-    [print(dataset_name) for dataset_name in dataset_root_dirs]
-    print("\n" * 3)
+        output_directory_path = os.path.join(args.output_directory, "tempeval_entity")
 
-    output_directory_path = "/export/home/4kirsano/uie/dataset_processing/data_config/tempeval_entity"
+        dataset_dataclass = "TEMPEVALENTITY"
 
-    dataset_dataclass = "TEMPEVALENTITY"
+        yaml_temporal_type_mappers = {
+            "tempexp": "tempexp",
+        }
 
-    yaml_temporal_type_mappers = {
-        "tempexp": "tempexp",
-    }
-
-    yaml_creator = UIETempevalRelationDataConfigYamlCreator(
-        input_directory_paths = dataset_root_dirs,
-        dataset_type = "single",
-        output_directory_path = output_directory_path,
-        do_crossvalidation = True,
-        dataclass = dataset_dataclass,
-        type_mapper = yaml_temporal_type_mappers
-    )
+        yaml_creator = UIETempevalRelationDataConfigYamlCreator(
+            input_directory_paths = dataset_root_dirs,
+            dataset_type = "single",
+            output_directory_path = output_directory_path,
+            do_crossvalidation = args.crossvalidation,
+            dataclass = dataset_dataclass,
+            type_mapper = yaml_temporal_type_mappers
+        )
 
 
     #-----------------------------------------------------------------------------------------------------------------
     
+    if args.create_relation and not args.single_class:
+        dirpath_prefix = args.input_base_directory_path
+        dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in dataset_root_directories]
+        dataset_root_dirs.sort(reverse=True)
 
-    dirpath_prefix = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/temporal_relation"
-    dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in ["timebank", "aquaint", "tempeval"]]
-    dataset_root_dirs.sort(reverse=True)
+        print("Found the following datasets:")
+        [print(dataset_name) for dataset_name in dataset_root_dirs]
+        print("\n" * 3)
 
-    print("Found the following datasets:")
-    [print(dataset_name) for dataset_name in dataset_root_dirs]
-    print("\n" * 3)
+        output_directory_path = os.path.join(args.output_directory, "tempeval_relation")
 
-    output_directory_path = "/export/home/4kirsano/uie/dataset_processing/data_config/tempeval_relation"
+        dataset_dataclass = "TEMPEVALRELATION"
 
-    dataset_dataclass = "TEMPEVALRELATION"
+        type_mapper = {
+            "date": "date",
+            "duration": "duration",
+            "set": "set",
+            "time": "time",
+            "event-occurrence": "event-occurrence",
+            "event-reporting": "event-reporting",
+            "event-state": "event-state",
+            "event-i-action": "event-i-action",
+            "event-i-state": "event-i-state",
+            "event-aspectual": "event-aspectual",
+            "event-perception": "event-perception",
+            "event-empty": "event-empty",
+            "before": "before",
+            "is-included": "is-included",
+            "after": "after",
+            "includes": "includes",
+            "simultaneous": "simultaneous",
+            "identity": "identity",
+            "during": "during",
+            "ended-by": "ended-by",
+            "begins": "begins",
+            "ends": "ends",
+            "begun-by": "begun-by",
+            "iafter": "iafter",
+            "ibefore": "ibefore",
+            "during-inv": "during-inv",
+        }
 
-    type_mapper = {
-        "timex-date": "timex-date",
-        "timex-duration": "timex-duration",
-        "timex-set": "timex-set",
-        "timex-time": "timex-time",
-        "event-occurrence": "event-occurrence",
-        "event-reporting": "event-reporting",
-        "event-state": "event-state",
-        "event-i-action": "event-i-action",
-        "event-i-state": "event-i-state",
-        "event-aspectual": "event-aspectual",
-        "event-perception": "event-perception",
-        "event-empty": "event-empty",
-        "before": "before",
-        "is-included": "is-included",
-        "after": "after",
-        "includes": "includes",
-        "simultaneous": "simultaneous",
-        "identity": "identity",
-        "during": "during",
-        "ended-by": "ended-by",
-        "begins": "begins",
-        "ends": "ends",
-        "begun-by": "begun-by",
-        "iafter": "iafter",
-        "ibefore": "ibefore",
-        "during-inv": "during-inv",
-    }
-
-    yaml_creator = UIETempevalRelationDataConfigYamlCreator(
-        input_directory_paths = dataset_root_dirs,
-        dataset_type = "relation",
-        output_directory_path = output_directory_path,
-        do_crossvalidation = True,
-        dataclass = dataset_dataclass,
-        type_mapper = type_mapper
-    )
+        yaml_creator = UIETempevalRelationDataConfigYamlCreator(
+            input_directory_paths = dataset_root_dirs,
+            dataset_type = "relation",
+            output_directory_path = output_directory_path,
+            do_crossvalidation = args.crossvalidation,
+            dataclass = dataset_dataclass,
+            type_mapper = type_mapper
+        )
 
 
     #-----------------------------------------------------------------------------------------------------------------
     
-
     #Events = TIMEX + EVENT
-    dirpath_prefix = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/temporal_event"
-    dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in ["timebank_multi", "aquaint_multi", "tempeval_multi"]]
-    dataset_root_dirs.sort(reverse=True)
+    if args.create_event and not args.single_class:
+        dirpath_prefix = args.input_base_directory_path
+        dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in dataset_root_directories]
+        dataset_root_dirs.sort(reverse=True)
 
-    print("Found the following datasets:")
-    [print(dataset_name) for dataset_name in dataset_root_dirs]
-    print("\n" * 3)
+        print("Found the following datasets:")
+        [print(dataset_name) for dataset_name in dataset_root_dirs]
+        print("\n" * 3)
 
-    output_directory_path = "/export/home/4kirsano/uie/dataset_processing/data_config/tempeval_event"
+        output_directory_path = os.path.join(args.output_directory, "tempeval_event")
 
-    dataset_dataclass = "TEMPEVALRELATION"
+        dataset_dataclass = "TEMPEVALRELATION"
 
-    type_mapper = {
-        "timex-date": "timex-date",
-        "timex-duration": "timex-duration",
-        "timex-set": "timex-set",
-        "timex-time": "timex-time",
-        "event-occurrence": "event-occurrence",
-        "event-reporting": "event-reporting",
-        "event-state": "event-state",
-        "event-i-action": "event-i-action",
-        "event-i-state": "event-i-state",
-        "event-aspectual": "event-aspectual",
-        "event-perception": "event-perception",
-        "event-empty": "event-empty",
-    }
+        type_mapper = {
+            "date": "date",
+            "duration": "duration",
+            "set": "set",
+            "time": "time",
+            "event-occurrence": "event-occurrence",
+            "event-reporting": "event-reporting",
+            "event-state": "event-state",
+            "event-i-action": "event-i-action",
+            "event-i-state": "event-i-state",
+            "event-aspectual": "event-aspectual",
+            "event-perception": "event-perception",
+            "event-empty": "event-empty",
+        }
 
-    yaml_creator = UIETempevalRelationDataConfigYamlCreator(
-        input_directory_paths = dataset_root_dirs,
-        dataset_type = "multi",
-        output_directory_path = output_directory_path,
-        do_crossvalidation = True,
-        dataclass = dataset_dataclass,
-        type_mapper = type_mapper
-    )
+        yaml_creator = UIETempevalRelationDataConfigYamlCreator(
+            input_directory_paths = dataset_root_dirs,
+            dataset_type = "multi",
+            output_directory_path = output_directory_path,
+            do_crossvalidation = args.crossvalidation,
+            dataclass = dataset_dataclass,
+            type_mapper = type_mapper
+        )
 
 
     #-----------------------------------------------------------------------------------------------------------------
     
-
     #Events = TIMEX + EVENT
-    dirpath_prefix = "/export/home/4kirsano/uie/dataset_processing/data/my_datasets/temporal_event"
-    dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in ["timebank_single", "aquaint_single", "tempeval_single"]]
-    dataset_root_dirs.sort(reverse=True)
+    if args.create_event and args.single_class:
+        dirpath_prefix = args.input_base_directory_path
+        dataset_root_dirs = [os.path.join(dirpath_prefix, path) for path in dataset_root_directories]
+        dataset_root_dirs.sort(reverse=True)
 
-    print("Found the following datasets:")
-    [print(dataset_name) for dataset_name in dataset_root_dirs]
-    print("\n" * 3)
+        print("Found the following datasets:")
+        [print(dataset_name) for dataset_name in dataset_root_dirs]
+        print("\n" * 3)
 
-    output_directory_path = "/export/home/4kirsano/uie/dataset_processing/data_config/tempeval_event"
+        output_directory_path = os.path.join(args.output_directory, "tempeval_event")
 
-    dataset_dataclass = "TEMPEVALRELATION"
+        dataset_dataclass = "TEMPEVALRELATION"
 
-    type_mapper = {
-        "tempexp": "tempexp",
-        "event-occurrence": "event-occurrence",
-        "event-reporting": "event-reporting",
-        "event-state": "event-state",
-        "event-i-action": "event-i-action",
-        "event-i-state": "event-i-state",
-        "event-aspectual": "event-aspectual",
-        "event-perception": "event-perception",
-        "event-empty": "event-empty",
-    }
+        type_mapper = {
+            "tempexp": "tempexp",
+            "event-occurrence": "event-occurrence",
+            "event-reporting": "event-reporting",
+            "event-state": "event-state",
+            "event-i-action": "event-i-action",
+            "event-i-state": "event-i-state",
+            "event-aspectual": "event-aspectual",
+            "event-perception": "event-perception",
+            "event-empty": "event-empty",
+        }
 
-    yaml_creator = UIETempevalRelationDataConfigYamlCreator(
-        input_directory_paths = dataset_root_dirs,
-        dataset_type = "single",
-        output_directory_path = output_directory_path,
-        do_crossvalidation = True,
-        dataclass = dataset_dataclass,
-        type_mapper = type_mapper
-    )
+        yaml_creator = UIETempevalRelationDataConfigYamlCreator(
+            input_directory_paths = dataset_root_dirs,
+            dataset_type = "single",
+            output_directory_path = output_directory_path,
+            do_crossvalidation = args.crossvalidation,
+            dataclass = dataset_dataclass,
+            type_mapper = type_mapper
+        )
