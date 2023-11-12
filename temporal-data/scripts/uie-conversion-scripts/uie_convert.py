@@ -10,6 +10,7 @@ from universal_ie.generation_format import generation_format_dict
 from universal_ie.generation_format.structure_marker import BaseStructureMarker
 from universal_ie.dataset import Dataset
 from universal_ie.ie_format import Sentence
+import argparse
 
 
 def convert_graph(
@@ -171,15 +172,31 @@ def convert_to_oneie(output_folder: str, datasets: Dict[str, List[Sentence]]):
 
 
 def main():
-    import argparse
-
     parser = argparse.ArgumentParser()
-    parser.add_argument("-format", dest="generation_format", default="spotasoc")
-    parser.add_argument("-config", dest="config", default="data_config/relation")
-    parser.add_argument("-output", dest="output", default="relation")
+    parser.add_argument(
+        "-format",
+        dest="generation_format",
+        default="spotasoc",
+        help="The UIE generation format defines how the converter assumes the data to be. It should remain on 'spotasoc' for temporal extraction."
+    )
+
+    parser.add_argument(
+        "-config", 
+        dest="config", 
+        default="data_config/entity",
+        help="Path of the directory that contains all the configuration files."
+    )
+
+    parser.add_argument(
+        "-output", 
+        dest="output", 
+        default="../../entity/my_converted_datasets/uie",
+        help="The path to the output base directory."
+    )
     options = parser.parse_args()
 
     generation_class = generation_format_dict.get(options.generation_format)
+
 
     if os.path.isfile(options.config):
         config_list = [options.config]
@@ -194,10 +211,7 @@ def main():
         datasets = dataset.load_dataset()
         label_mapper = dataset.mapper
 
-        output_name = (
-            f"converted_data/text2{options.generation_format}/{options.output}/"
-            + dataset.name
-        )
+        output_name = os.path.join(options.output, dataset.name)
 
         if generation_class:
             convert_graph(
