@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 from collections import defaultdict
 from copy import deepcopy
-from typing import Dict, List
+from typing import Dict, List, Tuple, Set
 import sys
 
 
@@ -11,7 +11,6 @@ def tuple_offset(offset):
         return offset
     else:
         return tuple(offset)
-
 
 class Metric:
     """ Tuple Metric """
@@ -80,6 +79,110 @@ class Metric:
         for gold_list, pred_list in zip(batch_gold_list, batch_pred_list):
             self.count_instance(gold_list=gold_list, pred_list=pred_list)
 
+
+class TemporalMetric(Metric):
+    def __init__(self, temporal_entity_type, verbose=False, match_mode='normal'):
+        super().__init__(verbose, match_mode) 
+        self.temporal_entity_type = temporal_entity_type
+
+    def _is_rleaxed_span_match_offset(self, pred, gold_list):
+        is_relaxed_match = False
+        pred_offset = pred[1]
+        for index, gold in enumerate(gold_list):
+            gold_offset = gold[1]
+            for p_o in pred_offset:
+                for g_o in gold_offset:
+                    if p_o == g_o:
+                        is_relaxed_match = True
+                        return is_relaxed_match, index
+        index = -1
+        return is_relaxed_match, index
+    
+    def _is_rleaxed_span_match_string(self, pred, gold_list):
+        is_relaxed_match = False
+        pred_string = pred[1]
+        pred_string_split = pred_string.split(" ")
+        for index, gold in enumerate(gold_list):
+            gold_string = gold[1]
+            gold_string_split = gold_string.split(" ")
+            for p_o in pred_string_split:
+                for g_o in gold_string_split:
+                    if p_o == g_o:
+                        is_relaxed_match = True
+                        return is_relaxed_match, index
+        index = -1
+        return is_relaxed_match, index
+
+    def count_instance_for_type(self, gold_list, pred_list, eval_type, metric):
+        is_misclassified = False
+        for gold in gold_list:
+            if gold[0] == self.temporal_entity_type or self.temporal_entity_type == "total":
+                self.gold_num += 1
+        for pred in pred_list:
+            if pred[0] == self.temporal_entity_type or self.temporal_entity_type == "total":
+                self.pred_num += 1
+
+        dup_gold_list = deepcopy(gold_list)
+        if eval_type == "strict_span":
+            if (self.temporal_entity_type == "total"):
+                for pred in pred_list:
+                    pred_metric = pred[1]
+                    for gold in dup_gold_list:
+                        gold_metric = gold[1]
+                        if pred_metric == gold_metric:
+                                self.tp += 1
+                                dup_gold_list.remove(gold)
+                                break
+                    else:
+                        is_misclassified = True
+        elif eval_type == "relaxed_span":
+            if (self.temporal_entity_type == "total"):
+                for pred in pred_list:
+                    if metric == "offset":
+                        is_relaxed_match, index = self._is_rleaxed_span_match_offset(pred, dup_gold_list)
+                    elif metric == "string":
+                        is_relaxed_match, index = self._is_rleaxed_span_match_string(pred, dup_gold_list)
+                    else:
+                        raise NotImplementedError(f"Metric {metric} not implemented")
+                    
+                    if is_relaxed_match: 
+                            self.tp += 1
+                            del dup_gold_list[index]
+                    else:
+                        is_misclassified = True
+        elif eval_type == "strict_typespan":
+            for pred in pred_list:
+                if pred in dup_gold_list:
+                    if pred[0] == self.temporal_entity_type or self.temporal_entity_type == "total":
+                        self.tp += 1
+                        dup_gold_list.remove(pred)
+                elif pred[0] == self.temporal_entity_type or self.temporal_entity_type == "total":
+                    is_misclassified = True
+        elif eval_type == "relaxed_typespan":
+            for pred in pred_list:
+                if metric == "offset":
+                    is_relaxed_match, index = self._is_rleaxed_span_match_offset(pred, dup_gold_list)
+                elif metric == "string":
+                    is_relaxed_match, index = self._is_rleaxed_span_match_string(pred, dup_gold_list)
+                else:
+                    raise NotImplementedError(f"Metric {metric} not implemented")
+                
+                if is_relaxed_match: 
+                    if pred[0] == self.temporal_entity_type or self.temporal_entity_type == "total":
+                        if pred[0] == dup_gold_list[index][0]:
+                            self.tp += 1
+                            del dup_gold_list[index]
+
+                elif pred[0] == self.temporal_entity_type or self.temporal_entity_type == "total":
+                    is_misclassified = True
+        else:
+            raise NotImplementedError(f"Eval Type {eval_type} doesn't exist.")
+        
+        if self.temporal_entity_type == "total" and len(gold_list) > len(pred_list):
+            is_misclassified = True
+
+        return is_misclassified
+    
 
 class RecordMetric(Metric):
     """ 不考虑不同 Role 之间的顺序，例如事件论元"""
@@ -281,6 +384,126 @@ class EntityScorer(Scorer):
             results.update(metrics[eval_key].compute_f1(prefix=eval_key + '-ent-'))
 
         return results
+    
+
+class TemporalTypeScorer(EntityScorer):
+    @staticmethod
+    def eval_instance_list(gold_instance_list: List[Dict], pred_instance_list: List[Dict], verbose=False, match_mode='normal'):
+        def generate_metrics(metric_type):
+            val = {
+                'offset': TemporalMetric(temporal_entity_type = metric_type, verbose=verbose, match_mode=match_mode),
+                'string': TemporalMetric(temporal_entity_type = metric_type, verbose=verbose, match_mode=match_mode),
+            }
+            return val 
+        
+        def initiate_metrics():
+            total_metrics = generate_metrics("total")
+            tempexp_metrics = generate_metrics("tempexp")
+            date_metrics = generate_metrics("date")
+            time_metrics = generate_metrics("time")
+            duration_metrics = generate_metrics("duration")
+            set_metrics = generate_metrics("set")
+
+            metrics = {
+                "total": total_metrics,
+                "tempexp": tempexp_metrics,
+                "date": date_metrics,
+                "time": time_metrics,
+                "duration": duration_metrics,
+                "set": set_metrics
+            }
+
+            #Saves all indexes of misclassifications
+            negative_cases: Dict[str, Set[int]] = {
+                "total": set(),
+                "tempexp": set(),
+                "date": set(),
+                "time": set(),
+                "duration": set(),
+                "set": set()
+            }
+            return metrics, negative_cases
+
+        strict_typespan, strict_typespan_negative_cases = initiate_metrics()
+        strict_span, strict_span_negative_cases = initiate_metrics()
+        relaxed_typespan, relaxed_typespan_negative_cases = initiate_metrics()
+        relaxed_span, relaxed_span_negative_cases = initiate_metrics()
+
+        for i, (pred, gold) in enumerate(zip(pred_instance_list, gold_instance_list)):
+            for entity_type, metric in strict_typespan.items():
+                for eval_key in metric:
+                    is_misclassified = metric[eval_key].count_instance_for_type(
+                        gold_list=gold.get(eval_key, []),
+                        pred_list=pred.get(eval_key, []),
+                        eval_type = "strict_typespan",
+                        metric = eval_key
+                    )
+
+                    if is_misclassified:
+                        strict_typespan_negative_cases[entity_type].add(i)
+
+            for entity_type, metric in strict_span.items():
+                for eval_key in metric:
+                    is_misclassified = metric[eval_key].count_instance_for_type(
+                        gold_list=gold.get(eval_key, []),
+                        pred_list=pred.get(eval_key, []),
+                        eval_type = "strict_span",
+                        metric = eval_key
+                    )
+
+                    if is_misclassified:
+                        strict_span_negative_cases[entity_type].add(i)
+
+            for entity_type, metric in relaxed_typespan.items():
+                for eval_key in metric:
+                    is_misclassified = metric[eval_key].count_instance_for_type(
+                        gold_list=gold.get(eval_key, []),
+                        pred_list=pred.get(eval_key, []),
+                        eval_type = "relaxed_typespan",
+                        metric = eval_key
+                    )
+
+                    if is_misclassified:
+                        relaxed_typespan_negative_cases[entity_type].add(i)
+
+            for entity_type, metric in relaxed_span.items():
+                for eval_key in metric:
+                    is_misclassified = metric[eval_key].count_instance_for_type(
+                        gold_list=gold.get(eval_key, []),
+                        pred_list=pred.get(eval_key, []),
+                        eval_type = "relaxed_span",
+                        metric = eval_key
+                    )
+
+                    if is_misclassified:
+                        relaxed_span_negative_cases[entity_type].add(i)
+
+        all_pairs = {}
+        for entity_type, metric in strict_typespan.items():
+            all_pairs["strict_typespan_" + entity_type] = metric
+        for entity_type, metric in strict_span.items():
+            all_pairs["strict_span_" + entity_type] = metric
+        for entity_type, metric in relaxed_typespan.items():
+            all_pairs["relaxed_typespan_" + entity_type] = metric
+        for entity_type, metric in relaxed_span.items():
+            all_pairs["relaxed_span_" + entity_type] = metric
+
+        results = dict()
+        for entity_type, metric in all_pairs.items():
+            for eval_key in metric:
+                results.update(metric[eval_key].compute_f1(prefix=entity_type + '_' + eval_key + '_'))
+
+        all_errors = {}
+        for error_type, negative_cases in strict_typespan_negative_cases.items():
+            all_errors["strict_typespan_" + error_type] = negative_cases
+        for error_type, negative_cases in strict_span_negative_cases.items():
+            all_errors["strict_span_" + error_type] = negative_cases
+        for error_type, negative_cases in relaxed_typespan_negative_cases.items():
+            all_errors["relaxed_typespan_" + error_type] = negative_cases
+        for error_type, negative_cases in relaxed_span_negative_cases.items():
+            all_errors["relaxed_span_" + error_type] = negative_cases
+
+        return results, all_errors
 
 
 class RelationScorer(Scorer):
