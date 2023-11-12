@@ -53,6 +53,7 @@ from uie.seq2seq.features import RecordFeature
 from uie.seq2seq.t5_bert_tokenizer import T5BertTokenizer
 from uie.seq2seq.trainer_arguments import ModelArguments, DataTrainingArguments
 
+import wandb
 
 logger = logging.getLogger(__name__)
 
@@ -61,6 +62,10 @@ def main():
     # See all possible arguments in src/transformers/training_args.py
     # or by passing the --help flag to this script.
     # We now keep distinct sets of args, for a cleaner separation of concerns.
+
+    print("-" * 100)
+    print("Starting Python Finetuning Script")
+    print("-" * 100)
 
     parser = HfArgumentParser((ModelArguments, DataTrainingArguments, ConstraintSeq2SeqTrainingArguments))
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
@@ -110,6 +115,21 @@ def main():
 
     # Set seed before initializing model.
     set_seed(training_args.seed)
+
+
+    #WANDB CONFIGURATION
+    wandb_name = f"{data_args.train_file.split('/')[-2]}" #data/text2spotasoc/entity/fullpate_multi/train.json
+    wandb_name_no_fold = wandb_name.lower()
+    if "_fold_" in wandb_name:
+        wandb_name_no_fold = wandb_name.split("_fold_")[0]
+
+    if "multi" in wandb_name:
+        wandb_project_name = "topmodel-uie-large-multi"
+    elif "single" in wandb_name:
+        wandb_project_name = "topmodel-uie-large-single"    
+
+    wandb.init(project=wandb_project_name, name=wandb_name_no_fold, config=model_args)
+
 
     # Get the datasets: you can either provide your own CSV/JSON training and evaluation files (see below)
     # or just provide the name of one of the public datasets available on the hub at https://huggingface.co/datasets/
