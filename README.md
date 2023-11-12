@@ -112,6 +112,26 @@ The following table shows the mutliclass results on the different datasets:
 
 ## MaChAmp Models
 
+### MaChAmp-Bert Models 
+
+[Base Model Huggingface Link](https://huggingface.co/bert-base-cased), [Large Model Huggingface Link](https://huggingface.co/bert-large-cased), [[Devlin et al., 2018]](#References)
+
+| Dataset                        | Base                                                            | Large                                                            | Citation                                                                  |                              
+|-------------------------------:|----------------------------------------------------------------:|-----------------------------------------------------------------:|---------------------------------------------------------------------------|
+| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    | [[UzZaman et al., 2013]](#References)                                     |                  
+| WikiWars                       | [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    | [[Derczynski et al., 2012]](#References)                                  |          
+| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    | [[Zhong et al., 2017]](#References)                                       |          
+| Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    | [Zarcone et al., 2020](#References)                                       |          
+
+
+### MaChAmp-RoBERTa Base Models 
+| Dataset                        | URL                                                                |
+|-------------------------------:|--------------------------------------------------------------------|
+| TempEval-3      | [Download Link](https://www.fdr.uni-hamburg.de/record/13681)                      |
+| WikiWars        | [Download Link](https://www.fdr.uni-hamburg.de/record/13686)                      |
+| Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13683)                      |
+| Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13679)                      |
+
 ### MaChAmp-RoBERTa Large Models 
 | Dataset                        | URL                                                                |
 |-------------------------------:|--------------------------------------------------------------------|
@@ -136,6 +156,14 @@ The following table shows the mutliclass results on the different datasets:
 | Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13587)                      |
 | Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13593)                      |
 
+### MaChAmp-mBert Models 
+| Dataset                        | URL                                                                |
+|-------------------------------:|--------------------------------------------------------------------|
+| TempEval-3      | [Download Link]()                      |
+| WikiWars        | [Download Link]()                      |
+| Tweets          | [Download Link]()                      |
+| Fullpate        | [Download Link]()                      |
+
 
 
 
@@ -155,5 +183,19 @@ This dataset may be used for future work.
 * [van der Goot et al., 2020] [van der Goot, R., Üstün, A., Ramponi, A., Sharaf, I., and Plank, B. (2020). Massive choice, ample tasks (machamp): A toolkit for multi-task learning in nlp. arXiv preprint arXiv:2005.14672.](https://arxiv.org/abs/2005.14672)
 
 * [Raffel et al., 2020] [Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., Zhou, Y., Li, W., and Liu, P. J. (2020). Exploring the limits of transfer learning with a unified text-to-text transformer. The Journal of Machine Learning Research, 21(1):5485– 5551](https://arxiv.org/abs/1910.10683)
+
+* [UzZaman et al., 2013] [UzZaman, N., Llorens, H., Derczynski, L., Allen, J., Verhagen, M., and Pustejovsky, J. (2013). Semeval-2013 task 1: Tempeval-3: Evaluating time expressions, events, and temporal relations. In Second Joint Conference on Lexical and Computational Semantics (* SEM), Volume 2: Proceedings of the Seventh International Workshop on Semantic Evaluation (SemEval 2013), pages 1–9.](https://aclanthology.org/S13-2001.pdf)
+
+* [Derczynski et al., 2012] [Derczynski, L., Llorens, H., and Saquete, E. (2012). Massively increasing timex3 resources: a transduction approach. arXiv preprint arXiv:1203.5076.](https://arxiv.org/abs/1203.5076)
+
+* [Mazur and Dale, 2010] [Mazur, P. and Dale, R. (2010). Wikiwars: A new corpus for research on temporal expressions. In Proceedings of the 2010 conference on empirical methods in natural language processing, pages 913–922](https://aclanthology.org/D10-1089.pdf)
+
+* [Zhong et al., 2017] [Zhong, X., Sun, A., and Cambria, E. (2017). Time expression analysis and recognition using syntactic token types and general heuristic rules. In Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), pages 420–429, Vancouver, Canada. Association for Computational Linguistics.](https://aclanthology.org/P17-1039/)
+
+* [Zarcone et al., 2020] [Zarcone, A., Alam, T., and Kolagar, Z. (2020). Pâté: a corpus of temporal expressions for the in-car voice assistant domain. In Proceedings of the Twelfth Language Resources and Evaluation Conference, pages 523–530.](https://aclanthology.org/2020.lrec-1.66/)
+
+* [Devlin et al., 2018] [Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. (2018). Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805](https://arxiv.org/abs/1810.04805)
+
+
 
 [comment]: <> (Test comment)
