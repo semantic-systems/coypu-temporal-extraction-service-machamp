@@ -1,17 +1,19 @@
 model_size=$1
 dataset_name=$2
 classes=$3
-base_dir="/export/home/4kirsano/uie/output"
+base_dir="output"
+data_dir="../temporal-data/entity/my_converted_datasets/uie-format"
 
 echo Starting crossvalidation and reduce script...
 echo Model size: $model_size
 echo Dataset name: $dataset_name
 echo Classes: $classes
-echo Base dir: $base_dir
+echo Model base dir: $base_dir
+echo Data base dir: $data_dir
 echo 
 echo Loading crossvalidation script...
 
-python crossvalidation_evaluation.py -m $model_size -d $dataset_name -c $classes -b $base_dir
+python crossvalidation_evaluation.py -m $model_size -d $dataset_name -c $classes -bm $base_dir -bd $data_dir
 
 echo Crossvalidation script completed!
 
