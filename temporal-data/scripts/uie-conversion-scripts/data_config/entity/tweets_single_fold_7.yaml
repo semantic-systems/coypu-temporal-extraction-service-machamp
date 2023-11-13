@@ -3,7 +3,7 @@ language: en
 mapper:
   tempexp: tempexp
 name: tweets_single_fold_7
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/tweets_single/folds/fold_7
+path: ../../entity/my_converted_datasets/jsonlines/tweets_single/folds/fold_7
 split:
   test: tweets-test.jsonlines
   train: tweets-train.jsonlines

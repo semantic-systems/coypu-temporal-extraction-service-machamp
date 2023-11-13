@@ -6,7 +6,7 @@ mapper:
   set: set
   time: time
 name: wikiwars-tagged_multi_fold_1
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/wikiwars-tagged_multi/folds/fold_1
+path: ../../entity/my_converted_datasets/jsonlines/wikiwars-tagged_multi/folds/fold_1
 split:
   test: wikiwars-tagged-test.jsonlines
   train: wikiwars-tagged-train.jsonlines

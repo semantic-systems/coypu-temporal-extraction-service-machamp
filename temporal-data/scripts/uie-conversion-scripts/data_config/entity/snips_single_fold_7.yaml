@@ -3,7 +3,7 @@ language: en
 mapper:
   tempexp: tempexp
 name: snips_single_fold_7
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/snips_single/folds/fold_7
+path: ../../entity/my_converted_datasets/jsonlines/snips_single/folds/fold_7
 split:
   test: snips-test.jsonlines
   train: snips-train.jsonlines

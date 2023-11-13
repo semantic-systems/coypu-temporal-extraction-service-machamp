@@ -3,7 +3,7 @@ language: en
 mapper:
   tempexp: tempexp
 name: wikiwars_single_fold_9
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/wikiwars_single/folds/fold_9
+path: ../../entity/my_converted_datasets/jsonlines/wikiwars_single/folds/fold_9
 split:
   test: wikiwars-test.jsonlines
   train: wikiwars-train.jsonlines

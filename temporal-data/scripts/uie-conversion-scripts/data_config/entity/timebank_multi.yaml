@@ -6,7 +6,7 @@ mapper:
   set: set
   time: time
 name: timebank_multi
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/timebank_multi
+path: ../../entity/my_converted_datasets/jsonlines/timebank_multi
 split:
   test: timebank-test.jsonlines
   train: timebank-train.jsonlines

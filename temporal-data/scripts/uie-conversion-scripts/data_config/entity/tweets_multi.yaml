@@ -6,7 +6,7 @@ mapper:
   set: set
   time: time
 name: tweets_multi
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/tweets_multi
+path: ../../entity/my_converted_datasets/jsonlines/tweets_multi
 split:
   test: tweets-test.jsonlines
   train: tweets-train.jsonlines

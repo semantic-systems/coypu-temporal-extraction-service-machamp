@@ -3,7 +3,7 @@ language: en
 mapper:
   tempexp: tempexp
 name: fullpate_single_fold_1
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/fullpate_single/folds/fold_1
+path: ../../entity/my_converted_datasets/jsonlines/fullpate_single/folds/fold_1
 split:
   test: fullpate-test.jsonlines
   train: fullpate-train.jsonlines

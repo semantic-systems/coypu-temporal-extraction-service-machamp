@@ -6,7 +6,7 @@ mapper:
   set: set
   time: time
 name: fullpate_multi_fold_9
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/fullpate_multi/folds/fold_9
+path: ../../entity/my_converted_datasets/jsonlines/fullpate_multi/folds/fold_9
 split:
   test: fullpate-test.jsonlines
   train: fullpate-train.jsonlines

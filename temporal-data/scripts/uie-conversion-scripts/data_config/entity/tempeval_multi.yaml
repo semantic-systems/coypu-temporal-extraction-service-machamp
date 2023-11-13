@@ -6,7 +6,7 @@ mapper:
   set: set
   time: time
 name: tempeval_multi
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/tempeval_multi
+path: ../../entity/my_converted_datasets/jsonlines/tempeval_multi
 split:
   test: tempeval-test.jsonlines
   train: tempeval-train.jsonlines

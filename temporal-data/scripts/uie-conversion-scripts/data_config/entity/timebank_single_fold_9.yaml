@@ -3,7 +3,7 @@ language: en
 mapper:
   tempexp: tempexp
 name: timebank_single_fold_9
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/timebank_single/folds/fold_9
+path: ../../entity/my_converted_datasets/jsonlines/timebank_single/folds/fold_9
 split:
   test: timebank-test.jsonlines
   train: timebank-train.jsonlines

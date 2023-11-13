@@ -6,7 +6,7 @@ mapper:
   set: set
   time: time
 name: aquaint_multi_fold_5
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/aquaint_multi/folds/fold_5
+path: ../../entity/my_converted_datasets/jsonlines/aquaint_multi/folds/fold_5
 split:
   test: aquaint-test.jsonlines
   train: aquaint-train.jsonlines

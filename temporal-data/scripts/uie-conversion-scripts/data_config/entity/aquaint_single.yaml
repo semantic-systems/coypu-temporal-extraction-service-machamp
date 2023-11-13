@@ -3,7 +3,7 @@ language: en
 mapper:
   tempexp: tempexp
 name: aquaint_single
-path: /export/home/4kirsano/temporal-extraction/temporal-data/entity/my_converted_datasets/jsonlines/aquaint_single
+path: ../../entity/my_converted_datasets/jsonlines/aquaint_single
 split:
   test: aquaint-test.jsonlines
   train: aquaint-train.jsonlines
