@@ -84,6 +84,16 @@ The original datasets with the conversion scripts and instructions on how to use
 
 
 
+
+# Clean Models
+
+* UIE Base: [ZFDM Download](https://www.fdr.uni-hamburg.de/record/13712), [Google Drive Download](https://drive.google.com/file/d/12Dkh6KLDPvXrkQ1I-1xLqODQSYjkwnvs/view) (gdrive model uploaded by UIE authors)
+* UIE Large: [ZFDM Download](https://www.fdr.uni-hamburg.de/record/13714), [Google Drive Download](https://drive.google.com/file/d/15OFkWw8kJA1k2g_zehZ0pxcjTABY2iF1/view) (gdrive model uploaded by UIE authors)
+
+
+
+
+
 # Finetuned Models
 Only the best performing models are shared in this section, due to the large amount of different models produced in the thesis.
 Furthermore, only the models which detect multiple classes (date, time, duration, set) are uploaded, because the single class models do not show any performance increase as was found in the "Results" section of the thesis.
@@ -92,77 +102,67 @@ The following table shows the mutliclass results on the different datasets:
 [![This table compares the most important metrics “Strict-F1” and “RelaxedType-F1” for the temporal extraction and classification tasks across all datasets and all models. The best three values per column are highlighted with bold font. Table 11 in the appendix C displays the standard deviation values for the MaChAmp (M) and UIE model rows.](docs/images/temporal-extraction-and-classification-performance.png)]()
 > Table shows the temporal extraction and classification performance for the models produced in the thesis. M stands for MaChAmp models. The bottom part of the table shows the performance of related work. "Strict" means an exact match and "Type" means a match where at least one token (also known as "relaxed" match) and the temporal class is correct.
 
-## UIE Modelst
 
-### UIE Base Models 
-| Dataset                        | URL                     |
-|-------------------------------:|-------------------------|
-| TempEval-3      | [Download Link](https://www.fdr.uni-hamburg.de/record/13599)                      |
-| WikiWars        | [Download Link](https://www.fdr.uni-hamburg.de/record/13595)                      |
-| Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13597)                      |
-| Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13601)                      |
+## UIE Models
 
-### UIE Large Models 
-| Dataset                        | URL                                                                |
-|-------------------------------:|--------------------------------------------------------------------|
-| TempEval-3      | [Download Link](https://www.fdr.uni-hamburg.de/record/13615)                      |
-| WikiWars        | [Download Link](https://www.fdr.uni-hamburg.de/record/13617)                      |
-| Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13619)                      |
-| Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13621)                      |
+[UIE GitHub Link](https://github.com/universal-ie/UIE), [[Lu et al., 2022]](#References)
+
+| Dataset                        | Base                                                            | Large                                                            | Citation                                                                  |                              
+|-------------------------------:|----------------------------------------------------------------:|-----------------------------------------------------------------:|---------------------------------------------------------------------------|
+| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/13599)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13615)    | [[UzZaman et al., 2013]](#References)                                     |                  
+| WikiWars                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13595)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13617)    | [[Derczynski et al., 2012]](#References)                                  |          
+| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/13597)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13619)    | [[Zhong et al., 2017]](#References)                                       |          
+| Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13601)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13621)    | [Zarcone et al., 2020](#References)                                       |    
+
 
 ## MaChAmp Models
 
-### MaChAmp-Bert Models 
+### MaChAmp-BERT Models 
 
 [Base Model Huggingface Link](https://huggingface.co/bert-base-cased), [Large Model Huggingface Link](https://huggingface.co/bert-large-cased), [[Devlin et al., 2018]](#References)
 
 | Dataset                        | Base                                                            | Large                                                            | Citation                                                                  |                              
 |-------------------------------:|----------------------------------------------------------------:|-----------------------------------------------------------------:|---------------------------------------------------------------------------|
-| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    | [[UzZaman et al., 2013]](#References)                                     |                  
-| WikiWars                       | [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    | [[Derczynski et al., 2012]](#References)                                  |          
-| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    | [[Zhong et al., 2017]](#References)                                       |          
-| Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/xxxxx)    | [Zarcone et al., 2020](#References)                                       |          
+| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/13698)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13706)    | [[UzZaman et al., 2013]](#References)                                     |                  
+| WikiWars                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13702)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13710)    | [[Derczynski et al., 2012]](#References)                                  |          
+| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/13700)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13708)    | [[Zhong et al., 2017]](#References)                                       |          
+| Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13696)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13704)    | [Zarcone et al., 2020](#References)                                       |    
 
 
-### MaChAmp-RoBERTa Base Models 
-| Dataset                        | URL                                                                |
-|-------------------------------:|--------------------------------------------------------------------|
-| TempEval-3      | [Download Link](https://www.fdr.uni-hamburg.de/record/13681)                      |
-| WikiWars        | [Download Link](https://www.fdr.uni-hamburg.de/record/13686)                      |
-| Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13683)                      |
-| Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13679)                      |
+### MaChAmp-RoBERTa Models 
 
-### MaChAmp-RoBERTa Large Models 
-| Dataset                        | URL                                                                |
-|-------------------------------:|--------------------------------------------------------------------|
-| TempEval-3      | [Download Link](https://www.fdr.uni-hamburg.de/record/13623)                      |
-| WikiWars        | [Download Link](https://www.fdr.uni-hamburg.de/record/13627)                      |
-| Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13629)                      |
-| Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13625)                      |
+[Base Model Huggingface Link](https://huggingface.co/roberta-base), [Large Model Huggingface Link](https://huggingface.co/roberta-large), [[Liu et al., 2019]](#References)
 
-### MaChAmp-XLM-RoBERTa Base Models 
-| Dataset                        | URL                                                                |
-|-------------------------------:|--------------------------------------------------------------------|
-| TempEval-3      | [Download Link](https://www.fdr.uni-hamburg.de/record/13631)                      |
-| WikiWars        | [Download Link](https://www.fdr.uni-hamburg.de/record/13635)                      |
-| Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13637)                      |
-| Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13633)                      |
+| Dataset                        | Base                                                            | Large                                                            | Citation                                                                  |                              
+|-------------------------------:|----------------------------------------------------------------:|-----------------------------------------------------------------:|---------------------------------------------------------------------------|
+| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/13681)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13623)    | [[UzZaman et al., 2013]](#References)                                     |                  
+| WikiWars                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13686)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13627)    | [[Derczynski et al., 2012]](#References)                                  |          
+| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/13683)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13629)    | [[Zhong et al., 2017]](#References)                                       |          
+| Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13679)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13625)    | [Zarcone et al., 2020](#References)                                       |           
 
-### MaChAmp-XLM-RoBERTa Large Models 
-| Dataset                        | URL                                                                |
-|-------------------------------:|--------------------------------------------------------------------|
-| TempEval-3      | [Download Link](https://www.fdr.uni-hamburg.de/record/13589)                      |
-| WikiWars        | [Download Link](https://www.fdr.uni-hamburg.de/record/13591)                      |
-| Tweets          | [Download Link](https://www.fdr.uni-hamburg.de/record/13587)                      |
-| Fullpate        | [Download Link](https://www.fdr.uni-hamburg.de/record/13593)                      |
 
-### MaChAmp-mBert Models 
-| Dataset                        | URL                                                                |
-|-------------------------------:|--------------------------------------------------------------------|
-| TempEval-3      | [Download Link]()                      |
-| WikiWars        | [Download Link]()                      |
-| Tweets          | [Download Link]()                      |
-| Fullpate        | [Download Link]()                      |
+### MaChAmp-XLM-RoBERTa Models 
+
+[Base Model Huggingface Link](https://huggingface.co/xlm-roberta-base), [Large Model Huggingface Link](https://huggingface.co/xlm-roberta-large), [[Conneau et al., 2019]](#References)
+
+| Dataset                        | Base                                                            | Large                                                            | Citation                                                                  |                              
+|-------------------------------:|----------------------------------------------------------------:|-----------------------------------------------------------------:|---------------------------------------------------------------------------|
+| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/13631)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13589)    | [[UzZaman et al., 2013]](#References)                                     |                  
+| WikiWars                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13635)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13591)    | [[Derczynski et al., 2012]](#References)                                  |          
+| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/13637)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13587)    | [[Zhong et al., 2017]](#References)                                       |          
+| Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13633)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13593)    | [Zarcone et al., 2020](#References)                                       |   
+
+
+### MaChAmp-mBBERT Models 
+
+[Base Model Huggingface Link](https://huggingface.co/bert-base-multilingual-cased), [[Devlin et al., 2018]](#References)
+
+| Dataset                        | Base                                                                | Citation                                                                  |     
+|-------------------------------:|--------------------------------------------------------------------:|---------------------------------------------------------------------------|
+| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/13690)        | [[UzZaman et al., 2013]](#References)                                     |  
+| WikiWars                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13694)        | [[Derczynski et al., 2012]](#References)                                  |    
+| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/13692)        | [[Zhong et al., 2017]](#References)                                       | 
+| Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13688)        | [Zarcone et al., 2020](#References)                                       |   
 
 
 
@@ -195,6 +195,11 @@ This dataset may be used for future work.
 * [Zarcone et al., 2020] [Zarcone, A., Alam, T., and Kolagar, Z. (2020). Pâté: a corpus of temporal expressions for the in-car voice assistant domain. In Proceedings of the Twelfth Language Resources and Evaluation Conference, pages 523–530.](https://aclanthology.org/2020.lrec-1.66/)
 
 * [Devlin et al., 2018] [Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. (2018). Bert: Pre-training of deep bidirectional transformers for language understanding. arXiv preprint arXiv:1810.04805](https://arxiv.org/abs/1810.04805)
+
+* [Liu et al., 2019] [Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., Levy, O., Lewis, M., Zettlemoyer, L., and Stoyanov, V. (2019). Roberta: A robustly optimized bert pretraining approach. arXiv preprint arXiv:1907.11692.](https://arxiv.org/abs/1907.11692)
+
+* [Conneau et al., 2019] [Conneau, A., Khandelwal, K., Goyal, N., Chaudhary, V., Wenzek, G., Guzmán, F., Grave, E., Ott, M., Zettlemoyer, L., and Stoyanov, V. (2019). Unsupervised cross-lingual representation learning at scale. arXiv preprint arXiv:1911.02116.](https://arxiv.org/abs/1911.02116)
+
 
 
 
