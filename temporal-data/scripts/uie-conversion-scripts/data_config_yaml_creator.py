@@ -66,7 +66,7 @@ class UIEDataConfigYamlCreator:
             yaml_filename = f"{dataset_name}_{dataset_type}.yaml"
             yaml_data = {
                 "name": f"{dataset_name}_{dataset_type}",
-                "path": f"{os.path.abspath(directory_path)}",
+                "path": f"{directory_path}",
                 "data_class": self.dataset_dataclass_mapper[dataset_name],
                 "split": {
                     "train": f"{dataset_name}-train.jsonlines",
@@ -91,7 +91,7 @@ class UIEDataConfigYamlCreator:
                         yaml_filename = f"{dataset_name}_{dataset_type}_{fold}.yaml"
                         yaml_data = {
                             "name": f"{dataset_name}_{dataset_type}_{fold}",
-                            "path": f"{os.path.abspath(fold_path)}",
+                            "path": f"{fold_path}",
                             "data_class": self.dataset_dataclass_mapper[dataset_name],
                             "split": {
                                 "train": f"{dataset_name}-train.jsonlines",
