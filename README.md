@@ -178,7 +178,7 @@ The following table shows the mutliclass results on the different datasets:
 | Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13633)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13593)    | [Zarcone et al., 2020](#References)                                       |   
 
 
-### MaChAmp-mBBERT Models 
+### MaChAmp-mBERT Models 
 
 [Base Model Huggingface Link](https://huggingface.co/bert-base-multilingual-cased), [[Devlin et al., 2018]](#References)
 
