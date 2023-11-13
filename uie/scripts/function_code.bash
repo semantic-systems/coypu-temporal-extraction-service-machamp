@@ -239,7 +239,8 @@ then
   model_folder=${model_folder}_p${positive}
 fi
 
-data_folder=data/text2${decoding_format}/${data_name}
+#data_folder=data/text2${decoding_format}/${data_name}
+#data_folder=../temporal-data/entity/my_converted_datasets/uie/${data_name}
 
 export TOKENIZERS_PARALLELISM=false
 
