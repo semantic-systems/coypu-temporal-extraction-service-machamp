@@ -1,1 +1,0 @@
-python crossvalidation_evaluation.py $1
