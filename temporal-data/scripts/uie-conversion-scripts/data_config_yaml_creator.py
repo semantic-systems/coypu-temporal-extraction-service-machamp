@@ -143,6 +143,8 @@ if __name__ == "__main__":
     dataset_converter_output_dir = args.input_base_directory_path
     dataset_root_dirs = [os.path.join(dataset_converter_output_dir, dataset_root_dir) for dataset_root_dir in os.listdir(dataset_converter_output_dir)]
     dataset_root_dirs.sort(reverse=True)
+    print("Following root dirs found in base directory:")
+    print(dataset_root_dirs)
 
     print("Found the following datasets:")
     [print(dataset_name) for dataset_name in dataset_root_dirs]
@@ -155,5 +157,3 @@ if __name__ == "__main__":
         output_directory_path = output_directory_path,
         do_crossvalidation = args.crossvalidation
     )
-
-    
