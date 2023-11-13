@@ -52,7 +52,7 @@ There are multiple data formats that can be found in this repository.
 First, each of the used datasets follows a general XML or JSON format.
 Despite this, most of the datasets have a different format and are therefore not directly comparable.
 
-[![Temporal Conversion Formats Overview](docs/images/temporal-conversion-formats.png)]()
+[![Temporal Conversion Formats Overview](docs/images/temporal-conversion-formats.png)](#data)
 > The graphic shows the datasets, formats and the relations between them.
 
 In the [temporal-data section](temporal-data) the different formats are described in more detail, as well as the scripts to convert them into a uniform format.
@@ -85,6 +85,8 @@ pip install -r machamp/requirements.txt
 
 
 # Reproduction Steps Summary
+
+Before the models are used, it is recommended to prepare the [data](temporal-data) first.
 
 ## Quickstart
 * Setup Anaconda environment
@@ -124,7 +126,7 @@ Generally speaking, the single class models do not perform much better despite a
 This makes the single class models obsolete in practice.
 The following table shows the mutliclass results on the different datasets:
 
-[![This table compares the most important metrics “Strict-F1” and “RelaxedType-F1” for the temporal extraction and classification tasks across all datasets and all models. The best three values per column are highlighted with bold font. Table 11 in the appendix C displays the standard deviation values for the MaChAmp (M) and UIE model rows.](docs/images/temporal-extraction-and-classification-performance.png)]()
+[![This table compares the most important metrics “Strict-F1” and “RelaxedType-F1” for the temporal extraction and classification tasks across all datasets and all models. The best three values per column are highlighted with bold font. Table 11 in the appendix C displays the standard deviation values for the MaChAmp (M) and UIE model rows.](docs/images/temporal-extraction-and-classification-performance.png)](#finetuned-models)
 > Table shows the temporal extraction and classification performance for the models produced in the thesis. M stands for MaChAmp models. The bottom part of the table shows the performance of related work. "Strict" means an exact match and "Type" means a match where at least one token (also known as "relaxed" match) and the temporal class is correct.
 
 
