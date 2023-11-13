@@ -99,6 +99,7 @@ Before the models are used, it is recommended to prepare the [data](temporal-dat
 * Setup Anaconda environment 
 * Prepare the data
 * Prepare the crossvalidation approach
+* Download the clean UIE models
 * Finetune the models on each of the folds
 * Run the crossvalidation evaluation scripts to get the results
 

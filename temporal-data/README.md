@@ -7,7 +7,7 @@ In particular, it is important that the freshly converted datasets are saved in 
 
 This directory contains already converted datasets in most of the required formats.
 It is possible to use the pre-converted datasets with the models (both UIE and MaChAmp).
-If the whole crossvalidation process is to be reproduced, it is required to convert the datasets with the provided scripts.
+If the whole crossvalidation process is to be reproduced, it is required to convert the datasets with the provided scripts, because the crossvalidation folds are not available in this directory (they can be easily produced with the provided scripts).
 
 The structure of this directory is the following:
 
@@ -52,18 +52,20 @@ The original datasets can be found in the [original_datasets directory](original
 
 
 
-Before choosing the right scripts, this section gives a general overview of the datasets used in the thesis and this repository.
 
-[![Temporal Conversion Formats Overview](../docs/images/temporal-conversion-formats.png)](#temporal-datasets)
-> The graphic shows the datasets, formats and the relations between them.
+# Data format
 
 There are three target formats, which are used in this repository: JSONLINES, UIE and BIO.
 Furthermore, each of the original datasets has its own format.
 Most of them follow an XML structure, despite the PATE dataset [[Zarcone et al., 2020]](#References), which consists of two different JSON formats.
 
-For finetuning and inference, either the original datasets can be converted into the required format (using the provided scripts) or the already converted datasets may be used.
-The main folder with all the different dataset variations is the "entity" folder.
-It contains the single- and multiclass datasets in three formats: bio, jsonlines and uie.
+[![Temporal Conversion Formats Overview](../docs/images/temporal-conversion-formats.png)](#temporal-datasets)
+> The graphic shows the datasets, formats and the relations between them.
+
+## JSONLINES format
+
+
+## MaChAmp format (BIO)
 
 The original datasets are mostly in an XML format with inline tagged TIMEX3 tags, but some are in a JSON format.
 UIE uses a special json format that contains both SSI and SEL per entry.
@@ -76,7 +78,10 @@ The MaChAmp models use a multiclass BIO format with 9 different labels:
 * I-TIME      
 * I-DURATION  
 * I-SET       
-* O           
+* O      
+
+
+## UIE format
 
 The UIE models use a JSON format with four temporal classes: date, time, duration, set.
 Similar to T5 (text-to-text) models, each data-entry consists of a prompt called "SSI" and target graphlike structure called "SEL". 
@@ -84,21 +89,9 @@ Similar to T5 (text-to-text) models, each data-entry consists of a prompt called
 
 
 
-
-
-# UIE Data-Structure
-
-# MaChAmp Data-Structure
-
-# Generic JSON Data-Structure
-
 # Conversion scripts
 
-# How to add new datasets?
-For MaChAmp a conversion script to BIO format can be written.
-For UIE it is recommended to use their conversion script.
-For this it is necessary to write a new class and add configuration files.
-... Coming soon.
+
 
 
 
@@ -108,10 +101,21 @@ For this it is necessary to write a new class and add configuration files.
 All original datasets can be found on the internet, but they are also uploaded in the [original_datasets directory](original_datasets).
 For example, the following links can be used for download:
 
-* [Fullpate](https://zenodo.org/records/3697930#.ZBwzbi00hQI): consists of Pate and Snips
+* [Fullpate (Pate and Snips)](https://zenodo.org/records/3697930#.ZBwzbi00hQI):
 * [WikiWars (tagged)](https://github.com/satya77/Transformer_Temporal_Tagger/blob/master/data.zip)
 * [Tweets](https://github.com/xszhong/syntime/tree/master/syntime/resources/tweets)
 * [TimeBank + AQUAINT](https://github.com/satya77/Transformer_Temporal_Tagger/blob/master/data.zip)
+
+
+
+
+
+# How to add new datasets?
+
+To use either MaChAmp or UIE on new datasets it is recommended to write a converter script similar to the ones in the [jsonlines converter directory](scripts/jsonlines-conversion-scripts/).
+After that, the [BIO converter](scripts/bio-conversion-scripts/) can be used to convert to the MaChAmp fromat or the [UIE converter](scripts/uie-conversion-scripts/) to convert to the UIE format.
+Furthermore, UIE requires the generation of a [YAML configuration file](scripts/uie-conversion-scripts/data_config/entity/) and another dataset specific [converter module](scripts/uie-conversion-scripts/universal_ie/task_format/).
+The [converter module directory](scripts/uie-conversion-scripts/universal_ie/task_format/) contains example scripts (e.g. [fullpate.py](scripts/uie-conversion-scripts/universal_ie/task_format/fullpate.py) or [tweets.py](scripts/uie-conversion-scripts/universal_ie/task_format/tweets.py)).
 
 
 
