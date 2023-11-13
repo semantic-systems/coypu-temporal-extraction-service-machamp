@@ -1,25 +1,21 @@
 # MaChAmp
-logs
-__pycache__/
-*.py[cod]
-*swp
-ud-treebanks-v2.9.tgz
-wikiextractor
-
-
-
-
-
+machamp/logs
+machamp/__pycache__/
+machamp/*.py[cod]
+machamp/*swp
+machamp/ud-treebanks-v2.9.tgz
+machamp/wikiextractor
 
 # UIE
-/data
-/pretrain_data
-/output
-/hf_models
-/pd_models
-/runs
-/models
-*.lock
+uie/output
+uie/hf_models
+uie/pd_models
+uie/runs
+uie//models
+uie/*.lock
+
+# Temporal data
+temporal-data/entity/my_converted_datasets
 
 # mac
 .DS_Store
