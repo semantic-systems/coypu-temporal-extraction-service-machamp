@@ -155,19 +155,20 @@ def post_processing(x):
 
 
 
-def _get_full_gold_paths(dataset_directory_name: str) -> Tuple[List[str], List[str], List[str]]:
+def _get_full_gold_paths(dataset_base_directory_path: str, dataset_directory_name: str) -> Tuple[List[str], List[str], List[str]]:
     """
     Returns full filepaths of the gold val and test files.
 
     Args:
         dataset_directory_name (str): Name of the dataset directory without folds. E.g. "fullpate_multi".
+        dataset_base_directory_path (str): Path to the base directory that contains the datasets.
 
     Returns:
         Tuple[List[str], List[str], List[str]]: Tuple containing the full filepaths of the gold directories, gold val files and gold test files.
     """
-    data_folder_prefix = f"data/text2spotasoc/entity"
+    data_folder_prefix = dataset_base_directory_path
     gold_directories = [f"{dataset_directory_name}_fold_{i}" for i in range(0, 10)]
-    gold_directories = [os.path.join(data_folder_prefix, g) for g in gold_directories]
+    gold_directories = [os.path.join(os.path.abspath(data_folder_prefix), g) for g in gold_directories]
 
     gold_val_files = list()
     gold_test_files = list()
@@ -1046,7 +1047,8 @@ def _write_error_analysis_to_files(
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_dir", "-b", type=str, default="/export/home/4kirsano/uie/output")
+    parser.add_argument("--base_model_dir", "-bm", type=str, default="/export/home/4kirsano/uie/output")
+    parser.add_argument("--base_data_dir", "-bd", type=str, default="../temporal-data/entity/my_converted_datasets/uie-format")
     parser.add_argument("--model_size", "-m", type=str) #base or large
     parser.add_argument("--dataset_name", "-d", type=str) #pate, snips, tempeval, ...
     parser.add_argument("--classes", "-c", type=str) #multi or single
@@ -1056,6 +1058,7 @@ def main():
 
     model_size = args.model_size
     dataset_name = args.dataset_name
+    base_data_dir = args.base_data_dir
     predict_type = args.classes
     model_full_name = f"{args.model_size}_{args.dataset_name}_{args.classes}" #e.g. "base_pate_multi"
     copy_gold_files = args.copy_gold_files
@@ -1071,7 +1074,7 @@ def main():
     print(f"Batch size: {batch_size}")
 
     dataset_directory_name = f"{dataset_name}_{predict_type}"
-    gold_directories, gold_val_files_paths, gold_test_files_paths = _get_full_gold_paths(dataset_directory_name)
+    gold_directories, gold_val_files_paths, gold_test_files_paths = _get_full_gold_paths(base_data_dir, dataset_directory_name)
     model_base_directory = f"./output"
     logfiles_output_directory = f"{model_base_directory}/{model_full_name}_crossvalidation_logfiles"
 
