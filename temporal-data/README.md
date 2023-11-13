@@ -58,39 +58,139 @@ The original datasets can be found in the [original_datasets directory](original
 There are three target formats, which are used in this repository: JSONLINES, UIE and BIO.
 Furthermore, each of the original datasets has its own format.
 Most of them follow an XML structure, despite the PATE dataset [[Zarcone et al., 2020]](#References), which consists of two different JSON formats.
+Each of the target formats is described in the following sections.
 
 [![Temporal Conversion Formats Overview](../docs/images/temporal-conversion-formats.png)](#temporal-datasets)
 > The graphic shows the datasets, formats and the relations between them.
 
+
 ## JSONLINES format
+
+The JSONLINES format is used as a base to convert to the other formats, as well as using the dataset analysis scripts to create statistics.
+Each line of a document represents a JSON entry.
+For visualization purposes the following code is formatted:
+
+```
+{
+  "text": "Shift the group meeting on Monday the 6th of January to 9:30 am.",
+  "tokens": ["Shift", "the", "group", "meeting", "on", "Monday", "the", "6th", "of", "January", "to", "9:30", "am", "."],
+  "entity": [
+    {
+      "text": "Monday the 6th of January",
+      "type": "date",
+      "start": 5,
+      "end": 9
+    },
+    {
+      "text": "9:30 am",
+      "type": "time",
+      "start": 11,
+      "end": 12
+    }
+  ]
+}
+```
+
+The first entry is the full text, the second one are the tokens.
+After that follows a list of entities, which have a temporal type and token start/end indexes. 
 
 
 ## MaChAmp format (BIO)
 
-The original datasets are mostly in an XML format with inline tagged TIMEX3 tags, but some are in a JSON format.
-UIE uses a special json format that contains both SSI and SEL per entry.
-The MaChAmp models use a multiclass BIO format with 9 different labels:
-* B-DATE      
-* B-TIME      
-* B-DURATION  
-* B-SET       
-* I-DATE      
-* I-TIME      
-* I-DURATION  
-* I-SET       
-* O      
+The BIO format uses B and I tags for each temporal class and an O tag as a seperator.
+This leads to 9 possible BIO tags (B-date, I-date, B-time, I-time, ..., I-set, O).
+The data is structured vertically with one token/tag pair per line.
+The token is split from the tag with a tab character.
+An entity begins with a B tag, continuous with an I tag and is closed with an O tag.
+The following example shows how temporal entities are formatted:
+
+```
+Book	O
+a	O
+train	O
+ticket	O
+for	O
+11:45	B-TIME
+am	I-TIME
+on	O
+monday	B-DATE
+```
 
 
 ## UIE format
 
-The UIE models use a JSON format with four temporal classes: date, time, duration, set.
-Similar to T5 (text-to-text) models, each data-entry consists of a prompt called "SSI" and target graphlike structure called "SEL". 
+The UIE format is the most complex of the three.
+It is generated with one of the original UIE scripts and requires configuration files for each dataset.
+The format is similar to JSONLINES with the "text" and "tokens" keys.
+Entities are encoded very similarly.
+The only difference are begin and end keys in the JSONLINE format and a list of offset indexes in the UIE format.
+Similarly to JSONLINES, each data entry gets its own line.
+The following example was formatted for visualization purposes:
+
+```
+{
+  "text": "Add my appointment with Pearl Hair Salon at 10:30 am on February 2nd .",
+  "tokens": ["Add", "my", "appointment", "with", "Pearl", "Hair", "Salon", "at", "10:30", "am", "on", "February", "2nd", "." ],
+  "record": "<extra_id_0> <extra_id_0> time <extra_id_5> 10:30 am <extra_id_1> <extra_id_0> date <extra_id_5> February 2nd <extra_id_1> <extra_id_1>",
+  "entity": [
+    {
+      "type": "time",
+      "offset": [
+        8,
+        9
+      ],
+      "text": "10:30 am"
+    },
+    {
+      "type": "date",
+      "offset": [
+        11,
+        12
+      ],
+      "text": "February 2nd"
+    }
+  ],
+  "relation": [],
+  "event": [],
+  "spot": [
+    "time",
+    "date"
+  ],
+  "asoc": [],
+  "spot_asoc": [
+    {
+      "span": "10:30 am",
+      "label": "time",
+      "asoc": []
+    },
+    {
+      "span": "February 2nd",
+      "label": "date",
+      "asoc": []
+    }
+  ]
+}
+```
+
+The record line is required by UIE and encodes the order of the temporal expressions.
+"Spot" refers to entities and is a part of the UIE-SEL structure (structural extraction language).
+The temporal data does not utilize relations and events.
+The "spot_asoc" part is an internal representation of the SEL structure.
+The information in the JSONLINES format is already enough to use the [UIE converter scripts](scripts/uie-conversion-scripts/) to convert to its unique format.
+
 
 
 
 
 # Conversion scripts
 
+The [scripts](scripts/uie-conversion-scripts/) directory contains multiple folders with Python scripts for different purposes.
+
+* The [jsonlines converters](scripts/jsonlines-conversion-scripts/) convert the original datasets to the JSONLINE format
+* The [bio conversion scripts](scripts/bio-conversion-scripts/) are used to convert JSONLINES to BIO
+* The [UIE conversion scripts](scripts/uie-conversion-scripts/) convert JSONLINES to the UIE format. They require configuration files, which can be automatically generated with the [YAML creator script](scripts/uie-conversion-scripts/data_config_yaml_creator.py).
+
+The usage of the scripts is described in detail in the [scripts directory](scripts).
 
 
 
