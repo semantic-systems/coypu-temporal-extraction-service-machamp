@@ -55,7 +55,7 @@ wget https://www.fdr.uni-hamburg.de/record/13621/files/large_fullpate_multi.zip
 
 The downloaded models should be extracted into a new directory ``finetuned_models``.
 
-[![Graphic of the MaChAmp Architecture](../docs/images/machamp_architecture.png)](#download-the-models)
+[![Graphic of the MaChAmp Architecture](../docs/images/machamp_architecture-small.png)](#download-the-models)
 > Graphic of the MaChAmp Architecture [[van der Goot et al., 2020]](#references)
 
 
