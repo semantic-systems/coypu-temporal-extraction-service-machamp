@@ -33,27 +33,20 @@ def tokenize_sentences(sentences, sent_tokenizer):
 if __name__ == "__main__":
     #Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        '--data', '-d', default='data/text2spotasoc/absa/14lap')
-    parser.add_argument(
-        '--model', '-m', default='./models/uie_n10_21_50w_absa_14lap')
+    parser.add_argument('--model', '-m', default='./finetuned_models/base/tempeval_multi')
     parser.add_argument('--max_source_length', default=256, type=int)
     parser.add_argument('--max_target_length', default=192, type=int)
     parser.add_argument('--batch_size', default=16, type=int)
-    parser.add_argument('-c', '--config', dest='map_config',
-                        help='Offset Re-mapping Config',
-                        default='config/offset_map/closest_offset_en.yaml')
+    parser.add_argument('-c', '--config', dest='map_config', help='Offset Re-mapping Config', default='config/offset_map/closest_offset_en.yaml')
     parser.add_argument('--decoding', default='spotasoc')
     parser.add_argument('--verbose', action='store_true')
-    parser.add_argument('--match_mode', default='normal',
-                        choices=['set', 'normal', 'multimatch'])
+    parser.add_argument('--match_mode', default='normal', choices=['set', 'normal', 'multimatch'])
     options = parser.parse_args()
 
-    data_folder = options.data
     model_path = options.model
     predictor = HuggingfacePredictor(
         model_path=model_path,
-        schema_file=f"{data_folder}/record.schema",
+        schema_file=f"./etc/temporal_schema/record.schema",
         max_source_length=options.max_source_length,
         max_target_length=options.max_target_length,
     )
@@ -64,7 +57,7 @@ if __name__ == "__main__":
          model_path)
     
     map_config = MapConfig.load_from_yaml(options.map_config)
-    schema_dict = SEL2Record.load_schema_dict(data_folder)
+    schema_dict = SEL2Record.load_schema_dict("./etc/temporal_schema")
     sel2record = SEL2Record(
         schema_dict=schema_dict,
         decoding_schema=options.decoding,
