@@ -84,8 +84,10 @@ python bulk_create_machamp_config_files.py \
 
 The ``--datasets_base_dir`` parameter points to a directory that contains BIO datasets.
 The script will automatically generate the configuration files at the ``--output_dir`` location.
+Many of configuration files have been generated and grouped in the [config directory](config).
+These configuration files can be used.
 
-An example file looks like this:
+An example configuration file looks like this:
 
 ```
 {
@@ -118,6 +120,7 @@ nohup bash temporal_finetune.bash ./configs/crossvalidation_configs_multi >> log
 ```
 
 Predefined directories with the required configuration files are available in the [configs directory](configs).
+For example the directory [configs/crossvalidation_configs_multi](configs/crossvalidation_configs_multi) contains all configuration files necessary to finetune all the datasets in an crossvalidation manner.
 
 There is another configuration file that is important to adjust the hyperparameters.
 The file [configs/params.json](configs/params.json) needs to be adjusted each time the finetuning process is started.
@@ -166,7 +169,7 @@ python crossvalidation_evaluation_machamp.py --base_dir logs
     --output_base_dir crossvalidation-output
 ```
 
-The script searches all the directories in the ``--base_model_dir`` and predict the dataset with all models and checkpoints.
+The script searches all the directories in the ``--base_dir`` and predicts the dataset with all models and checkpoints.
 After completion, the script creates a directory in the ``output`` directory.
 In the above example the directory is called: ``output/base_tweets_multi_crossvalidation_logfiles``.
 
