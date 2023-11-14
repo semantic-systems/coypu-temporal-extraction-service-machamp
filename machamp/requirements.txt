@@ -9,6 +9,7 @@ tqdm
 uniplot
 networkx==2.5
 jsonlines==1.2.0
+nltk==3.5
 # sacremoses # only for XLMTokenizer
 # protobuf==3.20.0 # only for T5
 
