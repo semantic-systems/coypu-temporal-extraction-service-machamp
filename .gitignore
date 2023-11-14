@@ -12,6 +12,8 @@ uie/pd_models
 uie/runs
 uie//models
 uie/*.lock
+uie/finetuned_models
+uie/results
 
 # Temporal data
 temporal-data/entity/my_converted_datasets
