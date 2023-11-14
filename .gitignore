@@ -7,7 +7,6 @@ machamp/ud-treebanks-v2.9.tgz
 machamp/wikiextractor
 
 # UIE
-uie/output
 uie/hf_models
 uie/pd_models
 uie/runs
