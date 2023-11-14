@@ -1,0 +1,14 @@
+{
+    "PATE_SINGLE_FOLD_0": {
+        "train_data_path": "../temporal-data/entity/my_converted_datasets/bio/pate_single/folds/fold_0/pate-train.bio",
+        "dev_data_path": "../temporal-data/entity/my_converted_datasets/bio/pate_single/folds/fold_0/pate-val.bio",
+        "word_idx": 0,
+        "tasks": {
+            "ner": {
+                "task_type": "seq_bio",
+                "column_idx": 1,
+                "metric": "span_f1"
+            }
+        }
+    }
+}
