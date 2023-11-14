@@ -1,0 +1,1 @@
+During the finetuning process, UIE saves the logfiles and the models into this directory.
