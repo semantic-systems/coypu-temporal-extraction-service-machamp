@@ -5,6 +5,7 @@ machamp/*.py[cod]
 machamp/*swp
 machamp/ud-treebanks-v2.9.tgz
 machamp/wikiextractor
+machamp/crossvalidation-output
 
 # UIE
 uie/hf_models
