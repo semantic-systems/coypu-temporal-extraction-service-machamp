@@ -56,7 +56,7 @@ wget https://www.fdr.uni-hamburg.de/record/13621/files/large_fullpate_multi.zip
 
 The downloaded models should be extracted into a new directory ``finetuned_models``.
 
-[![Graphic of the UIE Architecture](../docs/images/uie-model.png)](#download-the-models)
+[![Graphic of the UIE Architecture](../docs/images/uie-model-small.png)](#download-the-models)
 > Graphic of the UIE Architecture [[Lu et al., 2022]](#references) 
 
 
