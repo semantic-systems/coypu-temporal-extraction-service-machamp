@@ -28,9 +28,9 @@ fi
 
 cd roberta_base
 
-download_and_unzip "https://www.fdr.uni-hamburg.de/record/13681/files/roberta-base_tempeval_multi.zip"
+download_and_unzip "https://www.fdr.uni-hamburg.de/record/13716/files/roberta-base_tempeval_multi.zip"
 download_and_unzip "https://www.fdr.uni-hamburg.de/record/13686/files/roberta-base_wikiwars_multi.zip"
-download_and_unzip "https://www.fdr.uni-hamburg.de/record/13683/files/roberta-base_tweets_multi.zip"
+download_and_unzip "https://www.fdr.uni-hamburg.de/record/13715/files/roberta-base_tweets_multi.zip"
 download_and_unzip "https://www.fdr.uni-hamburg.de/record/13679/files/roberta-base_fullpate_multi.zip"
 
 
