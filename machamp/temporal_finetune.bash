@@ -1,4 +1,4 @@
-config_files_directory="configs/my_configs"
+config_files_directory=$1
 
 #Get all files inside directory
 files=$(ls $config_files_directory)
