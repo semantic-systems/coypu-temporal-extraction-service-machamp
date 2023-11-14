@@ -718,7 +718,7 @@ def _load_gold_dataset_files(gold_base_dir: str, dataset_directory_name: str) ->
     """
     gold_directories = [f"{dataset_directory_name}/folds/fold_{i}" for i in range(0, 10)]
     gold_directories = [os.path.join(gold_base_dir, g) for g in gold_directories]
-    dataset_name = dataset_directory_name.split("_")[0]
+    dataset_name = dataset_directory_name.split("_")[0].strip()
 
     gold_val_filepaths = list()
     gold_test_filepaths = list()
@@ -1036,16 +1036,16 @@ def _bio_to_json(bio: str) -> List[Dict[str, Any]]:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_dir", "-b", type=str, default="/export/home/4kirsano/machamp/logs")
+    parser.add_argument("--base_model_dir", "-bm", type=str, default="logs")
+    parser.add_argument("--base_data_dir", "-bd", type=str, default="../temporal-data/entity/my_converted_datasets/bio")
     parser.add_argument("--dataset_name", "-d", type=str) #pate, snips, tempeval, ...
     parser.add_argument("--classes", "-c", type=str) #multi or single
     parser.add_argument("--copy_gold_files", "-g", action="store_true")
-    parser.add_argument("--output_base_dir", "-o", type=str, default="/export/home/4kirsano/machamp/crossvalidation-output")
+    parser.add_argument("--output_base_dir", "-o", type=str, default="crossvalidation-output")
     args = parser.parse_args()
 
-    gold_base_directory = "/export/home/4kirsano/machamp/temporal_data/temp_bio" #inside example: pate_single
-
-    model_base_directory = args.base_dir
+    gold_base_directory = args.base_data_dir
+    model_base_directory = args.base_model_dir
     dataset_name = args.dataset_name
     classes = args.classes
     full_dataset_name = f"{args.dataset_name}_{args.classes}" #e.g. "pate_multi"
@@ -1054,10 +1054,10 @@ def main():
 
     full_dataset_name = f"{dataset_name}_{classes}"
     print("Initializing crossvalidation...")
-    print(f"Full dataset name: {full_dataset_name}")
-    print("Parsing arguments...")
-    print(f"Model/Dataset full name: {full_dataset_name}")
     print(f"Dataset name: {dataset_name}")
+    print(f"Model base directory: {model_base_directory}")
+    print(f"Data base directory: {gold_base_directory}")
+    print(f"Full dataset name: {full_dataset_name}")
     print(f"Classes: {classes}")
     print(f"Copy gold files: {copy_gold_files}")
 

@@ -1,5 +1,5 @@
-base_dir="/export/home/4kirsano/machamp/logs"
-gold_base_dir="/export/home/4kirsano/machamp/temporal_data/temp_bio"
+base_dir="./logs"
+gold_base_dir="../temporal-data/entity/my_converted_datasets/bio"
 dataset_type_name="test.bio" 
 
 for main_model_dirname in "$base_dir"/*; do #e.g. AQUAINT_MULTI_CV_FOLD_0
