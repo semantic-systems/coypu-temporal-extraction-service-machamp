@@ -14,6 +14,7 @@ uie//models
 uie/*.lock
 uie/finetuned_models
 uie/results
+temporal-data/scripts/uie-conversion-scripts/data_config/entity
 
 # Temporal data
 temporal-data/entity/my_converted_datasets
