@@ -70,6 +70,7 @@ From this directory the following commands may be used:
 UIE:
 ``` bash
 conda create -n uie python=3.8
+conda activate uie
 pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 -f https://download.pytorch.org/whl/torch_stable.html
 pip install -r uie/requirements.txt
 ```
@@ -77,6 +78,7 @@ pip install -r uie/requirements.txt
 MaChAmp:
 ``` bash
 conda create -n machamp python=3.8
+conda activate machamp
 pip install -r machamp/requirements.txt
 ```
 
