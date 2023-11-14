@@ -13,10 +13,10 @@ import re
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_dir", "-b", type=str, default="/export/home/4kirsano/machamp/logs")
+    parser.add_argument("--base_dir", "-bd", type=str, default="./logs")
     parser.add_argument("--dataset_name", "-d", type=str)
     parser.add_argument("--classes", "-c", type=str) # "multi" or "single"
-    parser.add_argument("--output_dir", "-o", type=str, default="/export/home/4kirsano/machamp/crossvalidation-output")
+    parser.add_argument("--output_dir", "-o", type=str, default="./crossvalidation-output")
     args = parser.parse_args()
 
     finetuning_models_base_dir = args.base_dir

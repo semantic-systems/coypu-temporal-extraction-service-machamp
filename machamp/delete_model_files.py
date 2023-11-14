@@ -12,7 +12,7 @@ FILE_REGEX_TO_DELETE = [
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_dir", "-b", type=str, default="/export/home/4kirsano/machamp/second_batch_temporal_finetuning_logs")
+    parser.add_argument("--base_dir", "-b", type=str, default="./logs")
     parser.add_argument("--confirm_delete", "-c", action="store_true")
     args = parser.parse_args()
     base_dir = args.base_dir
