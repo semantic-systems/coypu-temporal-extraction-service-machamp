@@ -160,7 +160,14 @@ To reproduce the exact steps of the thesis, the priorly mentioned command needs 
 bash temporal_finetune.bash ./configs/crossvalidation_configs_multi
 ```
 
-After the finetuning is completed, the crossvalidation can be evaluated with the ``crossvalidation_evaluation_machamp.py`` script:
+After the finetuning is completed, the script ``evaluate_models.bash`` generates predictions in each of the model directories.
+This step needs to happen before the ``crossvalidation_evaluation_machamp.py`` script is started.
+
+```
+bash evaluate_models.bash
+```
+
+Now run the ``crossvalidation_evaluation_machamp.py`` script:
 
 ```
 python crossvalidation_evaluation_machamp.py --base_model_dir logs \
