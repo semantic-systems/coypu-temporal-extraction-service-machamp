@@ -1,5 +1,5 @@
-source config/data_conf/large_model_conf_temporal.ini
-export model_name="uie-large-en"
+source config/data_conf/base_model_conf_temporal.ini
+export model_name="uie-base-en"
 path_prefix="../temporal-data/entity/uie-format/"
 
 dataset_names=(
@@ -7,10 +7,10 @@ dataset_names=(
 	fullpate_multi
 	tempeval_multi
 	wikiwars-tagged_multi
-	aquaint_multi
-	timebank_multi
-	pate_multi
-	snips_multi
+	# aquaint_multi
+	# timebank_multi
+	# pate_multi
+	# snips_multi
 )
 
 for dataset_name in "${dataset_names[@]}"
