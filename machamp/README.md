@@ -23,8 +23,8 @@ If not, it automatically downloads the tokenizer:
 bash ../temporal-data/scripts/download_punkt_tokenizer.bash
 ```
 
-[![Graphic of the MaChAmp Architecture](../docs/images/machamp_architecture-small.png)](#download-the-models)
-> Graphic of the MaChAmp Architecture [[van der Goot et al., 2020]](#download-the-models-and-use-them)
+[![Graphic of the MaChAmp Architecture](../docs/images/machamp_architecture-small.png)](#download-the-models-and-use-them)
+> Graphic of the MaChAmp Architecture [[van der Goot et al., 2020]](#references)
 
 
 
