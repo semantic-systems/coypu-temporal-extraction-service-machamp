@@ -151,6 +151,62 @@ The following values for the transformer models were used in the thesis:
 * roberta-large
 * bert-base-multilingual-cased
 
+To reproduce the exact steps of the thesis, the priorly mentioned command needs to be repeated with every ``transformer_model`` parameter:
+
+```
+bash temporal_finetune.bash ./configs/crossvalidation_configs_multi
+```
+
+After the finetuning is completed, the crossvalidation can be evaluated with the ``crossvalidation_evaluation_machamp.py`` script:
+
+```
+python crossvalidation_evaluation_machamp.py --base_dir logs
+    --dataset_name pate
+    --classes multi
+    --output_base_dir crossvalidation-output
+```
+
+The script searches all the directories in the ``--base_model_dir`` and predict the dataset with all models and checkpoints.
+After completion, the script creates a directory in the ``output`` directory.
+In the above example the directory is called: ``output/base_tweets_multi_crossvalidation_logfiles``.
+
+This directory contains many files.
+The above example produces the following files (only a snapshot is displayed):
+
+* Files that compare the models to each other
+    * base_tweets_multi_crossvalidation_best_fold_models.txt
+    * base_tweets_multi_crossvalidation_best_models.txt
+    * base_tweets_multi_crossvalidation_dataframe_test-all.csv
+    * base_tweets_multi_crossvalidation_dataframe_test-all_filtered.csv
+    * base_tweets_multi_crossvalidation_dataframe_test-best.csv
+    * base_tweets_multi_crossvalidation_dataframe_test-best_filtered.csv
+    * base_tweets_multi_crossvalidation_dataframe_val-all.csv
+    * base_tweets_multi_crossvalidation_dataframe_val-all_filtered.csv
+    * base_tweets_multi_crossvalidation_dataframe_val-best.csv
+    * base_tweets_multi_crossvalidation_dataframe_val-best_filtered.csv
+    * base_tweets_multi_crossvalidation_full_evaluation_dataframe_test.csv
+    * base_tweets_multi_crossvalidation_full_evaluation_dataframe_val.csv
+    * base_tweets_multi_crossvalidation_summary.txt
+    * base_tweets_multi_crossvalidation_test_average_results.txt
+    * base_tweets_multi_crossvalidation_test_std_results.txt
+    * base_tweets_multi_crossvalidation_val_average_results.txt
+    * base_tweets_multi_crossvalidation_val_std_results.txt
+* Files with the predictions for each fold
+    * base_tweets_multi_fold_0_checkpoint-470_test_preds_record.txt
+    * base_tweets_multi_fold_0_checkpoint-470_test_preds_seq2seq.txt
+    * base_tweets_multi_fold_0_checkpoint-470_test_results.txt
+    * base_tweets_multi_fold_0_checkpoint-470_val_preds_record.txt
+    * base_tweets_multi_fold_0_checkpoint-470_val_preds_seq2seq.txt
+    * base_tweets_multi_fold_0_checkpoint-470_val_results.txt
+* Files that contain the mispredictions and their analysis
+    * base_tweets_multi_fold_0_checkpoint-470_error_analysis_test.txt
+    * base_tweets_multi_fold_0_checkpoint-470_error_analysis_val.txt
+    * base_tweets_multi_fold_0_checkpoint-846_error_analysis_test.txt
+    * base_tweets_multi_fold_0_checkpoint-846_error_analysis_val.txt
+
+
+
+
 
 # References
 
