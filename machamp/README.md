@@ -23,43 +23,133 @@ If not, it automatically downloads the tokenizer:
 bash ../temporal-data/scripts/download_punkt_tokenizer.bash
 ```
 
-
-
-
-
-# Download the models
-
-Depending on the workflow, the right models have to be downloaded first.
-If the steps of the thesis are to be recreated and the models to be finetuned by hand, the clean models need to be downloaded.
-The script ``download_clean_models.bash`` downloads the models and unzips them into the directory hf_models.
-After that, it removes the zip files.
-This can also be done manually with the download links in the [main README documentation](..#clean-uie-models).
-
-```
-bash ./download_clean_models.bash    
-```
-
-If the finetuned models are to be used, they have to be downloaded as described in the [main readme](..#uie-models).
-Alternatively a script that downloads all the models and saves them in the directory ``finetuned_models`` can be run:
-
-```
-bash ./download_finetuned_models.bash
-```
-
-Note that this script will download about 16GB.
-If only specific models are required, they can be downloaded manually or via wget:
-
-```
-wget https://www.fdr.uni-hamburg.de/record/13621/files/large_fullpate_multi.zip
-```
-
-The downloaded models should be extracted into a new directory ``finetuned_models``.
-
 [![Graphic of the MaChAmp Architecture](../docs/images/machamp_architecture-small.png)](#download-the-models)
-> Graphic of the MaChAmp Architecture [[van der Goot et al., 2020]](#references)
+> Graphic of the MaChAmp Architecture [[van der Goot et al., 2020]](#download-the-models-and-use-them)
 
 
 
+
+
+# Download the models and use them
+
+There are several scripts to download the finetuned models and unzip them automatically.
+The scripts save the models in the directory ``finetuned_models``.
+Each of the script downloads both the base and the large models for the model type.
+
+```
+bash download_finetuned_bert_models.bash
+bash download_finetuned_mbert_models.bash
+bash download_finetuned_roberta_models.bash
+bash download_finetuned_xlm-roberta_models.bash
+```
+
+The models can also be downloaded and saved by hand following the links posted in the [main directory](..) or with the help of the wget command:
+
+```
+wget https://www.fdr.uni-hamburg.de/record/13690/files/mbert_tempeval_multi.zip
+```
+
+All models together require about 30GB disk space.
+
+To run a model use the ``predict.py`` script.
+
+```
+python predict.py finetuned_models/xlm-roberta_large/xlm-roberta-large_tempeval_multi/model.pt ../temporal-data/entity/bio/tempeval_multi/tempeval-test.bio logs/outputfile_tempeval-test.log --device 0 
+```
+
+
+
+
+
+# Full reproduction of the thesis steps
+
+It is assumed that the data has been prepared sufficiently.
+The fastest way to do that is to run the script that creates all datasets for the crossvalidation:
+
+```
+bash ../temporal-data/scripts/create_all_datasets.bash 
+```
+
+More information in the [temporal-data scripts documentation](../temporal-data/scripts/).
+
+MaChAmp works with JSON configuration files to pass the parameters for finetuning.
+This requires a configuration file for each dataset and each fold in a crossvalidation.
+The script ``bulk_create_machamp_config_files.py`` can be used to generate the configruation files.
+
+```
+python bulk_create_machamp_config_files.py \
+    --datasets_base_dir ../temporal-data/entity/my_converted_datasets/bio \
+    --output_dir configs/temporal_configs
+```
+
+The ``--datasets_base_dir`` parameter points to a directory that contains BIO datasets.
+The script will automatically generate the configuration files at the ``--output_dir`` location.
+
+An example file looks like this:
+
+```
+{
+    "TEMPEVAL_MULTI": {
+        "train_data_path": "../temporal-data/entity/my_converted_datasets/bio/tempeval_multi/tempeval-train.bio",
+        "dev_data_path": "../temporal-data/entity/my_converted_datasets/bio/tempeval_multi/tempeval-val.bio",
+        "word_idx": 0,
+        "tasks": {
+            "ner": {
+                "task_type": "seq_bio",
+                "column_idx": 1,
+                "metric": "span_f1"
+            }
+        }
+    }
+}
+```
+
+To finetune the models a directory with at least one configuration file needs to be passed to the ``temporal_finetune.bash`` script (it takes one parameter with the location).
+This means that one model will be generated for each configuration file.
+
+```
+bash temporal_finetune.bash ./configs/crossvalidation_configs_multi
+```
+
+It is recommended to use ``nohup`` and ``logfile-appending`` to finetune the models, since the scripts produce many terminal outputs:
+
+```
+nohup bash temporal_finetune.bash ./configs/crossvalidation_configs_multi >> logs/xlm-roberta-large_crossvalidation_multi.log &
+```
+
+Predefined directories with the required configuration files are available in the [configs directory](configs).
+
+There is another configuration file that is important to adjust the hyperparameters.
+The file [configs/params.json](configs/params.json) needs to be adjusted each time the finetuning process is started.
+The most important hyperparameter is the model itself.
+It can be changed in the first line ``transformer_model``:
+
+```
+{
+    "transformer_model": "xlm-roberta-base",
+    "reset_transformer_model": false,
+    "random_seed": 8446,
+    "default_dec_dataset_embeds_dim": 12,
+    "encoder": {
+        "dropout": 0.2,
+        "max_input_length": 128,
+        "update_weights_encoder": true
+    },
+
+    //...
+
+}
+```
+
+The following values for the transformer models were used in the thesis:
+
+* xlm-roberta-base
+* xlm-roberta-large
+* bert-base-cased
+* bert-large-cased
+* roberta-base
+* roberta-large
+* bert-base-multilingual-cased
 
 
 # References
