@@ -56,6 +56,9 @@ wget https://www.fdr.uni-hamburg.de/record/13621/files/large_fullpate_multi.zip
 
 The downloaded models should be extracted into a new directory ``finetuned_models``.
 
+[![Graphic of the UIE Architecture](../docs/images/uie-model.png)](#download-the-models)
+> Graphic of the UIE Architecture [[Lu et al., 2022]](#references) 
+
 
 
 
@@ -177,3 +180,11 @@ The above example produces the following files (only a snapshot is displayed):
     * base_tweets_multi_fold_0_checkpoint-470_error_analysis_val.txt
     * base_tweets_multi_fold_0_checkpoint-846_error_analysis_test.txt
     * base_tweets_multi_fold_0_checkpoint-846_error_analysis_val.txt
+
+
+
+
+
+# References
+
+* [Lu et al., 2022] [Lu, Y., Liu, Q., Dai, D., Xiao, X., Lin, H., Han, X., Sun, L., and Wu, H. (2022). Unified structure generation for universal information extraction. arXiv preprint arXiv:2203.12277.](https://aclanthology.org/2022.acl-long.395/)

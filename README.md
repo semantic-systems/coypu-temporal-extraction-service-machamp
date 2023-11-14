@@ -199,6 +199,7 @@ The following table shows the mutliclass results on the different datasets:
 
 
 # Relation Extraction dataset
+
 Eventhough the dataset was not explicitly used in the thesis, scripts to converting the TempEval-3 relation extraction dataset to the UIE format were created and tested prototypically.
 The converted dataset and the conversion scripts are available in the [temporal-data](temporal-data) folder.
 This dataset may be used for future work.
@@ -208,6 +209,7 @@ This dataset may be used for future work.
 
 
 # References
+
 * [Lu et al., 2022] [Lu, Y., Liu, Q., Dai, D., Xiao, X., Lin, H., Han, X., Sun, L., and Wu, H. (2022). Unified structure generation for universal information extraction. arXiv preprint arXiv:2203.12277.](https://aclanthology.org/2022.acl-long.395/)
 
 * [van der Goot et al., 2020] [van der Goot, R., Üstün, A., Ramponi, A., Sharaf, I., and Plank, B. (2020). Massive choice, ample tasks (machamp): A toolkit for multi-task learning in nlp. arXiv preprint arXiv:2005.14672.](https://arxiv.org/abs/2005.14672)
