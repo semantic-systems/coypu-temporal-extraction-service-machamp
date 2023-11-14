@@ -1,0 +1,14 @@
+{
+    "TWEETS_SINGLE_FOLD_2": {
+        "train_data_path": "../temporal-data/entity/my_converted_datasets/bio/tweets_single/folds/fold_2/tweets-train.bio",
+        "dev_data_path": "../temporal-data/entity/my_converted_datasets/bio/tweets_single/folds/fold_2/tweets-val.bio",
+        "word_idx": 0,
+        "tasks": {
+            "ner": {
+                "task_type": "seq_bio",
+                "column_idx": 1,
+                "metric": "span_f1"
+            }
+        }
+    }
+}
