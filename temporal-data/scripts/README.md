@@ -1,3 +1,16 @@
+# Installation of the punkt Tokenizer
+
+Most of the scripts in this directory depend on the nltk punkt tokenizer.
+It can be installed with the following bash script:
+
+```
+bash download_punkt_tokenizer.bash
+```
+
+
+
+
+
 # Quickstart
 
 All the datasets can be created with the call of a single bash script:
