@@ -95,7 +95,7 @@ dataset_names=(
 for dataset_name in "${dataset_names[@]}"
 do
     dataset_name="$dataset_name"
-	data_folder=../temporal-data/entity/my_converted_datasets/uie-format/${dataset_name}
+	data_folder=${path_prefix}/${dataset_name}
 	echo "Datafolder is: $data_folder"
     echo "Initializing: $dataset_name ..."
     export dataset_name
