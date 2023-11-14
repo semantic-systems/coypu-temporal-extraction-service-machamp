@@ -86,6 +86,8 @@ def main():
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--match_mode', default='normal',
                         choices=['set', 'normal', 'multimatch'])
+    parser.add_argument("--output_dir", "-o", type=str)
+
     options = parser.parse_args()
 
     data_folder = options.data
@@ -145,16 +147,33 @@ def main():
                 match_mode=options.match_mode,
             )
             results.update(sub_results)
+        
+        output_preds_record = ""
+        output_preds_seq2seq = ""
+        output_results = ""
+        if options.output_dir != "" and options.output_dir != None:
+            #Save output files in output directory (parameter)
+            output_preds_record = os.path.join(options.output_dir, f'{split_name}_preds_record.txt')
+            output_preds_seq2seq = os.path.join(options.output_dir, f'{split_name}_preds_seq2seq.txt')
+            output_results = os.path.join(options.output_dir, f'{split_name}_results.txt')
+        else:
+            #Save output files in model directory
+            output_preds_record = os.path.join(options.model, f'{split_name}_preds_record.txt')
+            output_preds_seq2seq = os.path.join(options.model, f'{split_name}_preds_seq2seq.txt')
+            output_results = os.path.join(options.model, f'{split_name}_results.txt')
 
-        with open(os.path.join(options.model, f'{split_name}_preds_record.txt'), 'w') as output:
+        with open(output_preds_record, 'w') as output:
+            print(f"Writing to {output}")
             for record in records:
                 output.write(f'{json.dumps(record)}\n')
 
-        with open(os.path.join(options.model, f'{split_name}_preds_seq2seq.txt'), 'w') as output:
+        with open(output_preds_seq2seq, 'w') as output:
+            print(f"Writing to {output}")
             for pred in predict:
                 output.write(f'{pred}\n')
 
-        with open(os.path.join(options.model, f'{split_name}_results.txt'), 'w') as output:
+        with open(output_results, 'w') as output:
+            print(f"Writing to {output}")
             for key, value in results.items():
                 output.write(f'{split_name}_{key}={value}\n')
 
