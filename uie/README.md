@@ -175,7 +175,7 @@ The above example produces the following files (only a snapshot is displayed):
     * base_tweets_multi_fold_0_checkpoint-470_val_preds_record.txt
     * base_tweets_multi_fold_0_checkpoint-470_val_preds_seq2seq.txt
     * base_tweets_multi_fold_0_checkpoint-470_val_results.txt
-* Files that contain the mispredictions and their analysis
+* Files that highlight all the mispredictions with some statistics
     * base_tweets_multi_fold_0_checkpoint-470_error_analysis_test.txt
     * base_tweets_multi_fold_0_checkpoint-470_error_analysis_val.txt
     * base_tweets_multi_fold_0_checkpoint-846_error_analysis_test.txt

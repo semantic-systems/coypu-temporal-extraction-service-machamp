@@ -57,6 +57,10 @@ To run a model use the ``predict.py`` script.
 python predict.py finetuned_models/xlm-roberta_large/xlm-roberta-large_tempeval_multi/model.pt ../temporal-data/entity/bio/tempeval_multi/tempeval-test.bio logs/outputfile_tempeval-test.log --device 0 
 ```
 
+The example takes four positional parameters.
+In this example the model is ``xlm-roberta-large``, the dataset ``tempeval_multi (bio)``, the output-file ``logs/outputfile_tempeval-test.log`` and the ``device`` 0.
+The ``device`` parameter means that the scripts should use the GPU for the prediction.
+
 
 
 
@@ -107,7 +111,8 @@ An example configuration file looks like this:
 ```
 
 To finetune the models a directory with at least one configuration file needs to be passed to the ``temporal_finetune.bash`` script (it takes one parameter with the location).
-This means that one model will be generated for each configuration file.
+This means that at least one model will be generated for each configuration file (MaChAmp's finetuning strategy saves two models, one for the best epoch and one for the final epoch).
+The model files have the ending ``.pt``.
 
 ```
 bash temporal_finetune.bash ./configs/crossvalidation_configs_multi
@@ -123,7 +128,7 @@ Predefined directories with the required configuration files are available in th
 For example the directory [configs/crossvalidation_configs_multi](configs/crossvalidation_configs_multi) contains all configuration files necessary to finetune all the multi-class datasets in a crossvalidation manner.
 
 There is another configuration file that is important to adjust the hyperparameters.
-The file [configs/params.json](configs/params.json) needs to be adjusted each time the finetuning process is started.
+The file [configs/params.json](configs/params.json) needs to be adjusted each time before the finetuning process is started.
 The most important hyperparameter is the model itself.
 It can be changed in the first line ``transformer_model``:
 
@@ -179,41 +184,36 @@ python crossvalidation_evaluation_machamp.py --base_model_dir logs \
 
 The script searches all the directories in the ``--base_dir`` and predicts the dataset with all models and checkpoints.
 After completion, the script creates a directory in the ``output`` directory.
-In the above example the directory is called: ``output/base_tweets_multi_crossvalidation_logfiles``.
+In the above example the directory is called: ``crossvalidation-output/pate_multi_crossvalidation_logfiles``.
 
 This directory contains many files.
 The above example produces the following files (only a snapshot is displayed):
 
 * Files that compare the models to each other
-    * base_tweets_multi_crossvalidation_best_fold_models.txt
-    * base_tweets_multi_crossvalidation_best_models.txt
-    * base_tweets_multi_crossvalidation_dataframe_test-all.csv
-    * base_tweets_multi_crossvalidation_dataframe_test-all_filtered.csv
-    * base_tweets_multi_crossvalidation_dataframe_test-best.csv
-    * base_tweets_multi_crossvalidation_dataframe_test-best_filtered.csv
-    * base_tweets_multi_crossvalidation_dataframe_val-all.csv
-    * base_tweets_multi_crossvalidation_dataframe_val-all_filtered.csv
-    * base_tweets_multi_crossvalidation_dataframe_val-best.csv
-    * base_tweets_multi_crossvalidation_dataframe_val-best_filtered.csv
-    * base_tweets_multi_crossvalidation_full_evaluation_dataframe_test.csv
-    * base_tweets_multi_crossvalidation_full_evaluation_dataframe_val.csv
-    * base_tweets_multi_crossvalidation_summary.txt
-    * base_tweets_multi_crossvalidation_test_average_results.txt
-    * base_tweets_multi_crossvalidation_test_std_results.txt
-    * base_tweets_multi_crossvalidation_val_average_results.txt
-    * base_tweets_multi_crossvalidation_val_std_results.txt
+    * pate_multi_crossvalidation_best_fold_models.txt
+    * pate_multi_crossvalidation_best_models.txt
+    * pate_multi_crossvalidation_dataframe_test-all.csv
+    * pate_multi_crossvalidation_dataframe_test-all_filtered.csv
+    * pate_multi_crossvalidation_dataframe_test-best.csv
+    * pate_multi_crossvalidation_dataframe_test-best_filtered.csv
+    * pate_multi_crossvalidation_dataframe_val-all.csv
+    * pate_multi_crossvalidation_dataframe_val-all_filtered.csv
+    * pate_multi_crossvalidation_dataframe_val-best.csv
+    * pate_multi_crossvalidation_dataframe_val-best_filtered.csv
+    * pate_multi_crossvalidation_full_evaluation_dataframe_test.csv
+    * pate_multi_crossvalidation_full_evaluation_dataframe_val.csv
+    * pate_multi_crossvalidation_summary.txt
+    * pate_multi_crossvalidation_test_average_results.txt
+    * pate_multi_crossvalidation_test_std_results.txt
+    * pate_multi_crossvalidation_val_average_results.txt
+    * pate_multi_crossvalidation_val_std_results.txt
 * Files with the predictions for each fold
-    * base_tweets_multi_fold_0_checkpoint-470_test_preds_record.txt
-    * base_tweets_multi_fold_0_checkpoint-470_test_preds_seq2seq.txt
-    * base_tweets_multi_fold_0_checkpoint-470_test_results.txt
-    * base_tweets_multi_fold_0_checkpoint-470_val_preds_record.txt
-    * base_tweets_multi_fold_0_checkpoint-470_val_preds_seq2seq.txt
-    * base_tweets_multi_fold_0_checkpoint-470_val_results.txt
-* Files that contain the mispredictions and their analysis
-    * base_tweets_multi_fold_0_checkpoint-470_error_analysis_test.txt
-    * base_tweets_multi_fold_0_checkpoint-470_error_analysis_val.txt
-    * base_tweets_multi_fold_0_checkpoint-846_error_analysis_test.txt
-    * base_tweets_multi_fold_0_checkpoint-846_error_analysis_val.txt
+    * pate_multi_fold_0_test_preds_record.txt
+    * pate_multi_fold_0_test_results.txt
+    * pate_multi_fold_0_val_preds_record.
+* Files that highlight all the mispredictions with some statistics
+    * pate_multi_fold_0_error_analysis_test.txt
+    * pate_multi_fold_0_error_analysis_val.txt
 
 
 
