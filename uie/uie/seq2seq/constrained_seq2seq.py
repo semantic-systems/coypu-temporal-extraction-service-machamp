@@ -29,9 +29,6 @@ class ConstraintSeq2SeqTrainingArguments(Seq2SeqTrainingArguments):
                                          metadata={"help": "Whether to save better metric checkpoint"})
     start_eval_step: int = field(default=0, metadata={"help": "Start Evaluation after Eval Step"})
 
-    #For WANDB reporting
-    report_to: str = field(default="wandb", metadata={"help": "Use wandb to log training process"})
-
 
 class ConstraintSeq2SeqTrainer(Seq2SeqTrainer):
     def __init__(self, decoding_type_schema=None, task='event', decoding_format='tree', source_prefix=None, *args, **kwargs):
