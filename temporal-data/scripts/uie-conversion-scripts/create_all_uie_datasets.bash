@@ -3,4 +3,4 @@ python data_config_yaml_creator.py --input_base_directory_path ../../entity/my_c
     --crossvalidation
 
 python uie_convert.py -config data_config/entity/ \
-    -output ../../entity/my_converted_datasets/uie
+    -output ../../entity/my_converted_datasets/uie-format
