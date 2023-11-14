@@ -165,9 +165,9 @@ The following table shows the mutliclass results on the different datasets:
 
 | Dataset                        | Base                                                            | Large                                                            | Citation                                                                  |                              
 |-------------------------------:|----------------------------------------------------------------:|-----------------------------------------------------------------:|---------------------------------------------------------------------------|
-| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/13681)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13623)    | [[UzZaman et al., 2013]](#References)                                     |                  
+| TempEval-3                     | [Download Link](https://www.fdr.uni-hamburg.de/record/13716)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13623)    | [[UzZaman et al., 2013]](#References)                                     |                  
 | WikiWars                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13686)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13627)    | [[Derczynski et al., 2012]](#References)                                  |          
-| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/13683)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13629)    | [[Zhong et al., 2017]](#References)                                       |          
+| Tweets                         | [Download Link](https://www.fdr.uni-hamburg.de/record/13715)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13629)    | [[Zhong et al., 2017]](#References)                                       |          
 | Fullpate                       | [Download Link](https://www.fdr.uni-hamburg.de/record/13679)    |  [Download Link](https://www.fdr.uni-hamburg.de/record/13625)    | [Zarcone et al., 2020](#References)                                       |           
 
 
