@@ -1,6 +1,7 @@
 source config/data_conf/base_model_conf_temporal.ini
 export model_name="uie-base-en"
-path_prefix="../temporal-data/entity/uie-format/"
+# This script uses the converted datasets by the scripts in "../temporal-data/scripts"
+path_prefix="../temporal-data/entity/my_converted_datasets/uie-format/"
 
 dataset_names=(
 	pate_multi_fold_0
@@ -95,7 +96,7 @@ dataset_names=(
 for dataset_name in "${dataset_names[@]}"
 do
     dataset_name="$dataset_name"
-	data_folder=${path_prefix}/${dataset_name}
+	data_folder=${path_prefix}${dataset_name}
 	echo "Datafolder is: $data_folder"
     echo "Initializing: $dataset_name ..."
     export dataset_name
