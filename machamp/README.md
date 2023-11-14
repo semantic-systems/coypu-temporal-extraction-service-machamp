@@ -163,9 +163,10 @@ bash temporal_finetune.bash ./configs/crossvalidation_configs_multi
 After the finetuning is completed, the crossvalidation can be evaluated with the ``crossvalidation_evaluation_machamp.py`` script:
 
 ```
-python crossvalidation_evaluation_machamp.py --base_dir logs
-    --dataset_name pate
-    --classes multi
+python crossvalidation_evaluation_machamp.py --base_model_dir logs \
+    --base_data_dir ../temporal-data/entity/my_converted_datasets/bio \
+    --dataset_name pate \
+    --classes multi \
     --output_base_dir crossvalidation-output
 ```
 
