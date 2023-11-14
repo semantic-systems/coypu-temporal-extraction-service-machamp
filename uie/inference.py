@@ -73,9 +73,10 @@ def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--data', '-d', default='data/text2spotasoc/absa/14lap')
+        '--data', '-d', default='../temporal-data/entity/uie-format/tempeval_multi')
     parser.add_argument(
-        '--model', '-m', default='./models/uie_n10_21_50w_absa_14lap')
+        '--model', '-m', default='./finetuned_models/base/tempeval_multi')
+    parser.add_argument("--output_dir", "-o", type=str)
     parser.add_argument('--max_source_length', default=256, type=int)
     parser.add_argument('--max_target_length', default=192, type=int)
     parser.add_argument('--batch_size', default=16, type=int)
@@ -86,7 +87,6 @@ def main():
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--match_mode', default='normal',
                         choices=['set', 'normal', 'multimatch'])
-    parser.add_argument("--output_dir", "-o", type=str)
 
     options = parser.parse_args()
 
@@ -152,6 +152,11 @@ def main():
         output_preds_seq2seq = ""
         output_results = ""
         if options.output_dir != "" and options.output_dir != None:
+            #Create new directory if it does not exist
+            if not os.path.exists(options.output_dir):
+                os.makedirs(options.output_dir)
+                print(f"Directory '{options.output_dir}' created.")
+            
             #Save output files in output directory (parameter)
             output_preds_record = os.path.join(options.output_dir, f'{split_name}_preds_record.txt')
             output_preds_seq2seq = os.path.join(options.output_dir, f'{split_name}_preds_seq2seq.txt')
