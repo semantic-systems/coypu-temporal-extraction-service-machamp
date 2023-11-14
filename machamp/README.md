@@ -84,7 +84,7 @@ python bulk_create_machamp_config_files.py \
 
 The ``--datasets_base_dir`` parameter points to a directory that contains BIO datasets.
 The script will automatically generate the configuration files at the ``--output_dir`` location.
-Many of configuration files have been generated and grouped in the [config directory](config).
+Many of configuration files have been generated and grouped in the [config directory](configs).
 These configuration files can be used.
 
 An example configuration file looks like this:
@@ -120,7 +120,7 @@ nohup bash temporal_finetune.bash ./configs/crossvalidation_configs_multi >> log
 ```
 
 Predefined directories with the required configuration files are available in the [configs directory](configs).
-For example the directory [configs/crossvalidation_configs_multi](configs/crossvalidation_configs_multi) contains all configuration files necessary to finetune all the datasets in an crossvalidation manner.
+For example the directory [configs/crossvalidation_configs_multi](configs/crossvalidation_configs_multi) contains all configuration files necessary to finetune all the multi-class datasets in a crossvalidation manner.
 
 There is another configuration file that is important to adjust the hyperparameters.
 The file [configs/params.json](configs/params.json) needs to be adjusted each time the finetuning process is started.
@@ -146,13 +146,13 @@ It can be changed in the first line ``transformer_model``:
 
 The following values for the transformer models were used in the thesis:
 
-* xlm-roberta-base
-* xlm-roberta-large
-* bert-base-cased
-* bert-large-cased
-* roberta-base
-* roberta-large
-* bert-base-multilingual-cased
+* [xlm-roberta-base](https://huggingface.co/xlm-roberta-base)
+* [xlm-roberta-large](https://huggingface.co/xlm-roberta-large)
+* [bert-base-cased](https://huggingface.co/bert-base-cased)
+* [bert-large-cased](https://huggingface.co/bert-large-cased)
+* [roberta-base](https://huggingface.co/roberta-base)
+* [roberta-large](https://huggingface.co/roberta-large)
+* [bert-base-multilingual-cased](https://huggingface.co/bert-base-multilingual-cased)
 
 To reproduce the exact steps of the thesis, the priorly mentioned command needs to be repeated with every ``transformer_model`` parameter:
 
