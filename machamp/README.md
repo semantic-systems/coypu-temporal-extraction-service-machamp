@@ -6,8 +6,8 @@ This documentation presents two workflows:
 
 If the thesis steps are to be reproduced, it is assumed that the data was prepared as described in the [temporal-data documentation](../temporal-data/).
 
-If the Anaconda environment has not been setup previously, it should be installed and activated.
-The following command will create a new environment with the name ``machamp``, download the packages and activate it:
+If the Anaconda environment has not been set up previously, it should be installed and activated.
+The following command will create a new environment with the name ``machamp``, download the packages, and activate it:
 
 ```
 conda create -n machamp python=3.8
@@ -34,7 +34,7 @@ bash ../temporal-data/scripts/download_punkt_tokenizer.bash
 
 There are several scripts to download the finetuned models and unzip them automatically.
 The scripts save the models in the directory ``finetuned_models``.
-Each of the scripts downloads both the base and the large models for the model type.
+Each script downloads the base and the large models for the model type.
 
 ```
 bash download_finetuned_bert_models.bash
@@ -49,9 +49,9 @@ The models can also be downloaded and saved by hand following the links posted i
 wget https://www.fdr.uni-hamburg.de/record/13690/files/mbert_tempeval_multi.zip
 ```
 
-All models together require about 30GB disk space.
+All models together require about 30GB of disk space.
 
-To run a model use the ``predict.py`` script.
+To run a model, use the ``predict.py`` script.
 
 ```
 python predict.py finetuned_models/xlm-roberta_large/xlm-roberta-large_tempeval_multi/model.pt ../temporal-data/entity/bio/tempeval_multi/tempeval-test.bio logs/outputfile_tempeval-test.log --device 0 
@@ -69,7 +69,7 @@ This command will generate two files: one BIO-formatted file that shows the exac
 # Full reproduction of the thesis steps
 
 It is assumed that the data has been prepared sufficiently.
-The fastest way to do that is to run the script that creates all datasets for the crossvalidation:
+The fastest way to do that is to run the script that creates all datasets for the cross-validation:
 
 ```
 bash ../temporal-data/scripts/create_all_datasets.bash 
@@ -78,8 +78,8 @@ bash ../temporal-data/scripts/create_all_datasets.bash
 More information in the [temporal-data scripts documentation](../temporal-data/scripts/).
 
 MaChAmp works with JSON configuration files to pass the parameters for finetuning.
-This requires a configuration file for each dataset and each fold in a crossvalidation.
-The script ``bulk_create_machamp_config_files.py`` can be used to generate the configruation files.
+This requires a configuration file for each dataset and each fold in a cross-validation.
+The script ``bulk_create_machamp_config_files.py`` can be used to generate the configuration files.
 
 ```
 python bulk_create_machamp_config_files.py \
@@ -91,7 +91,7 @@ The ``--datasets_base_dir`` parameter points to a directory that contains BIO da
 The script will automatically generate the configuration files at the ``--output_dir`` location.
 Many of the configuration files have been generated and grouped by the author in the [config directory](configs).
 Some of the files are repeated across the different config directories.
-This is done for convenience purposes, since the MaChAmp finetuning script requires a whole config directory, which can be chosen by a parameter. 
+This is done for convenience since the MaChAmp finetuning script requires a whole config directory chosen by a parameter. 
 
 The file contains a dataset name and the paths to the dataset files.
 Furthermore, it describes how MaChAmp should treat each column.
@@ -122,14 +122,14 @@ The model files have the ending ``.pt``.
 bash temporal_finetune.bash ./configs/crossvalidation_configs_multi
 ```
 
-It is recommended to use ``nohup`` and ``logfile-appending`` to finetune the models, since the scripts produce many terminal outputs:
+It is recommended to use ``nohup`` and ``logfile-appending`` to finetune the models since the scripts produce many terminal outputs:
 
 ```
 nohup bash temporal_finetune.bash ./configs/crossvalidation_configs_multi >> logs/xlm-roberta-large_crossvalidation_multi.log &
 ```
 
 Predefined directories with the required configuration files are available in the [configs directory](configs).
-For example the directory [configs/crossvalidation_configs_multi](configs/crossvalidation_configs_multi) contains all configuration files necessary to finetune all the multi-class datasets in a crossvalidation manner.
+For example, the directory [configs/crossvalidation_configs_multi](configs/crossvalidation_configs_multi) contains all configuration files necessary to finetune all the multi-class datasets in a crossvalidation manner.
 
 There is another configuration file that is important to adjust the hyperparameters.
 The file [configs/params.json](configs/params.json) needs to be adjusted each time before the finetuning process is started.
@@ -163,13 +163,13 @@ The following values for the transformer models were used in the thesis:
 * [roberta-large](https://huggingface.co/roberta-large)
 * [bert-base-multilingual-cased](https://huggingface.co/bert-base-multilingual-cased)
 
-To reproduce the exact steps of the thesis, the priorly mentioned command needs to be repeated with every ``transformer_model`` parameter:
+To reproduce the exact steps of the thesis, the previously mentioned command needs to be repeated with every ``transformer_model`` parameter:
 
 ```
 bash temporal_finetune.bash ./configs/crossvalidation_configs_multi
 ```
 
-After the finetuning is completed, the script ``evaluate_models.bash`` generates predictions in each of the model directories.
+After the finetuning, the script ``evaluate_models.bash`` generates predictions in each model directory.
 This step needs to happen before the ``crossvalidation_evaluation_machamp.py`` script is started.
 
 ```
@@ -188,7 +188,7 @@ python crossvalidation_evaluation_machamp.py --base_model_dir logs \
 
 The script searches all the directories in the ``--base_dir`` and predicts the dataset with all models and checkpoints.
 After completion, the script creates a directory in the ``output`` directory.
-In the above example the directory is called: ``crossvalidation-output/pate_multi_crossvalidation_logfiles``.
+In the above example, the directory is called: ``crossvalidation-output/pate_multi_crossvalidation_logfiles``.
 
 This directory contains many files.
 The above example produces the following files (only a snapshot is displayed):
