@@ -20,7 +20,7 @@ bash create_all_datasets.bash
 ```
 
 Note that this operation will generate the datasets in the directory: "[../../entity/my_converted_datasets](../../entity/my_converted_datasets)" with a size of about 1GB.
-The script calls three other bash scripts that generate JSONLINES, BIO and UIE data respectively.
+The script calls three other bash scripts that generate JSONLINES, BIO, and UIE data.
 Each of them can be called in isolation: 
 
 ```
@@ -35,18 +35,18 @@ cd ../bio-conversion-scripts && bash create_all_bio_datasets.bash
 cd ../uie-conversion-scripts && bash create_all_uie_datasets.bash
 ```
 
-The bash scripts simply call Python scripts with a predefined set of parameters.
+The bash scripts are called Python scripts with a predefined set of parameters.
 These parameters were used in the thesis.
-For more control, each of the Python scripts can be called with a different set of parameters seperately.
-Note that the JSONLINES datasets always need to be generated before BIO and UIE-format.
+For more control, each Python script can be called with a different set of parameters separately.
+Note that the JSONLINES datasets must always be generated before BIO and UIE format.
 
 
 
 
 
-# How to use the dataset JSONLINE converters?
+# How to use the dataset JSONLINE converters
 
-The Python converter scripts have all a similar set of parameters.
+The Python converter scripts have a similar set of parameters.
 They differ slightly from case to case.
 The main difference is that the "union" datasets TempEval-3 and Fullpate are created from previously converted subsets.
 The other differences are based on the fact that the original datasets have different directory structures and differ in the amount of files used.
@@ -63,7 +63,7 @@ python converter_pate.py --input_filepaths ../../original_datasets/pate_and_snip
     --folds 10
 ```
 
-To create the single-class version of this dataset use the `--single_class` flag.
+To create the single-class version of this dataset, use the `--single_class` flag.
 
 
 ## Synopsis of JSONLINE Converters
@@ -90,9 +90,9 @@ converter_wikiwars-tagged.py [--input_parent_filepath INPUT_PARENT_FILEPATH] [--
 
 
 
-# How to use the dataset BIO converters?
+# How to use the dataset BIO converters
 
-The BIO converter simply takes the datasets in the JSONLINES format and converts them to the BIO format.
+The BIO converter takes the datasets in the JSONLINES format and converts them to the BIO format.
 Therefore, this step should be done after the JSONLINES conversion.
 
 ```
@@ -106,7 +106,7 @@ Furthermore, each dataset name (directory name) has to be specified.
 converter_json_to_temp_bio.py [--input_base_directory_path INPUT_BASE_DIRECTORY_PATH] [--output_directory OUTPUT_DIRECTORY] [--dataset_names DATASET_NAMES [DATASET_NAMES ...]]
 ```
 
-An Example, which converts all the multi-class datasets to the BIO format:
+An example which converts all the multi-class datasets to the BIO format:
 
 ```
 python converter_json_to_temp_bio.py --input_base_directory_path ../../entity/my_converted_datasets/jsonlines \
@@ -122,8 +122,8 @@ python converter_json_to_temp_bio.py --input_base_directory_path ../../entity/my
 # How to use the dataset UIE converters?
 
 The UIE converter requires the creation of YAML configuration files.
-For this the YAML creation script should be called first.
-Example configuration files can be found under [data_config/examples](data_config/examples).
+For this, the YAML creation script should be called first.
+Example configuration files are under [data_config/examples](data_config/examples).
 
 ```
 cd uie-conversion-scripts
@@ -135,8 +135,8 @@ python data_config_yaml_creator.py --input_base_directory_path ../../entity/my_c
     --crossvalidation
 ```
 
-The script generates configuration files for all datasets present in the ``--input_base_directory_path``.
-The ``--crossvalidation`` switch should be used to also generate files for each of the crossvalidation folds. 
+The script generates configuration files for all datasets in the ``--input_base_directory_path``.
+The ``--crossvalidation`` switch should be used to generate files for each cross-validation fold. 
 An example file looks like this:
 
 ```
@@ -155,8 +155,8 @@ split:
     val: timebank-val.jsonlines
 ```
 
-The YAML file tells UIE what entity-classes are in the dataset, where the dataset is located, how to name the output files, as well as what dataset-specific conversion class to use during the conversion process. 
-In this case the class is called "TIMEBANK".
+The YAML file tells UIE what entity classes are in the dataset, where the dataset is located, how to name the output files, and what dataset-specific conversion class to use during the conversion process. 
+In this case, the class is called "TIMEBANK".
 This class is defined in the file ``./uie-conversion-scripts/universal_ie/task_format/timebank.py``, which is loaded before the conversion process starts.
 
 The UIE converter requires the directory with the configuration files and the output directory:
@@ -172,7 +172,7 @@ The converter loads all YAML files in the ``-config`` directory and outputs the 
 
 
 
-# How to use the analyis scripts?
+# How to use the analysis scripts?
 
 The analysis scripts generate statistics for the datasets previously converted to the JSONLINE format.
 The usage is as follows:
