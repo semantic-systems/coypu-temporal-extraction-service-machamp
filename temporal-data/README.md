@@ -1,13 +1,13 @@
 # Overview
 
 This documentation describes how to work with this directory.
-In general, it is recommended to prepare the data first, before working with the [UIE](../uie) and [MaChAmp](../machamp) directories to work with the models.
+In general, it is recommended to prepare the data first before working with the [UIE](../uie) and [MaChAmp](../machamp) directories to work with the models.
 It is also recommended to work with the conventions set by this documentation.
-In particular, it is important that the freshly converted datasets are saved in the correct directory to make the use of all the scripts in this repository easy.
+In particular, the freshly converted datasets must be saved in the correct directory to make using all the scripts in this repository easy.
 
 This directory contains already converted datasets in most of the required formats.
 It is possible to use the pre-converted datasets with the models (both UIE and MaChAmp).
-If the whole crossvalidation process is to be reproduced, it is required to convert the datasets with the provided scripts, because the crossvalidation folds are not available in this directory (they can be easily produced with the provided scripts).
+If the whole cross-validation process is to be reproduced, it is required to convert the datasets with the provided scripts because the cross-validation folds are not available in this directory (they can be easily produced with the provided scripts).
 
 The structure of this directory is the following:
 
@@ -17,15 +17,15 @@ temporal-data
 ├── dataset-statistics      # Contains files with statistics for each of the datasets
 ├── entity                  # Contains all the converted datasets used in the thesis
 ├── original_datasets       # Contains the original versions of the datasets
-├── relation                # Contains the temporal relation extraction datasets in UIE-format
+├── relation                # Contains the temporal relation extraction datasets in UIE format
 ├── scripts                 # Contains all the scripts to convert the data to any format
 ```
 
-To use the scripts in the [scripts directory](scripts) it is required that the required Python packages are downloaded.
-For this it is recommended to setup Anaconda as described in the [main directory](..).
+To use the scripts in the [scripts directory](scripts), it is required that the required Python packages are downloaded.
+For this, it is recommended to set up Anaconda as described in the [main directory](..).
 The scripts run with either the MaChAmp or the UIE environment.
-For each of the original datasets a converter script has been written, that converts the data to a JSONLINE format (these are in the [jsonlines conversion directory](scripts/jsonlines-conversion-scripts/)).
-This format can not directly be used by either UIE or MAChAmp, but further scripts can use this format (for example [dataset analysis scripts](scripts/dataset-analysis-scripts/) that calculate the statistics for each dataset).
+For each of the original datasets, a converter script has been written that converts the data to a JSONLINE format (these are in the [jsonlines conversion directory](scripts/jsonlines-conversion-scripts/)).
+This format can not directly be used by either UIE or MAChAmp, but further scripts can use this format (for example, [dataset analysis scripts](scripts/dataset-analysis-scripts/) that calculate the statistics for each dataset).
 Furthermore, it is important to first download the [nltk punkt tokenizer](https://www.nltk.org/api/nltk.tokenize.punkt.html).
 The [scripts directory](scripts) contains a Python script that downloads the punkt tokenizer automatically.
 
@@ -35,20 +35,20 @@ The [scripts directory](scripts) contains a Python script that downloads the pun
 
 # Temporal Datasets
 
-There are four datasets used by the thesis: Fullpate, TempEval-3, WikiWars and Tweets.
-The Fullpate dataset is originally called PATE [[Zarcone et al., 2020]](#References), but in the context of this repository the name Fullpate is used.
+The thesis uses four datasets: Fullpate, TempEval-3, WikiWars, and Tweets.
+The Fullpate dataset is originally called PATE [[Zarcone et al., 2020]](#References), but in the context of this repository, the name Fullpate is used.
 The reason for this is that the Fullpate dataset consists of two pieces: Snips and Pate.
 These pieces have a different origin and format structure.
-In terms of temporal semantics and sentence structure these datasets show clear differences.
-Still, both of the pieces label temporal expressions with one of the four temporal classes: date, time, duration, set.
+In terms of temporal semantics and sentence structure, these datasets show clear differences.
+Still, both pieces label temporal expressions with one of the four temporal classes: date, time, duration, and set.
 Similarly, the TempEval-3 dataset [[UzZaman et al., 2013]](#references) consists of two pieces, namely TimeBank and AQUAINT.
 
 The other two datasets are Tweets [[Zhong et al., 2017]](#references) and WikiWars [[Mazur and Dale, 2010]](#references).
-WikiWars originally was only TIMEX2 tagged i.e. it does not contain any information on temporal classes.
+WikiWars originally was only TIMEX2 tagged, i.e., it contains no information on temporal classes.
 In the work by Derczynski et al. [[Derczynski et al., 2012]](#references), the dataset was labeled with TIMEX3 temporal classes.
 
-Since TempEval-3 and Fullpate consists of subsets which have a different format, there are converter scripts for each of the subsets as well as their union.
-The original datasets can be found in the [original_datasets directory](original_datasets). 
+Since TempEval-3 and Fullpate consist of subsets that have different formats, there are converter scripts for each of the subsets as well as their union.
+The original datasets are in the [original_datasets directory](original_datasets). 
 
 
 
@@ -56,20 +56,20 @@ The original datasets can be found in the [original_datasets directory](original
 
 # Data format
 
-There are three target formats, which are used in this repository: JSONLINES, UIE and BIO.
-Furthermore, each of the original datasets has its own format.
+Three target formats are used in this repository: JSONLINES, UIE, and BIO.
+Furthermore, each of the original datasets has its format.
 Most of them follow an XML structure, despite the PATE dataset [[Zarcone et al., 2020]](#References), which consists of two different JSON formats.
 Each of the target formats is described in the following sections.
 
 [![Temporal Conversion Formats Overview](../docs/images/temporal-conversion-formats.png)](#temporal-datasets)
-> The graphic shows the datasets, formats and the relations between them.
+> The graphic shows the datasets, formats, and the relations between them.
 
 
 ## JSONLINES format
 
-The JSONLINES format is used as a base to convert to the other formats, as well as using the dataset analysis scripts to create statistics.
+The JSONLINES format is used as a base to convert to the other formats, and the dataset analysis scripts are used to create statistics.
 Each line of a document represents a JSON entry.
-For visualization purposes the following code is formatted:
+For visualization purposes, the following code is formatted:
 
 ```
 {
@@ -92,17 +92,17 @@ For visualization purposes the following code is formatted:
 }
 ```
 
-The first entry is the full text, the second one are the tokens.
-After that follows a list of entities, which have a temporal type and token start/end indexes. 
+The first entry is the full text, and the second represents the tokens.
+After that follows a list of entities with a temporal type and token start/end indexes. 
 
 
 ## BIO format (MaChAmp)
 
-The BIO format uses B and I tags for each temporal class and an O tag as a seperator.
+The BIO format uses B and I tags for each temporal class and an O tag as a separator.
 This leads to 9 possible BIO tags (B-date, I-date, B-time, I-time, ..., I-set, O).
 The data is structured vertically with one token/tag pair per line.
 The token is split from the tag with a tab character.
-An entity begins with a B tag, continiues with an I tag and is closed with an O tag.
+An entity begins with a B tag, continues with an I tag, and is closed with an O tag.
 The following example shows how temporal entities are formatted:
 
 ```
@@ -124,7 +124,7 @@ The UIE format is the most complex of the three.
 It is generated with one of the original UIE scripts and requires configuration files for each dataset.
 The format is similar to JSONLINES with the "text" and "tokens" keys.
 Entities are encoded very similarly.
-The only difference are ``begin`` and ``end`` keys in the JSONLINE format and a list of ``offset`` indexes in the UIE format.
+The only differences are the ``begin`` and ``end`` keys in the JSONLINE format and a list of ``offset`` indexes in the UIE format.
 Similarly to JSONLINES, each data entry gets its own line.
 The following example was formatted for visualization purposes:
 
@@ -179,11 +179,11 @@ The temporal data does not utilize relations and events.
 The "spot_asoc" part is an internal representation of the SEL structure.
 The information in the JSONLINES format is already enough to use the [UIE converter scripts](scripts/uie-conversion-scripts/) to convert to its unique format.
 
-UIE also requires so-called SSI (structural schema instructor) for each dataset.
+UIE also requires a so-called SSI (structural schema instructor) for each dataset.
 The SSI encodes what information to look for in the given dataset.
 Since all datasets follow the same format, the SSI is the same.
 To be more precise, the single-class datasets and the multi-class datasets have different SSIs.
-The SSIs are generated by the UIE converter automatically and do not need to be adjusted by hand.
+The SSIs are generated automatically by the UIE converter and do not need to be manually adjusted.
 UIE saves the SSI in a file called ``record.schema``.
 
 ```
@@ -192,7 +192,7 @@ UIE saves the SSI in a file called ``record.schema``.
 {"date": [], "duration": [], "time": [], "set": []}
 ```
 
-For example, this SSI is from the [TempEval-3 dataset](entity\uie-format\tempeval_multi) and tells UIE that there are four entity classes to look for i.e. date, duration, time and set.
+For example, this SSI is from the [TempEval-3 dataset](entity\uie-format\tempeval_multi) and tells UIE that there are four entity classes to look for, i.e., date, duration, time, and set.
 Furthermore, it tells UIE that there are no relations and events to look for in the given dataset.
 
 
@@ -215,7 +215,7 @@ The usage of the scripts is described in detail in the [scripts directory](scrip
 
 # Original datasets sources
 
-All original datasets can be found on the internet, but they are also uploaded in the [original_datasets directory](original_datasets).
+All original datasets can be found online, but they are also uploaded in the [original_datasets directory](original_datasets).
 For example, the following links can be used for download:
 
 * [Fullpate (Pate and Snips)](https://zenodo.org/records/3697930#.ZBwzbi00hQI):
@@ -229,9 +229,9 @@ For example, the following links can be used for download:
 
 # How to add new datasets?
 
-To use either MaChAmp or UIE on new datasets it is recommended to write a converter script similar to the ones in the [jsonlines converter directory](scripts/jsonlines-conversion-scripts/).
-After that, the [BIO converter](scripts/bio-conversion-scripts/) can be used to convert to the MaChAmp fromat or the [UIE converter](scripts/uie-conversion-scripts/) to convert to the UIE format.
-Furthermore, UIE requires the generation of a [YAML configuration file](scripts/uie-conversion-scripts/data_config/entity/) and another dataset specific [converter module](scripts/uie-conversion-scripts/universal_ie/task_format/).
+To use either MaChAmp or UIE on new datasets, writing a converter script similar to the ones in the [jsonlines converter directory](scripts/jsonlines-conversion-scripts/) is recommended.
+After that, the [BIO converter](scripts/bio-conversion-scripts/) can be used to convert to the MaChAmp format or the [UIE converter](scripts/uie-conversion-scripts/) to convert to the UIE format.
+Furthermore, UIE requires the generation of a [YAML configuration file](scripts/uie-conversion-scripts/data_config/entity/) and another dataset-specific [converter module](scripts/uie-conversion-scripts/universal_ie/task_format/).
 The [converter module directory](scripts/uie-conversion-scripts/universal_ie/task_format/) contains example scripts (e.g. [fullpate.py](scripts/uie-conversion-scripts/universal_ie/task_format/fullpate.py) or [tweets.py](scripts/uie-conversion-scripts/universal_ie/task_format/tweets.py)).
 
 
