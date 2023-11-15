@@ -1,0 +1,1 @@
+MaChAmp saves the models and log-files into this directory.
