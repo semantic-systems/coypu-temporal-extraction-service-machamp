@@ -10,28 +10,28 @@ Most changes were applied to the evaluation and dataset preprocessing scripts.
 The scripts for finetuning and inference remain very close to the original versions:
 
 * Unified Structure Generation for Universal Information Extraction (UIE) [[Lu et al., 2022]](#References) - [GitHub Link](https://github.com/universal-ie/UIE)
-    * UIE is a sequence-to-sequence framework that extracts various information extraction targets (such as entities, relations and events) into a graph structure called "Structured Extraction Language". It is based on the T5 library [[Raffel et al., 2020]](#References).
+    * UIE is a sequence-to-sequence framework that extracts various information extraction targets (such as entities, relations, and events) into a graph structure called "Structured Extraction Language." It is based on the T5 library [[Raffel et al., 2020]](#References).
 * Massive Choice, Ample Tasks (MACHAMP) [[van der Goot et al., 2020]](#References) - [GitHub Link](https://github.com/machamp-nlp/machamp)
     * MaChAmp is a multitask learning framework. In this thesis, it is used to train BERT-based models in a single-task fashion.
 
-In the thesis a 10-fold-crossvalidation approach was chosen to test the two frameworks.
-In this documentation, both a quickstart and a full reproduction of all the steps are described.
-Both approaches are described for each of the two frameworks seperately.
+In the thesis, a 10-fold-crossvalidation approach was chosen to test the two frameworks.
+This documentation describes both a quickstart and a full reproduction of all the steps.
+Both approaches are described for each of the two frameworks separately.
 
-The steps for the two frameworks are almost the same, but they are achieved using different scripts and conventions, which are described in detail in the respective documentation.
+The steps for the two frameworks are almost the same, but they are achieved using different scripts and conventions, described in detail in the respective documentation.
 The documentation for [UIE](uie) and [MaChAmp](machamp) can be found in the folders with the same name.
-This page gives some general information, introduces the project and refers to the necessary pages.
+This page gives some general information, introduces the project, and refers to the necessary pages.
 
 
 ## Project Overview
 
-The overall projectstructure looks like this:
+The overall project structure looks like this:
 
 ```text
 temporal-extraction
 ├── uie                 # Contains all the scripts and documentation related to UIE
 ├── machamp             # Contains all the scripts and documentation related to MaChAmp
-├── results             # Contains the result tables and logfiles of the finetuned models used in the theis 
+├── results             # Contains the result tables and log files of the finetuned models used in the thesis 
 ├── temporal-data       # Contains the datasets, as well as the scripts required for conversion
 ├── docs                # Contains assets for the documentation
 ```
@@ -39,34 +39,34 @@ temporal-extraction
 This is the main directory (temporal-extraction).
 Both [uie](uie) and [machamp](machamp) contain the framework-specific documentation required to both use the models and fully reproduce the steps in the thesis.
 
-The [results](results) folder shows the result tables and logfiles produced by the thesis.
-In particular, it shows the results for every dataset and every fold in the crossvalidation.
-Furthermore, it contains the files that display the exact error cases i.e. where the model mispredicted the sentence.
+The [results](results) folder shows the result tables and log files produced by the thesis.
+In particular, it shows the results for every dataset and every fold in the cross-validation.
+Furthermore, it contains the files that display the exact error cases i.e., where the model mispredicted the sentence.
 
-The [temporal-data](temporal-data) folder contains all the converted datasets, as well as the publicly available original versions.
-It also contains the scripts required to convert the original datasets into the required format.
+The [temporal-data](temporal-data) folder contains all the converted datasets and the publicly available original versions.
+It also contains the scripts to convert the original datasets into the required format.
 
 
 ## Data
 
-There are multiple data formats that can be found in this repository.
+Multiple data formats can be found in this repository.
 First, each of the used datasets follows a general XML or JSON format.
-Despite this, most of the datasets have a different format and are therefore not directly comparable.
+Despite this, most datasets have a different format and are, therefore not directly comparable.
 
 [![Temporal Conversion Formats Overview](docs/images/temporal-conversion-formats.png)](#data)
-> The graphic shows the datasets, formats and the relations between them.
+> The graphic shows the datasets, formats, and the relations between them.
 
-In the [temporal-data section](temporal-data) the different formats are described in more detail, as well as the scripts to convert them into a uniform format.
-In summary, the thesis uses four datasets, of which some consists of multiple subsets (for example TempEval-3 is a union of AQUAINT and TimeBank).
-The MaChAmp frameworks require a BIO format, while UIE has its own format based on JSON.
+In the [temporal-data section](temporal-data), the different formats are described in more detail, as well as the scripts to convert them into a uniform format.
+In summary, the thesis uses four datasets, of which some consist of multiple subsets (for example, TempEval-3 is a union of AQUAINT and TimeBank).
+The MaChAmp framework requires a BIO format, while UIE has its format based on JSON.
 Furthermore, the author of the thesis introduced a JSONLINES format, which is used as a step to convert to the other formats.
 
 
 ## Anaconda
 
-To use this repository it is recommended to use Anaconda.
-With Anaconda, a seperate environment can be created for each of the two frameworks.
-From this directory the following commands may be used:
+To use this repository, it is recommended to use Anaconda.
+With Anaconda, a separate environment can be created for each of the two frameworks.
+From this directory, the following commands may be used:
 
 UIE:
 ``` bash
@@ -95,16 +95,16 @@ Before the models are used, it is recommended to prepare the [data](temporal-dat
 * Setup Anaconda environment
 * Prepare the data
 * Download the finetuned models
-* Select dataset and run the inference script
+* Select the dataset and run the inference script
 
 
 ## Reproduce the thesis steps
 * Setup Anaconda environment 
 * Prepare the data
-* Prepare the crossvalidation approach
+* Prepare the cross-validation approach
 * Download the clean UIE models
 * Finetune the models on each of the folds
-* Run the crossvalidation evaluation scripts to get the results
+* Run the cross-validation evaluation scripts to get the results
 
 
 
@@ -124,14 +124,14 @@ These are the same models as proposed in the original paper [[Lu et al., 2022]](
 
 # Finetuned Models
 
-The thesis tested a single and a multi class setup on all datasets and their subsets.
-Due to the large amount of models, only the multi class (date, time, duration, set) models  on the four temporal datasets are shared and made available for download.
-Generally speaking, the single class models do not perform much better despite an easier task.
-This makes the single class models obsolete in practice.
+The thesis tested a single and a multi-class setup on all datasets and their subsets.
+Due to the large amount of models, only the multi-class (date, time, duration, set) models  on the four temporal datasets are shared and made available for download.
+Generally speaking, the single-class models do not perform much better despite an easier task.
+This makes the single-class models obsolete in practice.
 The following table shows the multiclass results on the different datasets:
 
-[![This table compares the most important metrics “Strict-F1” and “RelaxedType-F1” for the temporal extraction and classification tasks across all datasets and all models. The best three values per column are highlighted with bold font. Table 11 in the appendix C displays the standard deviation values for the MaChAmp (M) and UIE model rows.](docs/images/temporal-extraction-and-classification-performance.png)](#finetuned-models)
-> Table shows the temporal extraction and classification performance for the models produced in the thesis. M stands for MaChAmp models. The bottom part of the table shows the performance of related work. "Strict" means an exact match and "Type" means a match where at least one token (also known as "relaxed" match) and the temporal class is correct.
+[![This table compares the most important metrics, “Strict-F1” and “RelaxedType-F1,” for the temporal extraction and classification tasks across all datasets and all models. The best three values per column are highlighted with bold font.](docs/images/temporal-extraction-and-classification-performance.png)](#finetuned-models)
+> Table shows the temporal extraction and classification performance for the models produced in the thesis. M stands for MaChAmp models. The bottom part of the table shows the performance of related work. "Strict" means an exact match, and "Type" means a match where at least one token (also known as a "relaxed" match) and the temporal class is correct.
 
 
 ## UIE Models
@@ -201,7 +201,7 @@ The following table shows the multiclass results on the different datasets:
 
 # Relation Extraction dataset
 
-Eventhough the dataset was not explicitly used in the thesis, scripts to converting the TempEval-3 relation extraction dataset to the UIE format were created and tested prototypically.
+Even though the dataset was not explicitly used in the thesis, scripts to convert the TempEval-3 relation extraction dataset to the UIE format were created and tested prototypically.
 The converted dataset and the conversion scripts are available in the [temporal-data](temporal-data) folder.
 This dataset may be used for future work.
 
