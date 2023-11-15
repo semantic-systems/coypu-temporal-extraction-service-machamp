@@ -6,8 +6,8 @@ This documentation presents two workflows:
 
 If the thesis steps are to be reproduced, it is assumed that the data was prepared as described in the [temporal-data documentation](../temporal-data/).
 
-If the Anaconda environment has not been setup previously, it should be installed and activated.
-The following command will create a new environment with the name ``uie``, download the packages and activate it:
+If the Anaconda environment has not been set up previously, it should be installed and activated.
+The following command will create a new environment with the name ``uie``, download the packages, and activate it:
 
 ```
 conda create -n uie python=3.8
@@ -31,7 +31,7 @@ bash ../temporal-data/scripts/download_punkt_tokenizer.bash
 # Download the models
 
 Depending on the workflow, the right models have to be downloaded first.
-If the steps of the thesis are to be recreated and the models to be finetuned by hand, the clean models need to be downloaded.
+If the steps of the thesis are to be recreated and the models finetuned by hand, the clean models must be downloaded.
 The script ``download_clean_models.bash`` downloads the models and unzips them into the directory hf_models.
 After that, it removes the zip files.
 This can also be done manually with the download links in the [main documentation](..#clean-uie-models).
@@ -47,7 +47,7 @@ If only specific models are required, they can be [downloaded manually](..#UIE-m
 wget https://www.fdr.uni-hamburg.de/record/13621/files/large_fullpate_multi.zip
 ```
 
-The downloaded models should be extracted into a new directory with the name ``finetuned_models``.
+The downloaded models should be extracted into a new directory named ``finetuned_models``.
 
 [![Graphic of the UIE Architecture](../docs/images/uie-model-small.png)](#download-the-models)
 > Graphic of the UIE Architecture [[Lu et al., 2022]](#references) 
@@ -79,7 +79,7 @@ inference.py [--data DATA] [--model MODEL] [--output_dir OUTPUT_DIR] [--max_sour
 ```
 
 The most important parameters are ``--data`` and ``--model``.
-For the other values the default parameters are in many cases sufficient.
+For the other values the default parameters are sufficient for most use cases.
 
 To do inference on self-typed text use:
 
@@ -96,7 +96,7 @@ The script will load the model and prompt you to enter a sentence.
 # Full reproduction of the thesis steps
 
 It is assumed that the data has been prepared sufficiently.
-The fastest way to do that is to run the script that creates all datasets for the crossvalidation:
+The fastest way to do that is to run the script that creates all datasets for the cross-validation:
 
 ```
 bash ../temporal-data/scripts/create_all_datasets.bash 
@@ -108,16 +108,16 @@ To finetune the models, one of several bash scripts can be chosen:
 * Finetune the main models
     * ``run_quickstart_temporal_finetuning_uie_base.bash``
     * ``run_quickstart_temporal_finetuning_uie_large.bash``
-* Crossvalidation
+* Cross-validation
     * ``run_temporal_finetuning_uie_base_full_multi.bash``
     * ``run_temporal_finetuning_uie_base_full_single.bash``
     * ``run_temporal_finetuning_uie_large_full_multi.bash``
     * ``run_temporal_finetuning_uie_large_full_single.bash``
 
-The crossvalidation finetunes the 10 folds seperately, while the quickstart scripts only finetune one fold per model.
+The cross-validation finetunes the 10 folds separately, while the quickstart scripts only finetune one fold per model.
 To change the finetuning dataset target, change the ``dataset_names`` array inside the bash script.
-Although this is only necessary if special constelations of dataset-finetuning is to be tested.
-The six above mentioned scripts were chosen to be sufficient to reproduce the steps of the thesis.
+However, this is only necessary if special constellations of dataset finetuning are to be tested.
+The six scripts mentioned above were chosen to be sufficient to reproduce the steps of the thesis.
 
 It is recommended to run scripts with ``nohup`` and to create output logs.
 For example:
@@ -127,10 +127,10 @@ nohup bash run_temporal_finetuning_uie_base_full_multi.bash >> ./finetuning-outp
 ```
 
 The finetuned models and the logs can be found in the ``output`` directory.
-If the crossvalidation approach is chosen, the output can be very large.
+If the cross-validation approach is chosen, the output can be very large.
 For example, the finetuning of 10 folds with the base model requires about 30GB in space.
 
-Once the 10 folds have been finetuned, the script that calculates the results of the crossvalidation can be started:
+Once the 10 folds have been finetuned, the script that calculates the results of the cross-validation can be started:
 
 ```
 python crossvalidation_evaluation.py --base_model_dir ./output \
@@ -142,7 +142,7 @@ python crossvalidation_evaluation.py --base_model_dir ./output \
 
 The script searches all the directories in the ``--base_model_dir`` and predicts the dataset with all models and checkpoints.
 After completion, the script creates a directory in the ``output`` directory.
-In the above example the directory is called: ``output/base_tweets_multi_crossvalidation_logfiles``.
+In the above example, the directory is called: ``output/base_tweets_multi_crossvalidation_logfiles``.
 
 The above example produces the following files (only a snapshot is displayed):
 
@@ -177,7 +177,7 @@ The ``inference.py`` and ``crossvalidation_evaluation.py`` scripts produce two t
 * seq2seq files e.g. ``test_preds_seq2seq.txt``
 * record files e.g. ``test_preds_record.txt``
 
-Both file-types consist of as many lines as the dataset they are based on.
+Both file types consist of as many lines as the dataset they are based on.
 Each line is the output of the corresponding dataset line.
 The seq2seq files are an internal representation that UIE uses to produce the graph structure.
 It encodes the information extraction targets and their order.
@@ -189,7 +189,7 @@ This example means that UIE found one time-entity in the corresponding input sen
 
 The ``<extra_id>`` tokens work like brackets around the information extraction targets.
 UIE uses the seq2seq representation to generate the record.
-The record contains all extraction targets i.e. temporal entities and their exact position in the input.
+The record contains all extraction targets, i.e., temporal entities and their exact position in the input.
 The following JSON structure is normally written as a single line.
 It is formatted for visualization purposes:
 
@@ -225,9 +225,9 @@ It is formatted for visualization purposes:
 }
 ```
 
-The record for this line contains one entitiy that has the index positions 5 to 8, represents a "time" class and consists of the text "9 am April 11th".
+The record for this line contains one entity that has the index positions 5 to 8, represents a "time" class, and consists of the text "9 am April 11th".
 
-The seq2seq and record entries refer to the following dataset line (once again formatted for a better visualization):
+The seq2seq and record entries refer to the following dataset line (once again formatted for better visualization):
 
 ```
 {
@@ -273,14 +273,14 @@ The seq2seq and record entries refer to the following dataset line (once again f
 }
 ```
 
-For this specific example the model predicted correctly, since the record matches the ground truth (sentence contains one time entity from index 5 to 8). 
+For this specific example, the model predicted correctly since the record matches the ground truth (sentence contains a one-time entity from index 5 to 8). 
 
 Furthermore, UIE produces the result files such as ``test_results.txt``.
-These files contain the Precision, Recall and F1-score values for the dataset.
+These files contain the Precision, Recall, and F1-score values for the dataset.
 
-The crossvalidation results contain ``seq2seq``, ``records`` and ``results`` for the test and evaluation data for every model in every fold.
+The cross-validation results contain ``seq2seq``, ``records``, and ``results`` for the test and evaluation data for every model in every fold.
 Furthermore, they contain ``error analysis`` files that list all the mispredictions.
-The other files compare the models to each other, select the best models per fold and calculate the averages and standard deviations.
+The other files compare the models to each other, select the best models per fold, and calculate the averages and standard deviations.
 
 
 
