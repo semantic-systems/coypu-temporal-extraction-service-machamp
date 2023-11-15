@@ -150,18 +150,7 @@ The above example produces the following files (only a snapshot is displayed):
     * base_tweets_multi_crossvalidation_best_fold_models.txt
     * base_tweets_multi_crossvalidation_best_models.txt
     * base_tweets_multi_crossvalidation_dataframe_test-all.csv
-    * base_tweets_multi_crossvalidation_dataframe_test-all_filtered.csv
-    * base_tweets_multi_crossvalidation_dataframe_test-best.csv
-    * base_tweets_multi_crossvalidation_dataframe_test-best_filtered.csv
-    * base_tweets_multi_crossvalidation_dataframe_val-all.csv
-    * base_tweets_multi_crossvalidation_dataframe_val-all_filtered.csv
-    * base_tweets_multi_crossvalidation_dataframe_val-best.csv
-    * base_tweets_multi_crossvalidation_dataframe_val-best_filtered.csv
-    * base_tweets_multi_crossvalidation_full_evaluation_dataframe_test.csv
-    * base_tweets_multi_crossvalidation_full_evaluation_dataframe_val.csv
-    * base_tweets_multi_crossvalidation_summary.txt
-    * base_tweets_multi_crossvalidation_test_average_results.txt
-    * base_tweets_multi_crossvalidation_test_std_results.txt
+    * ...
     * base_tweets_multi_crossvalidation_val_average_results.txt
     * base_tweets_multi_crossvalidation_val_std_results.txt
 * Files with the predictions for each fold
@@ -176,6 +165,122 @@ The above example produces the following files (only a snapshot is displayed):
     * base_tweets_multi_fold_0_checkpoint-470_error_analysis_val.txt
     * base_tweets_multi_fold_0_checkpoint-846_error_analysis_test.txt
     * base_tweets_multi_fold_0_checkpoint-846_error_analysis_val.txt
+
+
+
+
+
+# UIE Output files
+
+The ``inference.py`` and ``crossvalidation_evaluation.py`` scripts produce two types of output files:
+
+* seq2seq files e.g. ``test_preds_seq2seq.txt``
+* record files e.g. ``test_preds_record.txt``
+
+Both file-types consist of as many lines as the dataset they are based on.
+Each line is the output of the corresponding dataset line.
+The seq2seq files are an internal representation that UIE uses to produce the graph structure.
+It encodes the information extraction targets and their order.
+This example means that UIE found one time-entity in the corresponding input sentence.
+
+```
+<extra_id_0><extra_id_0> time<extra_id_5> 9 am April 11th<extra_id_1><extra_id_1>
+```
+
+The ``<extra_id>`` tokens work like brackets around the information extraction targets.
+UIE uses the seq2seq representation to generate the record.
+The record contains all extraction targets i.e. temporal entities and their exact position in the input.
+The following JSON structure is normally written as a single line.
+It is formatted for visualization purposes:
+
+```
+{
+    "entity": {
+        "offset": [
+            [
+                "time",
+                [
+                    5,
+                    6,
+                    7,
+                    8
+                ]
+            ]
+        ],
+        "string": [
+            [
+                "time",
+                "9 am April 11th"
+            ]
+        ]
+    },
+    "relation": {
+        "offset": [],
+        "string": []
+    },
+    "event": {
+        "offset": [],
+        "string": []
+    }
+}
+```
+
+The record for this line contains one entitiy that has the index positions 5 to 8, represents a "time" class and consists of the text "9 am April 11th".
+
+The seq2seq and record entries refer to the following dataset line (once again formatted for a better visualization):
+
+```
+{
+    "text": "Move Bon Bon Salon to 9 am April 11th .",
+    "tokens": [
+        "Move",
+        "Bon",
+        "Bon",
+        "Salon",
+        "to",
+        "9",
+        "am",
+        "April",
+        "11th",
+        "."
+    ],
+    "record": "<extra_id_0> <extra_id_0> time <extra_id_5> 9 am April 11th <extra_id_1> <extra_id_1>",
+    "entity": [
+        {
+            "type": "time",
+            "offset": [
+                5,
+                6,
+                7,
+                8
+            ],
+            "text": "9 am April 11th"
+        }
+    ],
+    "relation": [],
+    "event": [],
+    "spot": [
+        "time"
+    ],
+    "asoc": [],
+    "spot_asoc": [
+        {
+            "span": "9 am April 11th",
+            "label": "time",
+            "asoc": []
+        }
+    ]
+}
+```
+
+For this specific example the model predicted correctly, since the record matches the ground truth (sentence contains one time entity from index 5 to 8). 
+
+Furthermore, UIE produces the result files such as ``test_results.txt``.
+These files contain the Precision, Recall and F1-score values for the dataset.
+
+The crossvalidation results contain ``seq2seq``, ``records`` and ``results`` for the test and evaluation data for every model in every fold.
+Furthermore, they contain ``error analysis`` files that list all the mispredictions.
+The other files compare the models to each other, select the best models per fold and calculate the averages and standard deviations.
 
 
 
