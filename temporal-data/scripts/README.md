@@ -21,7 +21,7 @@ bash create_all_datasets.bash
 
 Note that this operation will generate the datasets in the directory: "[../../entity/my_converted_datasets](../../entity/my_converted_datasets)" with a size of about 1GB.
 The script calls three other bash scripts that generate JSONLINES, BIO and UIE data respectively.
-Each of them can be called alone: 
+Each of them can be called in isolation: 
 
 ```
 cd jsonlines-conversion-scripts && bash create_all_jsonline_datasets.bash
@@ -35,8 +35,9 @@ cd ../bio-conversion-scripts && bash create_all_bio_datasets.bash
 cd ../uie-conversion-scripts && bash create_all_uie_datasets.bash
 ```
 
-The bash scripts simply call Python scripts with a predefined set of parameters, which were also used in the thesis.
-For more control, each of the Python scripts can be called.
+The bash scripts simply call Python scripts with a predefined set of parameters.
+These parameters were used in the thesis.
+For more control, each of the Python scripts can be called with a different set of parameters seperately.
 Note that the JSONLINES datasets always need to be generated before BIO and UIE-format.
 
 
@@ -136,6 +137,27 @@ python data_config_yaml_creator.py --input_base_directory_path ../../entity/my_c
 
 The script generates configuration files for all datasets present in the ``--input_base_directory_path``.
 The ``--crossvalidation`` switch should be used to also generate files for each of the crossvalidation folds. 
+An example file looks like this:
+
+```
+data_class: TIMEBANK
+language: en
+mapper:
+    date: date
+    duration: duration
+    set: set
+    time: time
+name: timebank_multi_fold_0
+path: ../../entity/my_converted_datasets/jsonlines/timebank_multi/folds/fold_0
+split:
+    test: timebank-test.jsonlines
+    train: timebank-train.jsonlines
+    val: timebank-val.jsonlines
+```
+
+The YAML file tells UIE what entity-classes are in the dataset, where the dataset is located, how to name the output files, as well as what dataset-specific conversion class to use during the conversion process. 
+In this case the class is called "TIMEBANK".
+This class is defined in the file ``./uie-conversion-scripts/universal_ie/task_format/timebank.py``, which is loaded before the conversion process starts.
 
 The UIE converter requires the directory with the configuration files and the output directory:
 
@@ -143,6 +165,8 @@ The UIE converter requires the directory with the configuration files and the ou
 python uie_convert.py -config data_config/entity/ \
     -output ../../entity/my_converted_datasets/uie
 ```
+
+The converter loads all YAML files in the ``-config`` directory and outputs the final data in the ``-output`` directory.
 
 
 

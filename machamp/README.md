@@ -15,7 +15,7 @@ conda activate machamp
 pip install -r requirements.txt
 ```
 
-Generally, it is assumed that the ``nltk punkt tokenizer`` is installed.
+It is also assumed that the ``nltk punkt tokenizer`` is installed.
 The following script checks if it is installed.
 If not, it automatically downloads the tokenizer:
 
@@ -34,7 +34,7 @@ bash ../temporal-data/scripts/download_punkt_tokenizer.bash
 
 There are several scripts to download the finetuned models and unzip them automatically.
 The scripts save the models in the directory ``finetuned_models``.
-Each of the script downloads both the base and the large models for the model type.
+Each of the scripts downloads both the base and the large models for the model type.
 
 ```
 bash download_finetuned_bert_models.bash
@@ -60,6 +60,7 @@ python predict.py finetuned_models/xlm-roberta_large/xlm-roberta-large_tempeval_
 The example takes four positional parameters.
 In this example the model is ``xlm-roberta-large``, the dataset ``tempeval_multi (bio)``, the output-file ``logs/outputfile_tempeval-test.log`` and the ``device`` 0.
 The ``device`` parameter means that the scripts should use the GPU for the prediction.
+This command will generate two files: one BIO-formatted file that shows the exact model predictions and one that shows some metrics like the F1-score for the prediction.
 
 
 
@@ -88,10 +89,13 @@ python bulk_create_machamp_config_files.py \
 
 The ``--datasets_base_dir`` parameter points to a directory that contains BIO datasets.
 The script will automatically generate the configuration files at the ``--output_dir`` location.
-Many of configuration files have been generated and grouped in the [config directory](configs).
-These configuration files can be used.
+Many of the configuration files have been generated and grouped by the author in the [config directory](configs).
+Some of the files are repeated across the different config directories.
+This is done for convenience purposes, since the MaChAmp finetuning script requires a whole config directory, which can be chosen by a parameter. 
 
-An example configuration file looks like this:
+The file contains a dataset name and the paths to the dataset files.
+Furthermore, it describes how MaChAmp should treat each column.
+The following example tells MaChAmp that the second column of data (which contains the BIO tags) should be treated as a BIO task:
 
 ```
 {
@@ -110,8 +114,8 @@ An example configuration file looks like this:
 }
 ```
 
-To finetune the models a directory with at least one configuration file needs to be passed to the ``temporal_finetune.bash`` script (it takes one parameter with the location).
-This means that at least one model will be generated for each configuration file (MaChAmp's finetuning strategy saves two models, one for the best epoch and one for the final epoch).
+To finetune the models, a directory with at least one configuration file needs to be passed to the ``temporal_finetune.bash`` script (it takes one parameter with the location).
+This means that at least one model will be generated for each configuration file (in fact, MaChAmp's finetuning strategy saves two models, one for the best epoch and one for the final epoch).
 The model files have the ending ``.pt``.
 
 ```
@@ -211,7 +215,7 @@ The above example produces the following files (only a snapshot is displayed):
     * pate_multi_fold_0_test_preds_record.txt
     * pate_multi_fold_0_test_results.txt
     * pate_multi_fold_0_val_preds_record.
-* Files that highlight all the mispredictions with some statistics
+* Files that highlight all the mispredictions together with some statistics
     * pate_multi_fold_0_error_analysis_test.txt
     * pate_multi_fold_0_error_analysis_val.txt
 

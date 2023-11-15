@@ -34,27 +34,20 @@ Depending on the workflow, the right models have to be downloaded first.
 If the steps of the thesis are to be recreated and the models to be finetuned by hand, the clean models need to be downloaded.
 The script ``download_clean_models.bash`` downloads the models and unzips them into the directory hf_models.
 After that, it removes the zip files.
-This can also be done manually with the download links in the [main README documentation](..#clean-uie-models).
+This can also be done manually with the download links in the [main documentation](..#clean-uie-models).
 
 ```
 bash ./download_clean_models.bash    
 ```
 
-If the finetuned models are to be used, they have to be downloaded as described in the [main readme](..#uie-models).
-Alternatively a script that downloads all the models and saves them in the directory ``finetuned_models`` can be run:
-
-```
-bash ./download_finetuned_models.bash
-```
-
-Note that this script will download about 16GB.
-If only specific models are required, they can be downloaded manually or via wget:
+Note that this script will download files of about 16GB in size.
+If only specific models are required, they can be [downloaded manually](..#UIE-models) or via wget:
 
 ```
 wget https://www.fdr.uni-hamburg.de/record/13621/files/large_fullpate_multi.zip
 ```
 
-The downloaded models should be extracted into a new directory ``finetuned_models``.
+The downloaded models should be extracted into a new directory with the name ``finetuned_models``.
 
 [![Graphic of the UIE Architecture](../docs/images/uie-model-small.png)](#download-the-models)
 > Graphic of the UIE Architecture [[Lu et al., 2022]](#references) 
@@ -67,7 +60,7 @@ The downloaded models should be extracted into a new directory ``finetuned_model
 
 To run the finetuned models, there are two options:
 * Inference on a temporal dataset
-* Inference on self-typed text
+* Inference on a self-typed text
 
 The ``inference.py`` script loads the model and generates the prediction on the selected dataset.
 For example:
@@ -86,6 +79,7 @@ inference.py [--data DATA] [--model MODEL] [--output_dir OUTPUT_DIR] [--max_sour
 ```
 
 The most important parameters are ``--data`` and ``--model``.
+For the other values the default parameters are in many cases sufficient.
 
 To do inference on self-typed text use:
 
@@ -110,7 +104,7 @@ bash ../temporal-data/scripts/create_all_datasets.bash
 
 More information in the [temporal-data scripts documentation](../temporal-data/scripts/).
 
-To finetune the models, one of several bash script can be chosen:
+To finetune the models, one of several bash scripts can be chosen:
 * Finetune the main models
     * ``run_quickstart_temporal_finetuning_uie_base.bash``
     * ``run_quickstart_temporal_finetuning_uie_large.bash``
@@ -121,9 +115,12 @@ To finetune the models, one of several bash script can be chosen:
     * ``run_temporal_finetuning_uie_large_full_single.bash``
 
 The crossvalidation finetunes the 10 folds seperately, while the quickstart scripts only finetune one fold per model.
-To change the finetuning dataset target, change the ``dataset_names`` array.
+To change the finetuning dataset target, change the ``dataset_names`` array inside the bash script.
+Although this is only necessary if special constelations of dataset-finetuning is to be tested.
+The six above mentioned scripts were chosen to be sufficient to reproduce the steps of the thesis.
 
-It is recommended to run the scripts with nohup and to create output logs like this:
+It is recommended to run scripts with ``nohup`` and to create output logs.
+For example:
 
 ```
 nohup bash run_temporal_finetuning_uie_base_full_multi.bash >> ./finetuning-output.log &
@@ -131,7 +128,7 @@ nohup bash run_temporal_finetuning_uie_base_full_multi.bash >> ./finetuning-outp
 
 The finetuned models and the logs can be found in the ``output`` directory.
 If the crossvalidation approach is chosen, the output can be very large.
-For example, the finetuning of 10 folds with the base model require about 30GB in space.
+For example, the finetuning of 10 folds with the base model requires about 30GB in space.
 
 Once the 10 folds have been finetuned, the script that calculates the results of the crossvalidation can be started:
 
@@ -143,11 +140,10 @@ python crossvalidation_evaluation.py --base_model_dir ./output \
     --classes multi
 ```
 
-The script searches all the directories in the ``--base_model_dir`` and predict the dataset with all models and checkpoints.
+The script searches all the directories in the ``--base_model_dir`` and predicts the dataset with all models and checkpoints.
 After completion, the script creates a directory in the ``output`` directory.
 In the above example the directory is called: ``output/base_tweets_multi_crossvalidation_logfiles``.
 
-This directory contains many files.
 The above example produces the following files (only a snapshot is displayed):
 
 * Files that compare the models to each other
@@ -175,7 +171,7 @@ The above example produces the following files (only a snapshot is displayed):
     * base_tweets_multi_fold_0_checkpoint-470_val_preds_record.txt
     * base_tweets_multi_fold_0_checkpoint-470_val_preds_seq2seq.txt
     * base_tweets_multi_fold_0_checkpoint-470_val_results.txt
-* Files that highlight all the mispredictions with some statistics
+* Files that highlight all the mispredictions together with some statistics
     * base_tweets_multi_fold_0_checkpoint-470_error_analysis_test.txt
     * base_tweets_multi_fold_0_checkpoint-470_error_analysis_val.txt
     * base_tweets_multi_fold_0_checkpoint-846_error_analysis_test.txt

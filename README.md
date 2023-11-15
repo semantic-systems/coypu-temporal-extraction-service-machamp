@@ -20,7 +20,7 @@ Both approaches are described for each of the two frameworks seperately.
 
 The steps for the two frameworks are almost the same, but they are achieved using different scripts and conventions, which are described in detail in the respective documentation.
 The documentation for [UIE](uie) and [MaChAmp](machamp) can be found in the folders with the same name.
-This pages only gives some general information, introduces the project and refers to the necessary pages.
+This page gives some general information, introduces the project and refers to the necessary pages.
 
 
 ## Project Overview
@@ -33,6 +33,7 @@ temporal-extraction
 ├── machamp             # Contains all the scripts and documentation related to MaChAmp
 ├── results             # Contains the result tables and logfiles of the finetuned models used in the theis 
 ├── temporal-data       # Contains the datasets, as well as the scripts required for conversion
+├── docs                # Contains assets for the documentation
 ```
 
 This is the main directory (temporal-extraction).
@@ -57,7 +58,7 @@ Despite this, most of the datasets have a different format and are therefore not
 
 In the [temporal-data section](temporal-data) the different formats are described in more detail, as well as the scripts to convert them into a uniform format.
 In summary, the thesis uses four datasets, of which some consists of multiple subsets (for example TempEval-3 is a union of AQUAINT and TimeBank).
-The MaChAmp frameworks requires a BIO format, while UIE has its own format based on JSON.
+The MaChAmp frameworks require a BIO format, while UIE has its own format based on JSON.
 Furthermore, the author of the thesis introduced a JSONLINES format, which is used as a step to convert to the other formats.
 
 
@@ -127,7 +128,7 @@ The thesis tested a single and a multi class setup on all datasets and their sub
 Due to the large amount of models, only the multi class (date, time, duration, set) models  on the four temporal datasets are shared and made available for download.
 Generally speaking, the single class models do not perform much better despite an easier task.
 This makes the single class models obsolete in practice.
-The following table shows the mutliclass results on the different datasets:
+The following table shows the multiclass results on the different datasets:
 
 [![This table compares the most important metrics “Strict-F1” and “RelaxedType-F1” for the temporal extraction and classification tasks across all datasets and all models. The best three values per column are highlighted with bold font. Table 11 in the appendix C displays the standard deviation values for the MaChAmp (M) and UIE model rows.](docs/images/temporal-extraction-and-classification-performance.png)](#finetuned-models)
 > Table shows the temporal extraction and classification performance for the models produced in the thesis. M stands for MaChAmp models. The bottom part of the table shows the performance of related work. "Strict" means an exact match and "Type" means a match where at least one token (also known as "relaxed" match) and the temporal class is correct.
