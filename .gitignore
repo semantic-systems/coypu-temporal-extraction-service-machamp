@@ -1,5 +1,6 @@
 # MaChAmp
-machamp/logs
+machamp/logs/*
+!machamp/logs/README.md
 machamp/__pycache__/
 machamp/*.py[cod]
 machamp/*swp
