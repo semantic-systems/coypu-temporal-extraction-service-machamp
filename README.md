@@ -41,7 +41,7 @@ Both [uie](uie) and [machamp](machamp) contain the framework-specific documentat
 
 The [results](results) folder shows the result tables and log files produced by the thesis.
 In particular, it shows the results for every dataset and every fold in the cross-validation.
-Furthermore, it contains the files that display the exact error cases i.e., where the model mispredicted the sentence.
+Furthermore, it contains the files that display the exact error cases, i.e., where the model mispredicted the sentence.
 
 The [temporal-data](temporal-data) folder contains all the converted datasets and the publicly available original versions.
 It also contains the scripts to convert the original datasets into the required format.
@@ -51,7 +51,7 @@ It also contains the scripts to convert the original datasets into the required 
 
 Multiple data formats can be found in this repository.
 First, each of the used datasets follows a general XML or JSON format.
-Despite this, most datasets have a different format and are, therefore not directly comparable.
+Despite this, most datasets have a different format and are, therefore, not directly comparable.
 
 [![Temporal Conversion Formats Overview](docs/images/temporal-conversion-formats.png)](#data)
 > The graphic shows the datasets, formats, and the relations between them.
