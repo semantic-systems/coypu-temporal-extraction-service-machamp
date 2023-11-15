@@ -134,9 +134,9 @@ Once the 10 folds have been finetuned, the script that calculates the results of
 
 ```
 python crossvalidation_evaluation.py --base_model_dir ./output \
-    --base_data_dir ../temporal-data/entity/my_converted_datasets/uie-format
-    --model_size base
-    --dataset_name tweets
+    --base_data_dir ../temporal-data/entity/my_converted_datasets/uie-format \
+    --model_size base \
+    --dataset_name tweets \
     --classes multi
 ```
 
