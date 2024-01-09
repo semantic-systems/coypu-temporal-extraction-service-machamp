@@ -7,6 +7,7 @@ machamp/*swp
 machamp/ud-treebanks-v2.9.tgz
 machamp/wikiextractor
 machamp/crossvalidation-output
+machamp/finetuned_models
 
 # UIE
 uie/hf_models
@@ -30,3 +31,5 @@ temporal-data/entity/my_converted_datasets
 **/__pycache__
 *.pyc
 .pytest_cache
+
+nohup.out
