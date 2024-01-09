@@ -1,0 +1,15 @@
+services:
+  temporal-extraction-machamp:
+    build:
+      context: ./machamp
+    ports:
+      - 5292:5000
+    restart: unless-stopped
+    networks:
+      - temporal_extraction_machamp_network
+    container_name: temporal_extraction_machamp_container
+    image: temporal_extraction_machamp_image
+
+networks:
+  temporal_extraction_machamp_network:
+    external: true
