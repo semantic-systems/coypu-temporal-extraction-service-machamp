@@ -1,5 +1,8 @@
 FROM python:3.8-slim
 
+COPY . /src/
+WORKDIR src
+
 RUN \
     apt-get update && \
     apt-get -y upgrade && \
@@ -9,17 +12,21 @@ RUN \
         git \
         curl \
         nano \
+        build-essential \
+        bash \
+        wget \
+        unzip \
     && \
     apt-get -y clean
 
-COPY . /src/
-WORKDIR src
+RUN chmod +x download_finetuned_xlm-roberta_models.bash
+
+RUN ./download_finetuned_xlm-roberta_models.bash
 
 RUN pip install -r requirements.txt
-CMD [ "python", "download_punkt_tokenizer.py"]
-RUN /bin/bash -c 'download_finetuned_xlm-roberta_models.bash’'
 
-EXPOSE 5292/tcp
+RUN python ./download_punkt_tokenizer.py
 
-ENTRYPOINT ["python"]
-CMD ["/src/machamp_api.py"]
+EXPOSE 5555/tcp
+
+ENTRYPOINT ["python", "/src/machamp_api.py"]
