@@ -40,7 +40,7 @@ if __name__ == "__main__":
     parser.add_argument('--decoding', default='spotasoc')
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--match_mode', default='normal', choices=['set', 'normal', 'multimatch'])
-    parser.add_argument('--sentence')
+    parser.add_argument('--sentence', default="Yesterday there was a large thunderstorm in Hannover, Germany from 4pm to 10pm. It was the largest storm recorded in Germany since July 1996.")
     options = parser.parse_args()
 
     model_path = options.model
@@ -64,40 +64,38 @@ if __name__ == "__main__":
         map_config=map_config,
     )
     
-    while(True):
-        # Eample input: "Yesterday there was a large thunderstorm in Hannover, Germany from 4pm to 10pm. It was the largest storm recorded in Germany since July 1996."
-        input_sentence = options.sentence #input("Input sentence:\n> ")
-        input_tokens = tokenizer(input_sentence)
+    input_sentence = options.sentence
+    input_tokens = tokenizer(input_sentence)
 
-        output_seq2seq = predictor.predict([input_sentence])
-        output_seq2seq = post_processing(output_seq2seq[0])
+    output_seq2seq = predictor.predict([input_sentence])
+    output_seq2seq = post_processing(output_seq2seq[0])
 
-        tokens = tokenize_sentences(input_sentence, sent_tokenizer)
-        record = sel2record.sel2record(pred=output_seq2seq, text=input_sentence, tokens=tokens)
-        tagged_tokens = tokens.copy()
+    tokens = tokenize_sentences(input_sentence, sent_tokenizer)
+    record = sel2record.sel2record(pred=output_seq2seq, text=input_sentence, tokens=tokens)
+    tagged_tokens = tokens.copy()
 
-        for type, index in record["entity"]["offset"]:
-            start_index = index[0]
-            end_index = index[1] if len(index) >= 2 else index[0]
-            tagged_tokens[start_index] = f"{TIMEX_BEGIN}{tagged_tokens[start_index]}"
-            tagged_tokens[end_index] = f"{tagged_tokens[end_index]}{TIMEX_END}"
-        
-        tagged_sentence = ""
-        for token in tagged_tokens:
-            if token not in [",", ".", "?", "!"]:
-                tagged_sentence += f" {token}"
-            else:
-                tagged_sentence += token
-        tagged_sentence = tagged_sentence.strip()
+    for type, index in record["entity"]["offset"]:
+        start_index = index[0]
+        end_index = index[1] if len(index) >= 2 else index[0]
+        tagged_tokens[start_index] = f"{TIMEX_BEGIN}{tagged_tokens[start_index]}"
+        tagged_tokens[end_index] = f"{tagged_tokens[end_index]}{TIMEX_END}"
+    
+    tagged_sentence = ""
+    for token in tagged_tokens:
+        if token not in [",", ".", "?", "!"]:
+            tagged_sentence += f" {token}"
+        else:
+            tagged_sentence += token
+    tagged_sentence = tagged_sentence.strip()
 
-        print(json.dumps(
-                {
-                    "input_text": input_sentence,
-                    "tokens": tokens,
-                    "seq2seq": output_seq2seq,
-                    "record": record,
-                    "tagged_sentence": tagged_sentence
-                },
-                indent = 4
-            )
+    print(json.dumps(
+            {
+                "input_text": input_sentence,
+                "tokens": tokens,
+                "seq2seq": output_seq2seq,
+                "record": record,
+                "tagged_sentence": tagged_sentence
+            },
+            indent = 4
         )
+    )
