@@ -25,7 +25,6 @@ def tokenize_sentences(sentences, sent_tokenizer):
     
     #tokens = [token for sent in sent_tokenizer.tokenize(sentence) for token in word_tokenize(sent)]
     for sent in sent_tokenizer.tokenize(sentences):
-        print(sent)
         for token in word_tokenize(sent):
             tokens.append(token)
     return tokens
@@ -33,7 +32,7 @@ def tokenize_sentences(sentences, sent_tokenizer):
 if __name__ == "__main__":
     #Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', '-m', default='./finetuned_models/base/tempeval_multi')
+    parser.add_argument('--model', '-m', default='finetuned_models/fullpate_multi')
     parser.add_argument('--max_source_length', default=256, type=int)
     parser.add_argument('--max_target_length', default=192, type=int)
     parser.add_argument('--batch_size', default=16, type=int)
@@ -41,6 +40,7 @@ if __name__ == "__main__":
     parser.add_argument('--decoding', default='spotasoc')
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--match_mode', default='normal', choices=['set', 'normal', 'multimatch'])
+    parser.add_argument('--sentence')
     options = parser.parse_args()
 
     model_path = options.model
@@ -66,9 +66,8 @@ if __name__ == "__main__":
     
     while(True):
         # Eample input: "Yesterday there was a large thunderstorm in Hannover, Germany from 4pm to 10pm. It was the largest storm recorded in Germany since July 1996."
-        input_sentence = input("Input sentence:\n> ")
+        input_sentence = options.sentence #input("Input sentence:\n> ")
         input_tokens = tokenizer(input_sentence)
-        print("Analyzing input...")
 
         output_seq2seq = predictor.predict([input_sentence])
         output_seq2seq = post_processing(output_seq2seq[0])
@@ -91,8 +90,7 @@ if __name__ == "__main__":
                 tagged_sentence += token
         tagged_sentence = tagged_sentence.strip()
 
-        print("\nResults:\n%s\n\n\n"
-            % json.dumps(
+        print(json.dumps(
                 {
                     "input_text": input_sentence,
                     "tokens": tokens,

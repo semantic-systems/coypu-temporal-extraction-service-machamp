@@ -37,6 +37,7 @@ executing==0.8.2
 faiss-cpu==1.7.2
 fastapi==0.74.1
 filelock==3.0.12
+Flask
 fire==0.4.0
 fonttools==4.28.5
 fsspec==2022.1.0
