@@ -22,4 +22,4 @@ def get_temporal_extraction():
 #get_temporal_extraction('Today I will go.')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5989)

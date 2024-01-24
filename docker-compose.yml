@@ -9,6 +9,16 @@ services:
       - temporal_extraction_network
     container_name: temporal_extraction_machamp_container
     image: temporal_extraction_machamp_image
+  temporal-extraction-uie:
+    build:
+      context: ./uie
+    ports:
+      - 5300:5001
+    restart: unless-stopped
+    networks:
+      - temporal_extraction_network
+    container_name: temporal_extraction_uie_container
+    image: temporal_extraction_uie_image
 
 networks:
   temporal_extraction_network:
