@@ -4,6 +4,7 @@ import nltk
 import datetime
 import os
 import json
+import logging
 
 app = Flask(__name__)
 
@@ -33,7 +34,7 @@ def get_machamp_temporal_extraction():
                 continue
             objects.append({'token': line.split()[0], 'value': line.split()[1]})
     os.remove(output_filename)
-    
+
     result = json.dumps({'results': objects})
     print(result)
     return result
@@ -41,12 +42,10 @@ def get_machamp_temporal_extraction():
 @app.route('/uie', methods=['POST'])
 def get_uie_temporal_extraction():
     sentence = request.json.get('sentence')
-    tokens = nltk.word_tokenize(sentence)
-    
     command = ["python", "inference_sentence.py", "--sentence", sentence]
     result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
-    result = json.dumps({'results': result.stdout})
-    print(result)
+    if not result.stdout:
+        app.logger.error('There was an error when analyzing the sentence. The following output was given:'+result.stder>    result = json.dumps({'results': result.stdout})
     return result
 
 
