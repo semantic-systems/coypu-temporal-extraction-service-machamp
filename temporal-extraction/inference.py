@@ -10,7 +10,7 @@ from uie.extraction.scorer import *
 from uie.sel2record.sel2record import SEL2Record
 import math
 import os
-
+import torch
 
 split_bracket = re.compile(r"\s*<extra_id_\d>\s*")
 special_to_remove = {'<pad>', '</s>'}
@@ -39,7 +39,8 @@ class HuggingfacePredictor:
             model_path)
         self._model = huggingface_transformers.T5ForConditionalGeneration.from_pretrained(
             model_path)
-        self._model.cuda()
+        if torch.cuda.is_available():
+                self._model.cuda()
         self._schema = RecordSchema.read_from_file(schema_file)
         self._ssi = schema_to_ssi(self._schema)
         self._max_source_length = max_source_length
