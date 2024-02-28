@@ -35,9 +35,7 @@ def get_machamp_temporal_extraction():
             objects.append({'token': line.split()[0], 'value': line.split()[1]})
     os.remove(output_filename)
 
-    result = json.dumps({'results': objects})
-    print(result)
-    return result
+    return {'results': objects}
 
 @app.route('/uie', methods=['POST'])
 def get_uie_temporal_extraction():
@@ -48,9 +46,8 @@ def get_uie_temporal_extraction():
         app.logger.error('There was an error when analyzing the sentence. The following output was given:'+result.stderr)
     app.logger.error(result.stdout)
     app.logger.error(str(result.stdout))
-    #result = json.dumps({'results': json.dumps(str(result.stdout))})
     return {'results': json.loads(result.stdout)}
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5456)
+    app.run(host='0.0.0.0', port=5000)

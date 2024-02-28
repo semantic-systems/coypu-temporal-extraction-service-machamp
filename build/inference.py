@@ -39,8 +39,8 @@ class HuggingfacePredictor:
             model_path)
         self._model = huggingface_transformers.T5ForConditionalGeneration.from_pretrained(
             model_path)
-        #if torch.cuda.is_available():
-        #        self._model.cuda()
+        if torch.cuda.is_available():
+                self._model.cuda()
         self._schema = RecordSchema.read_from_file(schema_file)
         self._ssi = schema_to_ssi(self._schema)
         self._max_source_length = max_source_length
@@ -48,12 +48,7 @@ class HuggingfacePredictor:
 
     def predict(self, text):
         text = [self._ssi + x for x in text]
-        if torch.cuda.is_available():
-        #    inputs = self._tokenizer(
-        #        text, padding=True, return_tensors='pt').to(self._model.device)
-        #else:
-            inputs = self._tokenizer(
-                text, padding=True, return_tensors='pt')
+        inputs = self._tokenizer(text, padding=True, return_tensors='pt')
         inputs['input_ids'] = inputs['input_ids'][:, :self._max_source_length]
         inputs['attention_mask'] = inputs['attention_mask'][:,
                                                             :self._max_source_length]
