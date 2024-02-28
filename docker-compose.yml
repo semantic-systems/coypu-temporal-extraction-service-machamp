@@ -1,7 +1,7 @@
 services:
   temporal-extraction:
     build:
-      context: ./temporal-extraction
+      context: ./build
     ports:
       - 5300:5000
     restart: unless-stopped
