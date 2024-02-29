@@ -10,6 +10,18 @@ app = Flask(__name__)
 
 @app.route('/machamp', methods=['POST'])
 def get_machamp_temporal_extraction():
+    """
+        It obtains the sentence sent in the body and does the following:
+            - Tokenizes the sentence
+            - Create an input file and an output file with the timestamp and the necessary type for the model
+            - In the input file write the tokens of the sentence
+            - The input and output files are put in the calling of the prediction of the MACHAMP model
+            - Both the input and the generated .EVAL output files are deleted
+            - Finally, the result is read from the output file and returned
+    Returns
+    -------
+        JSON Object of the temporal extraction result from the MACHAMP model
+    """
     sentence = request.json.get('sentence')
     tokens = nltk.word_tokenize(sentence)
     input_filename = "input_file_D"+str(datetime.datetime.now()).replace(' ','T')+".bio"
@@ -39,6 +51,13 @@ def get_machamp_temporal_extraction():
 
 @app.route('/uie', methods=['POST'])
 def get_uie_temporal_extraction():
+    """
+        With the sentence obtained from the body of the call, is inserted in the calling to the inference script of the
+        UIE model. The output of this call is turned into a JSON and returned
+    Returns
+    -------
+        JSON Object of the temporal extraction result from the UIE model
+    """
     sentence = request.json.get('sentence')
     command = ["python", "inference_sentence.py", "--sentence", sentence]
     result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
