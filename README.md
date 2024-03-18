@@ -30,6 +30,8 @@ For both services, the call expects a raw body in JSON format with the value of 
 {"sentence": "I will go get bread tomorrow in the morning."}
 ```
 
+The parameter **key** is expected alongside.
+
 The response of each of the services is different, however, they are both returned in a JSON format and encapsulated in the  ```results```  key.
 
 ### MACHAMP
