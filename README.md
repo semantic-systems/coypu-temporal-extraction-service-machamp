@@ -17,11 +17,14 @@ docker compose up --build -d
 This will orchestrate the image and container, download the necessary files along with setting up the API.
 
 ## Endpoints
+
+All the calls must always be accompanied by the parameter **key**, the value must be the correct password. 
+
 The call to both of these endpoints must be done with the ```POST``` standard of HTTP calls. The base URL that the call must be performed to is:
 ```url
 https://temporal-extraction.skynet.coypu.org
 ```
-For both type of services, the call expects a raw body in JSON format with the single value of  ```sentence```, like so:
+For both services, the call expects a raw body in JSON format with the value of  ```sentence```, like so:
 
 ```json
 {"sentence": "I will go get bread tomorrow in the morning."}
