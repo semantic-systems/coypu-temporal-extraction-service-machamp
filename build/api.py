@@ -6,6 +6,8 @@ import os
 import json
 import logging
 
+REQUEST_KEY = 'VD3WRN6RE2VM2ACJ'
+
 app = Flask(__name__)
 
 @app.route('/machamp', methods=['POST'])
@@ -22,6 +24,10 @@ def get_machamp_temporal_extraction():
     -------
         JSON Object of the temporal extraction result from the MACHAMP model
     """
+
+    if 'key' not in request.json or request.json.get('key') != REQUEST_KEY:
+        return json.dumps({'error': 'no valid API key'}, indent=2), 401
+
     sentence = request.json.get('sentence')
     tokens = nltk.word_tokenize(sentence)
     input_filename = "input_file_D"+str(datetime.datetime.now()).replace(' ','T')+".bio"
@@ -58,6 +64,10 @@ def get_uie_temporal_extraction():
     -------
         JSON Object of the temporal extraction result from the UIE model
     """
+
+    if 'key' not in request.json or request.json.get('key') != REQUEST_KEY:
+        return json.dumps({'error': 'no valid API key'}, indent=2), 401
+    
     sentence = request.json.get('sentence')
     command = ["python", "inference_sentence.py", "--sentence", sentence]
     result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True)
